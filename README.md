@@ -1396,6 +1396,38 @@ Por exemplo, as transações de venda de pedidos, já está claro o quão import
 
 Portanto, devemos evoluir nossa arquitetura com a aplicação de outros padrões de dados de microsserviços para acomodar adaptações de negócios, tempo de lançamento no mercado mais rápido e lidar com solicitações maiores.
 
+## [Microservices] Streaming
+O **streaming** é um dos padrões (patterns) usados em arquiteturas de microservices. É particularmente útil para cenários onde os dados precisam ser processados em tempo real ou quase real, permitindo uma comunicação eficiente e contínua entre serviços. O streaming é um padrão fundamental em arquiteturas de microservices, especialmente útil para casos que exigem processamento de dados em tempo real, baixa latência e alta escalabilidade. Ao utilizar sistemas de mensageria e plataformas de streaming de eventos, é possível construir sistemas reativos, escaláveis e resilientes, capazes de lidar com grandes volumes de dados e alta taxa de eventos de maneira eficiente.
+
+Padrões de Streaming em Microservices:
+
+1. **Event Streaming**: Serviços produzem eventos que são transmitidos para outros serviços em tempo real. Isso é frequentemente implementado usando sistemas de mensageria ou de streaming de eventos como Apache Kafka, RabbitMQ, ou Amazon Kinesis. Casos de Uso: Monitoramento em tempo real, análise de dados em tempo real, atualização de caches distribuídos, etc.
+
+2. **Data Streaming**: Dados são continuamente transmitidos entre serviços. Pode envolver a transmissão de grandes volumes de dados de forma eficiente, dividindo-os em pequenos chunks. Casos de Uso: Streaming de mídia (vídeo, áudio), sincronização de bases de dados, processamento contínuo de dados de sensores IoT.
+
+Vantagens do Streaming em Microservices:
+
+- **Baixa Latência**: Permite a comunicação em tempo real, essencial para aplicações que exigem respostas rápidas.
+- **Escalabilidade**: Facilita a escalabilidade horizontal, permitindo que diferentes partes do sistema processem fluxos de dados em paralelo.
+- **Desacoplamento**: Promove o desacoplamento entre serviços, onde produtores e consumidores de eventos/dados não precisam estar diretamente conectados.
+
+Ferramentas Comuns para Streaming:
+
+- **Apache Kafka**: Uma plataforma distribuída de streaming de eventos que permite a publicação e assinatura de fluxos de registros, armazenamento de fluxos de registros de maneira tolerante a falhas e processamento de fluxos de registros em tempo real.
+- **RabbitMQ**: Um broker de mensagens que suporta a transmissão de mensagens de forma confiável entre produtores e consumidores.
+- **Amazon Kinesis**: Uma plataforma gerenciada para streaming de dados em tempo real na AWS.
+- **Apache Flink e Apache Spark Streaming**: Ferramentas para processamento de fluxos de dados em tempo real, permitindo a análise e transformação de dados em movimento.
+
+Exemplos de Padrões de Streaming em Microservices:
+
+1. **Log Aggregation**: Coletar logs de diferentes serviços e transmiti-los para um serviço central para armazenamento e análise. **Ferramenta Comum**: Apache Kafka.
+
+2. **Event Sourcing**: Armazenar o estado do sistema como uma sequência de eventos. Cada mudança no estado gera um novo evento que é transmitido. **Ferramenta Comum**: Event Store, Apache Kafka.
+
+3. **CQRS (Command Query Responsibility Segregation) com Streaming**: Usar um modelo separado para comandos (escrita) e consultas (leitura), onde as mudanças são propagadas através de eventos transmitidos para diferentes modelos de leitura. **Ferramenta Comum**: Apache Kafka, RabbitMQ.
+
+4. **Real-Time Analytics**: Processamento contínuo de dados para gerar insights e análises em tempo real. **Ferramenta Comum**: Apache Flink, Apache Spark Streaming.
+
 ## [Microservices] Sidecar
 <img height="577" align="right" src="https://github.com/user-attachments/assets/79738b6d-a379-45c2-9d46-32dc5afb4a64" />
 
