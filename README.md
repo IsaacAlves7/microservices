@@ -426,7 +426,7 @@ Veja o diagrama abaixo que representa um cenário em que a indisponibilidade do 
 <img width="1600" height="971" alt="image" src="https://github.com/user-attachments/assets/3c221b20-bb25-432f-a908-4282744dfa00" />
 
 ## [Microservices] Onion architecture
-<img src="https://em-content.zobj.net/source/apple/391/onion_1f9c5.png" align="right" height="77">
+<img src="https://em-content.zobj.net/source/microsoft-teams/400/onion_1f9c5.png" align="right" height="77">
 
 **Onion Architecture** é um padrão de design de software e foi introduzido por Jeffrey Palermo em 2008 como uma alternativa para abordar algumas das limitações e problemas de outras arquiteturas tradicionais, como a arquitetura em camadas. A Onion Architecture promove uma maior separação de preocupações e independência das dependências externas, como frameworks e bibliotecas. 
 
