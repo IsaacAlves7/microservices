@@ -303,6 +303,99 @@ Sistemas Reativos são:
 
 Grandes sistemas são compostos por sistemas menores e, portanto, dependem das propriedades Reativas de seus componentes. Isso significa que Sistemas Reativos aplicam princípios arquiteturais que fazem com que essas propriedades sejam utilizadas em todos os níveis da escala, de modo que os componentes sejam combináveis entre si. Os maiores sistemas do mundo são construídos sobre arquiteturas que baseiam-se nessas propriedades e servem as necessidades de bilhões de pessoas diariamente. Está na hora de aplicar esses princípios conscientemente do início ao invés de redescobrí-los todas as vezes que implementamos um novo sistema.
 
+## [Microservices] CQRS - Command-query responsability segregation
+<img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
+
+<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e" height="277" align="right">
+
+O **CQRS (Command-Query Responsibility Segregation)** é um padrão arquitetural que separa as operações de escrita **comandos** (`command`) das operações de leitura **consultas** (`query`) em um sistema, atribuindo responsabilidades distintas para cada uma delas. Em vez de usar o mesmo modelo de dados e lógica para lidar tanto com as atualizações quanto com as consultas, o CQRS propõe que esses dois aspectos sejam tratados de maneira independente, o que permite otimizações específicas para cada cenário. 
+
+CQRS significa Segregação de Responsabilidade por Comando e Consulta, um padrão que isola processos de leitura e atualização de armazenamento de dados. A implementação do CQRS na sua aplicação pode melhorar seu desempenho, escalabilidade e segurança. A flexibilidade obtida ao migrar para o CQRS permite que um sistema evolua de forma mais eficaz ao longo do tempo e impede que instruções de atualização desencadeem conflitos de fusão no nível do domínio.
+
+Modelos separados de consulta e atualização facilitam o design e a implementação. embora o código CQRS não possa ser gerado automaticamente a partir de um esquema de banco de dados usando técnicas de andaime, como ferramentas O/RM (embora você possa adicionar seu código personalizado sobre o código gerado).
+
+Você pode dividir fisicamente os dados de leitura e gravação para maior isolamento. Nesse caso, o banco de dados de leitura pode utilizar seu próprio esquema de dados otimizado para consultas. Ele pode, por exemplo, armazenar uma visualização materializada dos dados para evitar junções complexas ou mapeamentos O/RM. Pode até empregar um tipo diferente de armazenamento de dados. 
+
+Por exemplo, o banco de dados de escrita pode ser relacional, e o banco de dados de leitura pode ser um banco de dados de documentos.
+
+No contexto de comandos, o foco está em realizar mudanças no estado da aplicação. Essas operações geralmente envolvem regras de negócios que precisam ser validadas antes que os dados sejam modificados. Por outro lado, as consultas têm como objetivo apenas recuperar e exibir dados, sem causar impacto no estado do sistema. Essa separação pode resultar em um design mais simples e eficiente, pois permite que cada lado seja modelado e implementado de acordo com suas necessidades específicas.
+
+O CQRS é um dos padrões importantes ao consultar entre microsserviços. Podemos usar o padrão de design CQRS para evitar consultas complexas para se livrar de junções ineficientes. CQRS significa Segregação de Responsabilidade de Comando e Consulta. Basicamente, esse padrão separa as operações de leitura e atualização de um banco de dados.
+
+Normalmente, em aplicações monolíticas, na maioria das vezes temos 1 banco de dados e esse banco de dados deve responder tanto às operações de consulta quanto de atualização. Isso significa que um banco de dados está trabalhando para consultas de junção complexas e também executa operações CRUD. Mas se o aplicativo for mais complexo, essa consulta e as operações crud também serão uma situação não gerenciável.
+
+No exemplo de leitura de banco de dados, se seu aplicativo exigiu alguma consulta que precisa unir mais de 10 tabelas, isso bloqueará o banco de dados devido à latência da computação da consulta. Além disso, se dermos um exemplo de gravação de banco de dados, ao realizar operações crud, precisaríamos fazer validações complexas e processar lógicas de negócios longas, portanto, isso causará o bloqueio das operações do banco de dados.
+
+Além disso, o CQRS se integra bem a outras abordagens, como Event Sourcing, onde as mudanças de estado são representadas por eventos. Nesse caso, os comandos geram eventos que podem ser armazenados e usados para reconstruir o estado atual do sistema, enquanto as consultas podem acessar modelos de leitura otimizados que foram derivados desses eventos.
+
+O CQRS é especialmente útil em sistemas complexos, onde as operações de leitura e escrita têm diferentes requisitos de desempenho, escalabilidade ou segurança. Ele também facilita a evolução do sistema, pois a separação de responsabilidades torna mais fácil introduzir novas funcionalidades ou modificar as existentes sem impacto significativo em outras partes do código. No entanto, sua implementação pode aumentar a complexidade inicial, e é importante avaliar se os benefícios justificam o esforço em projetos de menor escala ou simplicidade.
+
+Aplicar estilos e padrões arquiteturais adequados em nossos componentes de software demonstram maturidade em sua base de construção. A decisão correta demanda esforço de maneira a prosperar, e sem dúvida, a escolha certa torna-se um grande ponto de partida para o sucesso de nossa aplicação, naturalmente facilitando adoção posterior de outros padrões/conceitos que estejam preparados para enfrentarmos as dificuldades relacionadas às aplicações distribuídas.
+
+Independente do padrão de implementação adotado em nossas API’s/componentes, seja RESTful/CRUD/EDA (event-driven architecture), naturezas de comunicação síncronas/assíncronas, quando utilizada a Arquitetura de Microsserviços o padrão CQRS poderá agregar benefícios como veremos a seguir. Além disso, aplicado juntamente a outros conceitos complementares (Event Sourcing, DDD) atribuem a nossas aplicações um diferencial competitivo quando abraçamos os principais desafios pertencentes aos sistemas distribuídos.
+
+<img width="720" height="397" alt="image" src="https://github.com/user-attachments/assets/eeea5a97-7dfb-471d-9206-09f1b140b6cd" />
+
+Portanto, a leitura e a gravação do banco de dados têm abordagens diferentes para que possamos definir estratégias diferentes para lidar com essa operação. Para isso, o CQRS oferece o uso de princípios de "separação de preocupações" e banco de dados de leitura separado e o banco de dados de gravação com 2 bancos de dados. Dessa forma, podemos até usar diferentes bancos de dados para ler e gravar tipos de banco de dados, como usar no-sql para leitura e usar banco de dados relacional para operações crud.
+
+Outra consideração é que devemos entender os comportamentos de caso de uso de nosso aplicativo, se nosso aplicativo estiver principalmente lendo casos de uso e não escrevendo tanto, podemos dizer que nosso aplicativo é um aplicativo de incentivo de leitura. Portanto, devemos projetar nossa arquitetura de acordo com nossos requisitos de leitura, concentrando-se em bancos de dados de leitura.
+
+Portanto, podemos dizer que o CQRS separa leituras e gravações em diferentes bancos de dados, Comandos executa dados de atualização, Consultas executa dados de leitura.
+
+Os comandos devem ser ações com operações baseadas em tarefas, como "adicionar item ao carrinho de compras" ou "pedido de check-out". Portanto, os comandos podem ser manipulados com sistemas de agentes de mensagens que fornecem comandos de processamento de maneira assíncrona.
+
+Consultas nunca é modificar o banco de dados. As consultas sempre retornam os dados JSON com objetos DTO. Dessa forma, podemos isolar os Comandos e Consultas.
+
+Para isolar Comandos e Consultas, suas melhores práticas para separar o banco de dados de leitura e gravação com 2 bancos de dados fisicamente. Dessa forma, se nosso aplicativo for de leitura intensiva, o que significa ler mais do que escrever, podemos definir um esquema de dados personalizado para otimizar as consultas.
+
+O padrão de exibição materializado é um bom exemplo para implementar bancos de dados de leitura. Porque desta forma podemos evitar junções e mapeamentos complexos com dados pré-definidos e refinados para operações de consulta.
+
+<img width="700" height="388" alt="image" src="https://github.com/user-attachments/assets/f72ef3dd-acfb-4276-bf90-7311651b8ed0" />
+
+Por esse isolamento, podemos até usar diferentes bancos de dados para ler e gravar tipos de banco de dados, como usar banco de dados de documentos no-sql para leitura e usar banco de dados relacional para operações crud.
+
+Exemplo: Arquitetura de banco de dados do Instagram - Isso é tão popular na arquitetura de microsserviços que também me permite dar um exemplo da arquitetura do Instagram. O Instagram basicamente usa dois sistemas de banco de dados, um é o banco de dados relacional PostgreSQL e o outro é o banco de dados no-sql - Cassandra.
+
+<img width="720" height="692" alt="image" src="https://github.com/user-attachments/assets/ab4b021d-2557-46d1-93c7-dd53f643d77d" />
+
+Isso significa que o Instagram usa o banco de dados Cassandra no-sql para histórias de usuários que são dados de incentivo de leitura. E usando o banco de dados PostgreSQL relacional para atualização da biografia de informações do usuário. Este é um dos exemplos de abordagens do CRQS.
+
+Como sincronizar bancos de dados com CQRS? Mas quando separamos os bancos de dados de leitura e gravação em 2 bancos de dados diferentes, a principal consideração é sincronizar esses dois bancos de dados de maneira adequada.
+
+Portanto, devemos sincronizar esses 2 bancos de dados e manter a sincronização sempre.
+
+Isso pode ser resolvido usando a Arquitetura Orientada a Eventos. De acordo com a Arquitetura Orientada a Eventos, quando algo é atualizado no banco de dados de gravação, ele publicará um evento de atualização com o uso de sistemas de agente de mensagens e isso consumirá pelo banco de dados de leitura e sincronizará os dados de acordo com as alterações mais recentes.
+
+Mas essa solução cria um problema de consistência, porque, como implementamos a comunicação assíncrona com agentes de mensagens, os dados não seriam refletidos imediatamente.
+
+<img width="720" height="456" alt="image" src="https://github.com/user-attachments/assets/f590654a-1943-4f1b-9cae-c5435847e514" />
+
+Isso operará o princípio da "consistência eventual". O banco de dados de leitura eventualmente sincroniza com o banco de dados de gravação e pode levar algum tempo para atualizar o banco de dados de leitura no processo assíncrono. Discutiremos a consistência eventual nas próximas seções.
+
+Portanto, se voltarmos aos nossos bancos de dados de leitura e gravação no padrão CQRS, ao iniciar seu design, você pode obter o banco de dados de leitura de réplicas do banco de dados de gravação. Dessa forma, podemos usar diferentes réplicas somente leitura com a aplicação do padrão de exibição materializado que pode aumentar significativamente o desempenho da consulta.
+
+Além disso, quando separamos bancos de dados de leitura e gravação, isso significa que podemos escalá-los de forma independente. Isso significa que, se nosso aplicativo for de incentivo de leitura, quero dizer, se for muito mais consulta que grava, do que podemos escalar apenas lendo bancos de dados muito rápido.
+
+O CQRS vem com comandos de separação e bancos de dados de consulta. Portanto, isso exigia sincronizar os dois bancos de dados com a oferta de arquiteturas orientadas a eventos. E com arquiteturas controladas por eventos, existem alguns novos padrões e práticas que devem ser considerados ao aplicar o CQRS.
+
+O padrão de Fornecimento de Eventos é o primeiro padrão que devemos considerar para usar com o CQRS. Principalmente o CQRS está usando com "Padrão de Fornecimento de Eventos" em Arquiteturas Controladas por Eventos. Portanto, depois de aprendermos o CQRS, devemos aprender o "padrão de fornecimento de eventos", porque o CQRS e o "padrão de fornecimento de eventos" são as melhores práticas para usar os dois.
+
+Projetar a arquitetura — CQRS, fornecimento de eventos, consistência eventual, exibição materializada
+
+Vamos projetar nossa arquitetura de comércio eletrônico com a aplicação do padrão CQRS:
+
+<img width="700" height="338" alt="image" src="https://github.com/user-attachments/assets/6eae286e-09c6-48f5-bb59-96b1858c3963" />
+
+Agora podemos projetar nossos bancos de dados de microsserviços de pedidos
+
+Vou dividir 2 bancos de dados para ordenar microsserviços 1 para o banco de dados de gravação para questões relacionais 2 para o banco de dados de leitura para consultar preocupações.
+
+Então, quando o usuário criar ou atualizar um pedido, usarei o banco de dados de gravação relacional e, quando o pedido de consulta do usuário ou o histórico de pedidos, usarei o banco de dados de leitura no-sql. e torná-los consistentes ao sincronizar 2 bancos de dados com o uso do sistema de agente de mensagens com a aplicação do padrão de publicação/assinatura.
+
+Agora podemos considerar a pilha de tecnologia desses bancos de dados, vou usar o SQL Server para o banco de dados de escrita relacional e o Cassandra para o banco de dados de leitura no-sql. É claro que usaremos o Kafka para sincronizar esses 2 bancos de dados com as trocas de tópicos pub / sub Kafka.
+
+Portanto, devemos evoluir nossa arquitetura com a aplicação de outros padrões de dados de microsserviços para acomodar adaptações de negócios, tempo de lançamento no mercado mais rápido e lidar com solicitações maiores.
+
 ## [Microservices] SAGA
 <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Saga-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Saga-blue?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Saga-blue?style=flat&logo=Confluence&logoColor=white">
 
