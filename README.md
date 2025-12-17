@@ -1509,9 +1509,9 @@ Exemplo de Implementação: Suponha um sistema de gerenciamento de pedidos:
   - **PedidoRepositoryImpl**: Implementação do repositório utilizando um banco de dados específico.
   - **NotificacaoServiceImpl**: Implementação do serviço de notificação utilizando um serviço de e-mail externo.
 
-## [Microservices] DDD - Domain-Driven Design
-
 ## [Microservices] Clean architecture
+
+## [Microservices] DDD - Domain-Driven Design
 
 ## [Microservices] Hexagonal architecture (Ports & Adapters)
 
