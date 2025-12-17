@@ -303,6 +303,583 @@ Sistemas Reativos são:
 
 Grandes sistemas são compostos por sistemas menores e, portanto, dependem das propriedades Reativas de seus componentes. Isso significa que Sistemas Reativos aplicam princípios arquiteturais que fazem com que essas propriedades sejam utilizadas em todos os níveis da escala, de modo que os componentes sejam combináveis entre si. Os maiores sistemas do mundo são construídos sobre arquiteturas que baseiam-se nessas propriedades e servem as necessidades de bilhões de pessoas diariamente. Está na hora de aplicar esses princípios conscientemente do início ao invés de redescobrí-los todas as vezes que implementamos um novo sistema.
 
+## [Microservices] Saga
+<img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Saga-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Saga-blue?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Saga-blue?style=flat&logo=Confluence&logoColor=white">
+
+<img src="https://github.com/user-attachments/assets/54637f6c-1d52-43e8-bfbd-f59840a423b8" align="right" height="77">
+
+O padrão **Saga** é uma abordagem para gerenciar transações distribuídas em uma arquitetura de microsserviços. Em sistemas distribuídos, uma **transação** (transaction) pode envolver múltiplos microsserviços, o que torna o uso de transações tradicionais (como as que utilizam o protocolo de commit em duas fases) impraticável devido à complexidade e ao impacto na performance. O padrão Saga oferece uma maneira de garantir a consistência dos dados e a execução das transações em tais sistemas. O padrão Saga é frequentemente associado ao conceito de Long-Running Transactions (LRTs).
+
+> SAGA pode ser descrito como uma sequência de transações que podem ser intercaladas com outras transações.
+
+Nos aprofundamos no intrincado mundo das transações distribuídas através das lentes do padrão SAGA, uma estratégia fundamental para gerenciar a consistência de dados em arquiteturas de microsserviços descentralizadas. Com o brilho dos microsserviços, o SAGA é quase a solução ideal quando se trata de transações distribuídas, entender como lidar efetivamente com transações que abrangem vários serviços torna-se crucial. Esta discussão visa não apenas esclarecer os princípios fundamentais dos SAGAs, mas também fornecer insights práticos sobre sua aplicação estratégica, garantindo interações robustas e sem erros dentro de seus serviços.
+
+Uma compreensão fundamental dos microsserviços é essencial para compreender totalmente as nuances das SAGAs. Recomenda-se que os leitores tenham familiaridade com os vários mecanismos de comunicação empregados em arquiteturas de microsserviços. Para aqueles que buscam aprofundar seus conhecimentos, convido você a ler meu post detalhado no blog, <a href="https://medium.com/@joudwawad/a-guide-to-communication-styles-in-microservices-architecture-9a8ae4bc21b2">"Um Guia para Estilos de Comunicação na Arquitetura de Microsserviços"</a>, que oferece uma análise aprofundada sobre esse assunto.
+
+<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/be0e8414-d158-4c2e-bd18-65718528780d">
+
+Da arquitetura monolítica à arquitetura de microsserviços, quase todas as solicitações tratadas por um aplicativo empresarial são executadas em uma transação de banco de dados. Os desenvolvedores de aplicativos corporativos usam estruturas e bibliotecas que simplificam o gerenciamento de transações. Algumas estruturas e bibliotecas fornecem uma API programática para iniciar, confirmar e reverter transações explicitamente. Outras estruturas, como a estrutura Spring, fornecem um mecanismo declarativo.
+
+O Spring fornece uma anotação `@Transactional` que organiza as invocações de método a serem executadas automaticamente em uma transação. Como resultado, é simples escrever lógica de negócios transacional.
+
+> [!Warning]
+> Deixei nosso backend Java 50x mais rápido substituindo essa anotação, veja como uma anotação aparentemente inocente da primavera estava silenciosamente matando o desempenho abaixo.
+
+Nosso backend era lento. Não é "esperar um arquivo para baixar". Quero dizer, vovó atravessando a rua com um andaril. Cada pedido se arrastava como se tivesse acabado de correr uma maratona de chinelos.
+
+O uso da CPU estava suspeitosamente alto, os logs GC pareciam um ECG, e os tempos de resposta... Bem, digamos que os usuários não ficaram satisfeitos.
+
+Eu já tinha feito a dança de sempre: perfilar, otimizar consultas, ajustar as bandeiras da JVM, rezar para os deuses do GC. Nada funcionou...
+
+E então — durante mais uma sessão de perfil — encontrei o culpado. Não era uma consulta de banco de dados. Não foi uma grande serialização em JSON. Nem era um código ruim. Era o `@Transactional`, sim, aquela inocente anotação da primavera.
+
+**A Cena do Crime**: `@Transactional` é como fita adesiva. Fácil de colocar. Mantém tudo unido. Mas comece a usá-la em todos os lugares, e de repente você já construiu toda a casa com fita adesiva. E fita adesiva não é aço.
+
+Nossa equipe havia espalhado todos os métodos de serviço `@Transactional`
+
+> Porque, sabe, "só por precaução." Como colocar um impermeável no deserto—suado, desnecessário e, eventualmente, com cheiro ruim.
+
+O problema? Todo `@Transactional` abre um proxy, intercepta chamadas, inicia uma transação (mesmo para operações somente leitura) e funciona bem com o `PlatformTransactionManager` subjacente. 
+
+Isso não é de graça, na verdade, quando seu app está lidando com milhares de solicitações por segundo, esse "gratuito" começa a parecer uma assinatura premium da Netflix que você nunca quis.
+
+**O Momento Ahá-Ha**: Durante o perfil, percebi que 40% do tempo de execução estava sendo consumido pela sobrecarga de transações — para métodos que nem sequer modificavam o banco de dados.
+
+Imagine pagar um pedágio toda vez que passar pela ponte sem nem atravessá-la.
+
+Então decidi tentar algo radical: remover dos métodos somente leitura `@Transactional`.
+
+**O Substituto**: Em vez de bater cegamente em todos os lugares, eu: `@Transactional`
+
+1. Marcou apenas operações de escrita como `@Transactional`
+
+2. Para operações com muita leitura, removi completamente ou usei:
+
+```java
+@Transactional(readOnly = true)
+```
+
+3. Melhor ainda, para alguns caminhos críticos de desempenho, abandonei completamente o gerenciamento de transações do Spring e deixei os métodos do repositório cuidarem do que precisavam.
+
+**Os Resultados**: O impacto? Como trocar uma bicicleta por um trem-bala.
+
+- 50 vezes mais rápido para alguns endpoints.
+- A carga do processador foi reduzida pela metade.
+- A atividade do GC caiu quase para nada.
+- Os usuários pararam de me enviar "o site está fora do ar?" Mensagens no Slack.
+
+Tudo porque substituí (ou removi) uma anotação.
+
+**A Realidade**: Agora, antes de correr e sair para uma onda de deletes, lembre-se: `grep -r "@Transactional"`
+
+- Transações são críticas para a integridade dos dados.
+- Se você está modificando dados, precisa deles.
+- Transações somente leitura ainda podem ser úteis para garantir alguma consistência.
+
+Mas, por favor pelo amor do código limpo pare de colocá-los em todos os métodos "só por precaução." Isso é como usar capacete para dormir porque "nunca se sabe."
+
+**O Aprendizado**: O código mais rápido é o que não roda. Cada anotação tem um custo. é poderoso, mas não é gratuito `@Transactional`
+
+Da próxima vez que seu backend parecer lento, não olhe apenas para seu banco de dados ou rede. Confira suas anotações.
+
+O problema pode ser uma linha de código que exige silenciosamente cada solicitação.
+
+Ou, para ser mais preciso, o gerenciamento de transações é simples em um aplicativo monolítico que acessa um único banco de dados. O gerenciamento de transações é mais desafiador em um aplicativo monolítico complexo que usa vários bancos de dados e agentes de mensagens.
+
+E em uma arquitetura de microsserviços, as transações abrangem vários serviços, cada um com seu próprio banco de dados.
+
+Nessa situação, o aplicativo deve usar um mecanismo mais elaborado para gerenciar transações. Como você aprenderá nesta postagem do blog, a abordagem tradicional de usar transações distribuídas não é uma opção viável para aplicativos modernos. Em vez disso, um aplicativo baseado em microsserviços deve usar sagas.
+
+A necessidade de transações distribuídas em uma arquitetura de microsserviços. Imagine que você é um desenvolvedor encarregado de implementar uma operação do sistema, essa operação deve: `createOrder()`
+
+1. Verificar se um consumidor (cliente) pode fazer um pedido
+2. Verifique os detalhes do pedido
+3. Autorizar o cartão de crédito do consumidor
+4. Crie um pedido no banco de dados.
+
+É relativamente simples implementar essa operação em um aplicativo monolítico, todos os dados necessários para validar o pedido são prontamente acessíveis no monolítico. Além disso, você pode usar uma transação ACID para garantir a consistência dos dados.
+
+Por outro lado, implementar a mesma operação em uma arquitetura de microsserviço é muito mais complicado. Nos microsserviços, os dados necessários estão espalhados por vários serviços, a operação acessa dados em vários serviços, conforme mostrado na Figura a seguir `createOrder()`
+
+![1_RB5nSJvVQGKotfT8YIlFSQ](https://github.com/user-attachments/assets/8d6d9105-27d1-4fc3-a18b-cd6eb7251a39)
+
+Explorando a integração de vários serviços em uma arquitetura de microsserviços
+
+Ele lê dados do Atendimento ao consumidor e atualiza dados no `Serviço de pedidos`, `Serviço de cozinha` e `Serviço de contabilidade`. Como cada serviço tem seu próprio banco de dados, você precisa usar um mecanismo para manter a consistência dos dados nesses bancos de dados.
+
+O problema com transações distribuídas: A abordagem tradicional para manter a consistência dos dados em vários serviços, bancos de dados ou agentes de mensagens é usar transações distribuídas. O padrão de fato para gerenciamento de transações distribuídas é o Modelo de Processamento de Transações Distribuídas (DTP) X / Open, XA usa confirmação de duas fases (2PC) para garantir que todos os participantes de uma transação se comprometam ou revertam.
+
+Uma pilha de tecnologia compatível com XA consiste em bancos de dados e agentes de mensagens compatíveis com XA, drivers de banco de dados, APIs de mensagens e um mecanismo de comunicação entre processos que propaga o ID de transação global XA. A maioria dos bancos de dados SQL é compatível com XA, assim como alguns agentes de mensagens.
+
+Por mais simples que pareça, há uma variedade de problemas com transações distribuídas heterogêneas. Um problema é que muitas tecnologias modernas, incluindo bancos de dados NoSQL, como MongoDB e Cassandra, não os suportam. Além disso, as transações distribuídas não são suportadas por agentes de mensagens modernos, como RabbitMQ e Apache Kafka.
+
+Como resultado, se você insistir em usar transações distribuídas, estará limitado às tecnologias que podem suportar esse tipo de transação.
+
+Outro problema com as transações distribuídas é que elas são uma forma de IPC (comunicação entre processos) síncrona, o que reduz a disponibilidade. Para que uma transação distribuída seja confirmada, todos os serviços participantes devem estar disponíveis.
+A disponibilidade é o produto da disponibilidade de todos os participantes da transação. Se uma transação distribuída envolver dois serviços com 99,5% de disponibilidade, a disponibilidade geral será de 99%, o que é significativamente menor. Cada serviço adicional envolvido em uma transação distribuída reduz ainda mais a disponibilidade.
+
+Superficialmente, as transações distribuídas são atraentes. Do ponto de vista de um desenvolvedor, eles têm o mesmo modelo de programação que as transações locais. Mas devido aos problemas mencionados até agora, as transações distribuídas não são uma tecnologia viável para aplicativos modernos.
+
+Usando o padrão SAGA para manter a consistência dos dados: SAGAs são mecanismos para manter a consistência dos dados em uma arquitetura de microsserviço sem precisar usar transações distribuídas. Você define um SAGA para cada comando do sistema que precisa atualizar dados em vários serviços. Um SAGA é uma sequência de transações locais. Cada transação local atualiza dados em um único serviço usando as estruturas e bibliotecas de transações ACID familiares.
+
+A operação do sistema inicia a primeira etapa do SAGA. A conclusão de uma transação local aciona a execução da próxima transação local.
+
+Posteriormente, você verá como a coordenação das etapas é implementada usando mensagens assíncronas. Um benefício importante do sistema de mensagens assíncrono é que ele garante que todas as etapas de um SAGA sejam executadas, mesmo que um ou mais participantes da saga estejam temporariamente indisponíveis.
+
+Os SAGAs diferem das transações ACID de algumas maneiras importantes. Eles não têm a propriedade de isolamento das transações ACID.
+
+UM EXEMPLO DE SAGA: A SAGA 'CREATEOrder', a saga de exemplo usada em toda esta postagem do blog é o , que é mostrado na figura a seguir. O Serviço de Pedidos implementa a operação usando esta SAGA. A primeira transação local da SAGA é iniciada pela solicitação externa para criar um pedido. As outras cinco transações locais são acionadas pela conclusão da anterior. `Create Order SAGAcreateOrder()`
+
+![1__2rGT54C72Zt3WILl1bW4w](https://github.com/user-attachments/assets/2b7d8513-3bf2-46a8-ab79-1e76c0c4c1e6)
+
+Esta saga consiste nas seguintes transações locais:
+
+1. Serviço de pedido — Crie um pedido em um `state.APPROVAL_PENDING`
+2. Atendimento ao consumidor — Verifique se o consumidor pode fazer um pedido.
+3. Serviço de cozinha — Valide os detalhes do pedido e crie um tíquete no `.CREATE_PENDING`
+4. Serviço de contabilidade — Autorize o cartão de crédito do consumidor.
+5. Serviço de cozinha — Altere o estado do Ticket para `.AWAITING_ACCEPTANCE`
+6. Serviço de pedido — Altere o estado do pedido para `.APPROVED`
+
+Um serviço publica uma mensagem quando uma transação local é concluída. Essa mensagem aciona a próxima etapa do SAGA, não apenas o uso de mensagens garante que os participantes do SAGA estejam fracamente acoplados, mas também garante que um SAGA seja concluído. Isso ocorre porque, se o destinatário de uma mensagem estiver temporariamente indisponível, o agente de mensagens armazenará a mensagem em buffer até que ela possa ser entregue.
+
+Os SAGAs usam transações de compensação para reverter as alterações. Um grande recurso das transações ACID tradicionais é que a lógica de negócios pode reverter facilmente uma transação se detectar uma violação de uma regra de negócios. Ele executa uma instrução ROLL-BACK e o banco de dados desfaz todas as alterações feitas até o momento. Infelizmente, os SAGAs não podem ser revertidos automaticamente, porque cada etapa confirma suas alterações no banco de dados local.
+
+Isso significa, por exemplo, que se a autorização do cartão de crédito falhar na quarta etapa do `Create Order SAGA`, o aplicativo deverá desfazer explicitamente as alterações feitas pelas três primeiras etapas. Você deve escrever o que é conhecido como transações de compensação.
+
+![1_5NcEiR9QpU5AB64aPXneqQ](https://github.com/user-attachments/assets/011ca86d-cad2-4e87-9c83-6ae6b25f4c4b)
+
+O SAGA executa as operações de compensação na ordem inversa das operações a termo:
+- `Cn ... C1`. A mecânica de sequenciar o não é diferente de sequenciar o .
+- A conclusão de `C(i)` deve desencadear a execução de `C(i-1).C(i)sT(i)s`
+
+Considere, por exemplo, a `SAGA Create Order`. Esta SAGA pode falhar por vários motivos:
+
+- As informações do consumidor são inválidas ou o consumidor não tem permissão para criar pedidos.
+- As informações do restaurante são inválidas ou o restaurante não pode aceitar pedidos.
+- A autorização do cartão de crédito do consumidor falha.
+
+Se uma transação local falhar, o mecanismo de coordenação da saga deve executar transações de compensação que rejeitem a Ordem e, possivelmente, o Ticket.
+
+A tabela a seguir mostra as transações de compensação para cada etapa da SAGA Criar Ordem. É importante observar que nem todas as etapas precisam de transações de compensação. As etapas somente leitura, como `verifyConsumerDetails()`, não precisam de transações de compensação. Nem passos como esse são seguidos por passos que sempre são bem-sucedidos`.authorizeCreditCard()`
+
+![1_-sDXfjPYjdl-VADtx710Vg](https://github.com/user-attachments/assets/57da095f-11c2-4f16-b83b-514d1256598e)
+
+Para ver como as transações compensadoras são usadas, imagine um cenário em que a autorização do cartão de crédito do consumidor falha. Nesse cenário, o SAGA executa as seguintes transações locais:
+
+- Serviço de pedido — Crie um pedido em um `state.APPROVAL_PENDING`
+- Atendimento ao consumidor — Verifique se o consumidor pode fazer um pedido.
+- Serviço de cozinha — Valide os detalhes do pedido e crie um tíquete no `state.CREATE_PENDING`
+- Serviço de contabilidade — Autorize o cartão de crédito do consumidor, que falha.
+- Serviço de cozinha — Altere o estado do Ticket para `.CREATE_REJECTED`
+- Serviço de pedido — Altere o estado do pedido para `.REJECTED`
+- A quinta e a sexta etapas são transações compensatórias que desfazem as atualizações feitas pelo Kitchen Service e pelo Order Service, respectivamente.
+- A lógica de coordenação de um SAGA é responsável por sequenciar a execução de transações a termo e de compensação. Vejamos como isso funciona.
+
+Coordenação de SAGAs: A implementação de um SAGA consiste em uma lógica que coordena as etapas da saga. Quando um SAGA é iniciado por um comando do sistema, a lógica de coordenação deve selecionar e informar ao primeiro participante do SAGA para executar uma transação local. Uma vez concluída essa transação, a coordenação de sequenciamento da SAGA seleciona e invoca o próximo participante da saga.
+
+Esse processo continua até que a SAGA tenha executado todas as etapas.
+
+Se alguma transação local falhar, o SAGA deverá executar as transações de compensação na ordem inversa. Existem algumas maneiras diferentes de estruturar a lógica de coordenação de uma saga:
+
+- **Coreografia** — Distribua a tomada de decisão e o sequenciamento entre os participantes da saga. Eles se comunicam principalmente por meio da troca de eventos.
+
+- **Orquestração** — Centralize a lógica de coordenação de um SAGA em uma classe de orquestrador do SAGA. Um orquestrador do SAGA envia mensagens de comando aos participantes do SAGA informando quais operações executar.
+Vejamos cada opção.
+
+SAGAs baseados em coreografias: Uma maneira de implementar um SAGA é usando coreografia. Ao usar a coreografia, não há um coordenador central dizendo aos participantes da SAGA o que fazer. Em vez disso, os participantes da SAGA se inscrevem nos eventos uns dos outros e respondem de acordo.
+
+Vamos implementar a SAGA usando `COREOGRAFIAcreateOrder`
+
+A figura a seguir mostra o design da versão baseada em coreografia do Create Order SAGA. Os participantes se comunicam por meio da troca de eventos. Cada participante, começando com o Serviço de Pedidos, atualiza seu banco de dados e publica um evento que aciona o próximo participante.
+
+![1_dY1KgVQaEIqe_N75sZBuPA](https://github.com/user-attachments/assets/f003496b-8ab6-4ec8-b384-0898adae7080)
+
+O caminho FELIZ por esta SAGA é o seguinte:
+
+1. O Serviço de Pedidos cria um Pedido no estado e publica um `event.APPROVAL_PENDINGOrderCreated`
+2. O Serviço ao consumidor consome o evento, verifica se o consumidor pode fazer o pedido e publica um `event.OrderCreatedConsumerVerified`
+3. O Kitchen Service consome o evento, valida o pedido, cria um ticket em um estado e publica o `event.OrderCreatedCREATE_PENDINGTicketCreated`
+4. O Serviço de Contabilidade consome o evento e cria um em um `state.OrderCreateCreditCardAuthorizationPENDING`
+5. O Serviço de Contabilidade consome os eventos and, cobra o cartão de crédito do consumidor e publica o `event.TicketCreatedConsumerVerifiedCreditCardAuthorized`
+6. O Kitchen Service consome o evento `CreditCardAuthorized` e altera o estado do Ticket para `.AWAITING_ACCEPTANCE`
+7. O serviço de pedido recebe os eventos, altera o estado do pedido para e publica um `event.CreditCardAuthorizedAPPROVEDOrderApproved`
+8. A SAGA Criar Ordem também deve lidar com o cenário em que um participante da SAGA rejeita a Ordem e publica algum tipo de evento de falha.
+
+Por exemplo, a autorização do cartão de crédito do consumidor pode falhar. O SAGA deve executar as transações de compensação para desfazer o que já foi feito.
+
+A figura a seguir mostra o fluxo de eventos quando o não é possível autorizar o cartão de crédito do consumidor `AccountingService`
+
+![1_JXEnpcsbDCEuftfUhdxzOg](https://github.com/user-attachments/assets/a5b89131-951d-4bc5-a5c1-1a8db3fd5022)
+
+A sequência de eventos é a seguinte:
+
+1. O Serviço de Pedidos cria um Pedido no estado e publica um `event.APPROVAL_PENDINGOrderCreated`
+2. O Serviço ao consumidor consome o evento, verifica se o consumidor pode fazer o pedido e publica um `event.OrderCreatedConsumerVerified`
+3. O Kitchen Service consome o evento, valida o pedido, cria um ticket em um estado e publica o `event.OrderCreatedCREATE_PENDINGTicketCreated`
+4. O Serviço de Contabilidade consome o evento e cria um em um `state.OrderCreatedCreditCardAuthorizationPENDING`
+5. O Serviço de Contabilidade consome os eventos and, cobra o cartão de crédito do consumidor e publica um `event.TicketCreatedConsumerVerifiedCreditCardAuthorizationFailed`
+6. O Serviço de Cozinha consome o evento e altera o estado do Ticket para `.CreditCardAuthorizationFailedREJECTED`
+7. O Serviço de Pedidos consome o evento e altera o estado do Pedido para `.CreditCardAuthorizationFailedREJECTED`
+
+Como você pode ver, os participantes de SAGAs baseados em coreografia interagem usando publicar/assinar. Vamos dar uma olhada em algumas questões que você precisará considerar ao implementar a comunicação baseada em publicação/assinatura para seus SAGAs.
+
+Comunicação confiável baseada em eventos: Existem algumas questões relacionadas à comunicação entre serviços que você deve considerar ao implementar SAGAs baseados em coreografia:
+
+1. A primeira questão é garantir que um participante do SAGA atualize seu banco de dados e publique um evento como parte de uma transação de banco de dados. Cada etapa de uma SAGA baseada em coreografia atualiza o banco de dados e publica um evento. Por exemplo, na SAGA Criar pedido, o Serviço de cozinha recebe um evento Verificado pelo consumidor, cria um Ticket e publica um evento Ticket Created. É essencial que a atualização do banco de dados e a publicação do evento aconteçam atomicamente. Consequentemente, para se comunicar de forma confiável, os participantes da SAGA devem usar mensagens transacionais
+
+2. A segunda questão que você precisa considerar é garantir que um participante da saga seja capaz de mapear cada evento que recebe para seus próprios dados. Por exemplo, quando o Order Service recebe um evento, ele deve ser capaz de pesquisar o Order correspondente. A solução é que um participante do SAGA publique eventos contendo um, que são dados que permitem que outros participantes executem o mapeamento. Por exemplo, os participantes da Saga Criar Pedido podem usar o orderId como um ID de correlação que é passado de um participante para o outro. O Serviço de Contabilidade publica um evento que contém o `orderId` do `event.CreditCardAuthorized*correlationId*CreditCardAuthorizedTicketCreated`
+
+Benefícios e desvantagens dos SAGAs baseados em coreografia - Os SAGAs baseados em coreografia têm vários benefícios:
+
+- Simplicidade — Os serviços publicam eventos quando criam, atualizam ou excluem objetos de negócios.
+- Acoplamento fraco — Os participantes se inscrevem em eventos e não têm conhecimento direto uns dos outros.
+
+E há algumas desvantagens:
+
+- Mais difícil de entender — Ao contrário da orquestração, não há um único lugar no código que defina o SAGA. Em vez disso, a coreografia distribui a implementação do SAGA entre os serviços. Consequentemente, às vezes é difícil para um desenvolvedor entender como um determinado SAGA funciona.
+- Dependências cíclicas entre os serviços — Os participantes do SAGA assinam os eventos uns dos outros, o que geralmente cria dependências cíclicas. Por exemplo, se você examinar cuidadosamente os diagramas anteriores, verá que há dependências cíclicas, como .
+- Embora isso não seja necessariamente um problema, as dependências cíclicas são consideradas um cheiro de `design.Order Service → Accounting Service → Order Service`
+- Risco de acoplamento estreito — Cada participante do SAGA precisa se inscrever em todos os eventos que os afetam. Por exemplo, o Serviço de Contabilidade deve se inscrever em todos os eventos que fazem com que o cartão de crédito do consumidor seja cobrado ou reembolsado. Como resultado, há o risco de que ele precise ser atualizado em sintonia com o ciclo de vida do pedido implementado pelo Serviço de pedido.
+
+Sagas baseadas em orquestração. A orquestração é outra maneira de implementar SAGAs. Ao usar a orquestração, você define uma classe de orquestrador cuja única responsabilidade é dizer aos participantes do SAGA o que fazer. O orquestrador SAGA se comunica com os participantes usando interação no estilo de resposta assíncrona/comando.
+
+Para executar uma etapa do SAGA, ele envia uma mensagem de comando a um participante informando qual operação executar. Depois que o participante do SAGA tiver executado a operação, ele enviará uma mensagem de resposta ao orquestrador. Em seguida, o orquestrador processa a mensagem e determina qual etapa do SAGA deve ser executada em seguida.
+
+Vamos implementar a SAGA usando `ORCHESTRATIONcreateOrder`
+
+A figura a seguir mostra o design da versão baseada em orquestração da SAGA Criar Ordem. O SAGA é orquestrado pela classe `CreateOrderSaga`, que invoca os participantes do SAGA usando solicitação/resposta assíncrona. Essa classe acompanha o processo e envia mensagens de comando aos participantes do SAGA, como Serviço de Cozinha e Serviço ao Consumidor.
+
+A classe lê mensagens de resposta de seu canal de resposta e, em seguida, determina a próxima etapa, se houver, na saga `CreateOrderSaga`
+
+![1_5GXe7OWevr7Xtaf4PZfokg](https://github.com/user-attachments/assets/18b61846-46c5-4bc9-8c91-1398515ba009)
+
+O serviço de pedidos primeiro cria um orquestrador SAGA Order e Create Order Depois disso, o fluxo para o caminho feliz é o seguinte:
+
+1. O orquestrador SAGA envia um comando para o Serviço do Consumidor.Verify Consumer
+2. O Serviço de Atendimento ao Consumidor responde com uma mensagem.Consumer Verified
+3. O orquestrador SAGA envia um comando para o Serviço de Cozinha.Create Ticket
+4. O Serviço de Cozinha responde com uma mensagem.Ticket Created
+5. O orquestrador SAGA envia uma mensagem para o Serviço de Contabilidade.Authorize Card
+6. O Serviço de Contabilidade responde com uma mensagem.Card Authorized
+7. O orquestrador do SAGA envia um comando para o Serviço de Cozinha.Approve Ticket
+8. O orquestrador da saga envia um comando para o Serviço de Pedidos.Approve Order
+9. Observe que, na etapa final, o orquestrador SAGA envia uma mensagem de comando para o Serviço de pedidos, mesmo que seja um componente do Serviço de pedidos. Em princípio, a Saga Criar Pedido poderia aprovar o Pedido atualizando-o diretamente. Mas, para ser consistente, a SAGA trata o Order Service como apenas mais um participante.
+
+Eu entendo que os SAGAs podem ser complexos, mas para aplicações práticas, este exemplo reflete um fluxo de trabalho típico. Meu objetivo é fornecer um cenário realista nesta postagem do blog para melhorar a compreensão das implementações do mundo real.
+
+**Orquestração SAGA e mensagens transacionais**: Cada etapa de um SAGA baseado em orquestração consiste em um serviço atualizando um banco de dados e publicando uma mensagem. Por exemplo, o Serviço de pedidos persiste um orquestrador de pedidos e um orquestrador Criar saga de pedidos e envia uma mensagem para o primeiro participante do SAGA.
+
+Um participante do SAGA, como o Kitchen Service, lida com uma mensagem de comando atualizando seu banco de dados e enviando uma mensagem de resposta. O Serviço de Pedidos processa a mensagem de resposta do participante atualizando o estado do orquestrador do SAGA e enviando uma mensagem de comando para o próximo participante do SAGA.
+
+Um serviço deve usar mensagens transacionais para atualizar atomicamente o banco de dados e publicar mensagens.
+
+Vantagens e desvantagens dos SAGAs baseados em orquestração
+Os SAGAs baseados em orquestração têm vários benefícios:
+
+- Dependências mais simples — Um benefício da orquestração é que ela não introduz dependências cíclicas. O orquestrador do SAGA invoca os participantes do SAGA, mas os participantes não invocam o orquestrador. Como resultado, o orquestrador depende dos participantes, mas não vice-versa e, portanto, não há dependências cíclicas.
+
+- Acoplamento de perda — Cada serviço implementa uma API que é invocada pelo orquestrador, portanto, não precisa saber sobre os eventos publicados pelos participantes do SAGA.
+
+- Melhora a separação de preocupações e simplifica a lógica de negócios — A lógica de coordenação do SAGA está localizada no orquestrador do SAGA. Os objetos de domínio são mais simples e não têm conhecimento dos SAGAs dos quais participam. Por exemplo, ao usar orquestração, a classe Order não tem conhecimento de nenhum dos SAGAs, portanto, tem um modelo de máquina de estado mais simples. Durante a execução da SAGA Create Order, ela faz a transição direta do estado para o estado. A classe Order não tem nenhum estado intermediário correspondente às etapas do SAGA. Como resultado, o negócio é muito mais simples.APPROVAL_PENDINGAPPROVED
+
+- A orquestração também tem uma desvantagem: o risco de centralizar muita lógica de negócios no orquestrador. Isso resulta em um design em que o orquestrador inteligente informa aos serviços burros quais operações fazer. Felizmente, você pode evitar esse problema projetando orquestradores que são os únicos responsáveis pelo sequenciamento e não contêm nenhuma outra lógica de negócios.
+
+**Lidando com a falta de isolamento**: O in ACID significa isolamento. A propriedade de isolamento das transações ACID garante que o resultado da execução simultânea de várias transações seja o mesmo como se elas fossem executadas em alguma ordem serial.I
+
+O banco de dados fornece a ilusão de que cada transação ACID tem acesso exclusivo aos dados. O isolamento facilita muito a escrita de lógica de negócios que é executada simultaneamente.
+
+O desafio de usar SAGAs é que eles não têm a propriedade de isolamento das transações ACID. Isso ocorre porque as atualizações feitas por cada uma das transações locais de uma SAGA são imediatamente visíveis para outras SAGAs assim que a transação é confirmada.
+
+Esse comportamento pode causar dois problemas:
+
+Primeiro, outros SAGAs podem alterar os dados acessados pelo SAGA enquanto ele está em execução. Os outros SAGAs podem ler seus dados antes que o SAGA conclua suas atualizações e, consequentemente, podem ser expostos a dados inconsistentes.
+
+Você pode, de fato, considerar uma SAGA como ACD:
+
+- Atomicidade — A implementação do SAGA garante que todas as transações sejam executadas ou que todas as alterações sejam desfeitas.
+- Consistência — A integridade referencial dentro de um serviço é tratada por bancos de dados locais. A integridade referencial entre os serviços é tratada pelos serviços.
+- Durabilidade — Manipulado por bancos de dados locais.
+
+Essa falta de isolamento potencialmente causa o que a literatura de banco de dados chama de anomalias.
+
+An é quando uma transação lê ou grava dados de uma forma que não faria se as transações fossem executadas uma de cada vez. Quando ocorre uma anomalia, o resultado da execução simultânea de SAGAs é diferente do que se fossem executadas em série.anomaly
+
+A seguir, discutimos um conjunto de estratégias de design SAGA que lidam com a falta de isolamento, essas estratégias são conhecidas como Algumas contramedidas implementam isolamento no nível do aplicativo. Outras contramedidas reduzem o risco comercial da falta de isolamento.countermeasures
+
+Usando contramedidas, você pode escrever uma lógica de negócios baseada em SAGA que funcione corretamente.
+
+Visão geral das anomalias
+A falta de isolamento pode causar as três anomalias a seguir:
+
+Atualizações perdidas — Uma SAGA substitui sem ler as alterações feitas por outra saga.
+Leituras sujas — Uma transação ou uma SAGA lê as atualizações feitas por uma saga que ainda não concluiu essas atualizações.
+Leituras difusas/não repetíveis — Duas etapas diferentes de um SAGA leem os mesmos dados e obtêm resultados diferentes porque outro SAGA fez atualizações.
+Todas as três anomalias podem ocorrer, mas as duas primeiras são as mais comuns e as mais desafiadoras. Vamos dar uma olhada nesses dois tipos de anomalia, começando com atualizações perdidas.
+
+ATUALIZAÇÕES PERDIDAS
+Uma anomalia de atualização perdida ocorre quando um SAGA substitui uma atualização feita por outro SAGA.
+
+Considere, por exemplo, o seguinte cenário:
+
+A primeira etapa da SAGA Criar Pedido cria um Pedido.
+Enquanto essa SAGA estiver em execução, a SAGA Cancelar Ordem cancelará a Ordem.
+A etapa final da SAGA Criar Pedido aprova o Pedido.
+Nesse cenário, a Saga Criar Pedido ignora a atualização feita pela Saga Cancelar Pedido e a substitui. Como resultado, o aplicativo enviará um pedido que o cliente cancelou.
+
+LEITURAS SUJAS
+Uma leitura suja ocorre quando um SAGA lê dados que estão no meio de serem atualizados por outro SAGA.
+
+Considere, por exemplo, uma versão do aplicativo em que os consumidores têm um limite de crédito. Neste aplicativo, um SAGA que cancela um pedido consiste nas seguintes transações:
+
+Atendimento ao consumidor — Aumente o crédito disponível.
+Serviço de pedido — Altere o estado do pedido para cancelar.
+Serviço de entrega — Cancele a entrega.
+Vamos imaginar um cenário que intercala a execução das SAGAs Cancelar Pedido e Criar Pedido, e a SAGA Cancelar Pedido é revertida porque é tarde demais para cancelar a entrega.
+É possível que a sequência de transações que invocam o Serviço do Consumidor seja a seguinte:
+
+Cancelar pedido SAGA — Aumente o crédito disponível.
+Criar SAGA de Pedidos — Reduza o crédito disponível.
+Cancelar SAGA do pedido — Uma transação de compensação que reduz o crédito disponível.
+Nesse cenário, o Create Order SAGA faz uma leitura suja do crédito disponível que permite ao consumidor fazer um pedido que exceda seu limite de crédito. É provável que este seja um risco inaceitável para o negócio.
+
+Vejamos como evitar que esse e outros tipos de anomalias afetem um aplicativo.
+
+Contramedidas para lidar com a falta de isolamento
+O modelo de transação SAGA é ACD e sua falta de isolamento pode resultar em anomalias que fazem com que os aplicativos se comportem mal. É responsabilidade do desenvolvedor escrever SAGAs de uma forma que evite as anomalias ou minimize seu impacto nos negócios. Isso pode parecer uma tarefa assustadora, mas você já viu um exemplo de estratégia que evita anomalias. O uso de estados por uma Ordem, como , é um exemplo de uma dessas estratégias.
+As SAGAs que atualizam Pedidos, como a SAGA Criar Pedido, começam definindo o estado de um Pedido como . O estado informa a outras transações que a Ordem está sendo atualizada por uma SAGA e deve agir de acordo.*_PENDINGAPPROVAL_PENDING*_PENDING*_PENDING
+
+O uso de estados por uma ordem é um exemplo do que o artigo de 1998 "Propriedades ACID semânticas em multidatabases usando chamadas de procedimento remoto e propagações de atualização" de Lars Frank e Torben U. Zahle chama de contramedida de bloqueio semântico.
+O artigo descreve como lidar com a falta de isolamento de transações em arquiteturas de vários bancos de dados que não usam transações distribuídas. Muitas de suas ideias são úteis ao projetar SAGAs.
+Ele descreve um conjunto de contramedidas para lidar com anomalias causadas pela falta de isolamento que evitam uma ou mais anomalias ou minimizam seu impacto nos negócios.
+As contramedidas descritas por este artigo são as seguintes:*_PENDING
+
+Bloqueio semântico — Um bloqueio no nível do aplicativo.
+Atualizações comutativas — Projete as operações de atualização para serem executáveis em qualquer ordem.
+Visão pessimista — Reordene as etapas de uma saga para minimizar o risco comercial.
+Valor de releitura — Evite gravações sujas relendo os dados para verificar se eles não foram alterados antes de substituí-los.
+Arquivo de versão — Registre as atualizações em um registro para que possam ser reordenadas.
+Por valor — Use o risco comercial de cada solicitação para selecionar dinamicamente o mecanismo de simultaneidade.
+A estrutura de uma SAGA
+O artigo de contramedidas mencionado na última seção define um modelo útil para a estrutura de um SAGA. Nesse modelo, mostrado na figura abaixo, um SAGA consiste em três tipos de transações:
+
+Transações compensáveis — Transações que podem ser revertidas usando uma transação de compensação.
+Transação de pivô — O ponto de ir / não ir em uma saga. Se a transação dinâmica for confirmada, a saga será executada até a conclusão. Uma transação dinâmica pode ser uma transação que não é compensável nem repetível. Como alternativa, pode ser a última transação compensável ou a primeira transação repassível.
+Transações com pedido — Transações que seguem a transação dinâmica e têm garantia de sucesso.
+
+![1_bMIA99rEKI3QDbppA2K_gg](https://github.com/user-attachments/assets/b066b296-4bf3-4f57-b114-f961f2597575)
+
+na ordem de criação SAGA:
+
+As etapas são transações compensáveis.createOrder(), verifyConsumerDetails(), and createTicket()
+As transações têm transações de compensação que desfazem suas atualizações.createOrder() and createTicket()
+A transação é somente leitura, portanto, não precisa de uma transação de compensação.verifyConsumerDetails()
+A transação é a transação pivô desta SAGA. Se o cartão de crédito do consumidor puder ser autorizado, esta SAGA tem garantia de conclusão.authorizeCreditCard()
+As etapas e são transações que podem ser repetidas que seguem a transação dinâmica.approveTicket()approveOrder()
+A distinção entre transações compensáveis e transações passíveis de recuperação é especialmente importante.
+Como você verá, cada tipo de transação desempenha um papel diferente nas contramedidas.
+
+Vejamos agora cada contramedida, começando com a contramedida de bloqueio semântico.
+
+CONTRAMEDIDA: BLOQUEIO SEMÂNTICO
+Adiciona um bloqueio à linha que estamos criando ou atualizando para que ela possa ser bloqueada de outros consumidores.
+
+Ao usar a contramedida de bloqueio semântico, a transação compensável de um SAGA define um sinalizador em qualquer registro que ele cria ou atualiza.
+
+O sinalizador indica que o registro não é e pode ser alterado.committed
+
+O sinalizador pode ser um bloqueio que impede que outras transações acessem o registro ou um aviso que indica que outras transações devem tratar esse registro com suspeita.
+É compensado por uma transação recuperável - a SAGA está sendo concluída com sucesso - ou por uma transação de compensação: a saga está sendo revertida.
+
+O campo é um ótimo exemplo de bloqueio semântico. Os estados, como e , implementam um bloqueio semântico. Eles dizem a outros SAGAs que acessam um Pedido que um SAGA está em processo de atualização do Pedido.Order.state*_PENDINGAPPROVAL_PENDINGREVISION_PENDING
+
+Por exemplo, a primeira etapa da SAGA Criar Ordem, que é uma transação compensável, cria uma Ordem em um estado. A etapa final da SAGA Criar pedido, que é uma transação que pode ser corrigida, altera o campo para . Uma transação de compensação altera o campo para `.APPROVAL_PENDINGAPPROVEDREJECTED`
+
+Gerenciar o bloqueio é apenas metade do problema. Você também precisa decidir caso a caso como uma SAGA deve lidar com um registro que foi bloqueado. Considere, por exemplo, o comando do sistema. Um cliente pode invocar essa operação para cancelar um pedido que está no `state.cancelOrder()APPROVAL_PENDING`
+
+Existem algumas maneiras diferentes de lidar com esse cenário.
+
+Uma opção é que o comando do sistema falhe e diga ao cliente para tentar novamente mais tarde. O principal benefício dessa abordagem é que ela é simples de implementar. A desvantagem, no entanto, é que isso torna o cliente mais complexo porque precisa implementar a lógica de repetição.cancelOrder()
+Outra opção é bloquear até que o bloqueio seja liberado.cancelOrder()
+CONTRAMEDIDA: ATUALIZAÇÕES COMUTATIVAS
+Projete o SAGA para que possa ser executado em qualquer ordem ~ um exemplo seria um aumento e diminuição de uma conta blanace.
+
+Uma contramedida simples é projetar as operações de atualização para serem comutativas. As operações são se puderem ser executadas em qualquer ordem.
+As contas e as operações de uma conta são comutativas (se você ignorar os cheques a descoberto). Essa contramedida é útil porque elimina atualizações perdidas.commutativedebit()credit()
+
+Considere, por exemplo, um cenário em que um SAGA precisa ser revertido depois que uma transação compensável debitou (ou creditou) uma conta. A transação de compensação pode simplesmente creditar (ou debitar) a conta para desfazer a atualização. Não há possibilidade de sobrescrever atualizações feitas por outros SAGAs.
+
+CONTRAMEDIDA: VISÃO PESSIMISTA
+Ele reordena as etapas de um SAGA para minimizar o risco de negócios devido a uma leitura suja.
+
+Considere, por exemplo, o cenário usado anteriormente para descrever a anomalia de leitura suja. Nesse cenário, a SAGA Criar Pedido realizou uma leitura suja do crédito disponível e criou um pedido que excedeu o limite de crédito ao consumidor. Para reduzir o risco de isso acontecer, esta contramedida reordenaria o:Cancel Order SAGA
+
+Serviço de pedido — Altere o estado do pedido para cancelado.
+Serviço de entrega — Cancele a entrega.
+Atendimento ao cliente — Aumente o crédito disponível.
+Nesta versão reordenada do SAGA, o crédito disponível é aumentado em uma transação reutilizável, o que elimina a possibilidade de uma leitura suja.
+
+CONTRAMEDIDA: VALOR DE RELEITURA
+Um SAGA que usa essa contramedida relê um registro antes de atualizá-lo, verifica se ele não foi alterado e, em seguida, atualiza o registro. Se o registro foi alterado, a saga é abortada e possivelmente reiniciada.
+
+A contramedida de valor de releitura evita atualizações perdidas.
+
+Um SAGA que usa essa contramedida relê um registro antes de atualizá-lo, verifica se ele não foi alterado e, em seguida, atualiza o registro. Se o registro tiver sido alterado, o SAGA será interrompido e possivelmente reiniciado. Essa contramedida é uma forma do padrão Bloqueio Offline Otimista.
+
+Eles podem usar essa contramedida para lidar com o cenário em que o Pedido é cancelado enquanto está em processo de aprovação.
+A transação que aprova o pedido verifica se o pedido não foi alterado desde que foi criado anteriormente na SAGA. Se não for alterada, a transação aprova o pedido. Mas se a Ordem foi cancelada, a transação aborta a SAGA, o que faz com que suas transações compensadoras sejam executadas.Create Order SAGA
+
+CONTRAMEDIDA: ARQUIVO DE VERSÃO
+Ele registra as operações que são executadas em um registro para que possa executá-las em uma ordem.
+
+A contramedida é assim chamada porque registra as operações executadas em um registro para que ele possa reordená-las. É uma maneira de transformar operações não comutativas em operações comutativas.version file
+
+Para ver como essa contramedida funciona, considere um cenário em que o executa simultaneamente com um . A menos que as sagas usem a contramedida de bloqueio semântico, é possível que o cancele a autorização do cartão de crédito do consumidor antes que a Saga Criar Pedido autorize o cartão.Create Order SAGACancel Order SAGACancel Order SAGA
+
+Uma maneira de o Serviço de Contabilidade lidar com essas solicitações fora de ordem é registrar as operações à medida que elas chegam e executá-las na ordem correta. Nesse cenário, ele registraria primeiro a solicitação de Cancelamento de Autorização. Então, quando o Serviço de Contabilidade receber a solicitação de Autorização de Cartão subsequente, ele perceberá que já recebeu a solicitação de Autorização de Cancelamento e ignorará a autorização do cartão de crédito.
+
+CONTRAMEDIDA: POR VALOR
+É uma estratégia para selecionar mecanismos de simultaneidade com base no risco comercial. usa as propriedades de cada solicitação para decidir entre usar sagas e transações distribuídas
+
+A contramedida final é a contramedida. É uma estratégia para selecionar mecanismos de simultaneidade com base no risco comercial. Um aplicativo que usa essa contramedida usa as propriedades de cada solicitação para decidir entre usar SAGAs e transações distribuídas.
+Ele executa solicitações de baixo risco usando SAGAs, talvez aplicando as contramedidas descritas na seção anterior. Mas executa solicitações de alto risco envolvendo, por exemplo, grandes quantias de dinheiro, usando transações distribuídas.by value
+
+Essa estratégia permite que um aplicativo faça concessões dinamicamente sobre risco de negócios, disponibilidade e escalabilidade.
+
+É provável que você precise usar uma ou mais dessas contramedidas ao implementar SAGAs em seu aplicativo.
+
+**Long-Running Transactions (LRTs)** são transações que se estendem por um longo período e envolvem múltiplas operações distribuídas, possivelmente em diferentes serviços ou sistemas. Elas não podem ser tratadas com as técnicas tradicionais de transações ACID (Atomicidade, Consistência, Isolamento, Durabilidade) devido à natureza distribuída e à necessidade de alto desempenho e disponibilidade.
+
+Características do Padrão Saga:
+
+1. **Sequência de Passos**: Uma Saga é composta por uma sequência de transações locais, cada uma executada por um serviço diferente. Cada transação local é atômica e independente, mas juntas elas formam uma unidade lógica de trabalho.
+
+2. **Compensação**: Caso alguma transação dentro da Saga falhe, é necessário desfazer (ou compensar) as transações que já foram concluídas para manter a consistência do sistema. Isso é feito através de transações de compensação, que são essencialmente o inverso das operações realizadas.
+
+3. **Coordenação**: A coordenação das transações dentro de uma Saga pode ser feita de duas maneiras: **Coreografia** ou **Orquestração**.
+
+**Coordenação de Sagas**: Na coreografia (Choreography), não há um coordenador central. Cada serviço sabe o que fazer após completar sua transação local e publica um evento que desencadeia a próxima etapa.
+
+- **Vantagens**:
+  - Alta descentralização e independência entre serviços.
+  - Evita o ponto único de falha.
+- **Desvantagens**:
+  - Pode ser difícil de gerenciar e depurar devido à complexidade e falta de visibilidade central.
+  - Pode levar a dependências cíclicas e aumento do acoplamento entre serviços.
+
+**Exemplo de Coreografia**:
+
+1. Serviço A realiza sua transação e publica um evento.
+2. Serviço B escuta o evento do Serviço A, realiza sua transação e publica um novo evento.
+3. Serviço C escuta o evento do Serviço B e realiza sua transação, e assim por diante.
+
+Na orquestração (orchestration), um serviço central (o orquestrador) coordena a execução das transações da Saga. O orquestrador chama cada serviço em sequência e gerencia as compensações em caso de falhas.
+
+- **Vantagens**:
+  - Visibilidade central e controle do fluxo da transação.
+  - Simplicidade na gestão e depuração das transações.
+
+- **Desvantagens**:
+  - Introduz um ponto único de falha e potencial gargalo no sistema.
+  - Reduz a independência dos serviços.
+
+**Exemplo de Orquestração**:
+1. O Orquestrador inicia a transação chamando o Serviço A.
+2. Após a conclusão do Serviço A, o Orquestrador chama o Serviço B.
+3. Após a conclusão do Serviço B, o Orquestrador chama o Serviço C, e assim por diante.
+4. Se o Serviço B falhar, o Orquestrador chama as transações de compensação necessárias para desfazer as operações dos serviços anteriores.
+
+Exemplos de Aplicação do Padrão Saga:
+
+1. **Processamento de Pedidos em E-commerce**:
+   - **Passos**: 
+     1. Serviço de criação de pedido cria um pedido.
+     2. Serviço de pagamento processa o pagamento.
+     3. Serviço de inventário reserva os produtos.
+     4. Serviço de envio organiza a entrega.
+   - **Compensação**: Se o serviço de envio falhar, desfaz-se a reserva no inventário, o pagamento é revertido, e o pedido é cancelado.
+
+2. **Cadastro de Novo Usuário**:
+   - **Passos**:
+     1. Serviço de autenticação cria as credenciais do usuário.
+     2. Serviço de perfil cria o perfil do usuário.
+     3. Serviço de notificações envia um e-mail de boas-vindas.
+   - **Compensação**: Se o serviço de perfil falhar, as credenciais são removidas.
+
+<img width="720" height="432" alt="image" src="https://github.com/user-attachments/assets/270ee850-9dd0-40ed-95b7-db7154478d92" />
+
+Se você estiver trabalhando em um microsserviço Java ou se preparando para uma entrevista de desenvolvedor Java em que as habilidades de microsserviço são necessárias, você deve se preparar sobre o padrão SAGA.
+
+SAGA é um padrão de microsserviço essencial que visa resolver o problema de transações de longa duração na arquitetura de microsserviços. É também uma das perguntas populares da entrevista de microsserviço, frequentemente feita a desenvolvedores experientes.
+
+Como a arquitetura de microsserviço divide seu aplicativo em vários aplicativos pequenos, uma única solicitação também é dividida em várias solicitações e há uma chance de que algumas partes das solicitações sejam bem-sucedidas e algumas partes falhem, nesse caso, é difícil manter a consistência dos dados.
+
+Se você estiver lidando com dados reais, como fazer um pedido na Amazon, deverá lidar com esse cenário normalmente para que, se o pagamento falhar, o estoque volte ao seu estado original e o pedido não seja enviado.
+
+Neste artigo, vou explicar O que é o padrão SAGA? O que ele faz, qual problema ele resolve, bem como prós e contras do padrão SAGA em uma arquitetura de microsserviço.
+
+A propósito, se você está se preparando para entrevistas com desenvolvedores Java, também pode ver meus artigos anteriores, como 25 perguntas avançadas sobre Java, 25 perguntas sobre Spring Framework, 20 consultas SQL de entrevistas, 50 perguntas sobre microsserviços, 60 perguntas sobre estrutura de dados em árvore, 15 perguntas sobre design de sistema e 35 perguntas sobre Core Java.
+
+E, se você gosta das minhas postagens, considere assinar meu boletim informativo, é GRATUITO e você não postará nenhuma das minhas postagens
+
+O que é o padrão de design da SAGA? Que problema resolve? O padrão SAGA (ou Saga) é um padrão de design de microsserviço para gerenciar a consistência de dados em sistemas distribuídos.
+
+Ele fornece uma maneira de lidar com transações de longa duração compostas por várias etapas, em que cada etapa é uma operação de banco de dados separada. A ideia principal é capturar todas as etapas da transação em um banco de dados para que, em caso de falha, o sistema possa reverter a transação ao seu estado inicial.
+
+O padrão SAGA resolve o problema de manter a consistência dos dados em um sistema distribuído, onde é difícil garantir que todas as operações em uma transação sejam executadas atomicamente, especialmente em caso de falhas.
+
+Um dos exemplos populares do padrão SAGA é uma transação de comércio eletrônico, como fazer um pedido na Amazon ou Flipkart, onde um pedido é feito, o pagamento é deduzido da conta do cliente e os itens são reservados no estoque. Se alguma dessas etapas falhar, as etapas anteriores serão revertidas para garantir a consistência. Por exemplo, se o pagamento falhar, a reserva de itens é cancelada.
+
+O padrão SAGA resolve o problema de manter a consistência em uma transação envolvendo várias etapas que podem ou não ser bem-sucedidas.
+
+Aqui está outro diagrama de arquitetura de microsserviço para demonstrar como o padrão SAGA funciona:
+
+<img width="720" height="417" alt="image" src="https://github.com/user-attachments/assets/51cfce29-2014-4fa3-ac2c-3ae632c04dd0" />
+
+Prós e contras do padrão de design SAGA na arquitetura de microsserviços
+Sempre que aprendemos um padrão, devemos aprender seus prós e contras, pois isso nos ajuda a entender melhor os padrões e também nos ajuda a decidir quando usá-los em seu aplicativo:
+
+Aqui estão algumas vantagens e desvantagens do padrão SAGA no Microsserviço:
+
+Vantagens: Aqui estão algumas vantagens de usar o padrão SAGA Design na arquitetura de microsserviços:
+
+- É fácil implementar transações complexas em vários microsserviços.
+- Lida com falhas normalmente e garante a consistência dos dados.
+- Aumenta a resiliência e a robustez do sistema.
+- Evita inconsistências de dados e atualizações perdidas.
+- Fornece um processo claro e bem definido para compensar transações.
+
+Desvantagens: Aqui estão algumas desvantagens de usar o padrão SAGA Design na arquitetura de microsserviços:
+
+- É difícil de implementar e manter, também é difícil de monitorar e depurar
+- Você terá a sobrecarga de armazenar e gerenciar o estado das sagas.
+- Ele também vem com sobrecarga de desempenho devido à necessidade de gerenciar transações em vários microsserviços.
+- Seu aplicativo também sofrerá com o aumento da latência devido à necessidade de várias viagens de ida e volta entre microsserviços.
+- Não há padronização na implementação de sagas em diferentes microsserviços. Seria melhor se frameworks como Spring Cloud ou Quarks suportassem nativamente esse padrão no futuro.
+
+Como implementar o padrão SAGA em uma arquitetura de microsserviço? O padrão SAGA pode ser implementado em uma arquitetura de microsserviços, dividindo uma transação de negócios complexa em várias etapas ou serviços menores e independentes.
+
+1. Cada etapa se comunicaria com seu microsserviço correspondente para concluir uma parte da transação.
+2. Se alguma etapa falhar, o sistema iniciará uma transação de compensação para desfazer as etapas anteriores.
+3. A coordenação dessas etapas pode ser obtida usando um banco de dados, fila de mensagens ou serviço de coordenação para armazenar o estado da transação e disparar transações de compensação.
+
+Dessa forma, o sistema pode garantir a consistência eventual e lidar com falhas normalmente.
+
+Se você está se perguntando se algum framework Java Microservice pode fornecer suporte para o padrão SAGA? Então, infelizmente, não há uma estrutura de microsserviço específica que forneça suporte direto para o padrão SAGA.
+
+No entanto, você pode implementar o SAGA Pattern usando bibliotecas e estruturas como Apache Camel ou Spring integration, juntamente com tecnologias como Apache Kafka, fornecimento de eventos e arquitetura orientada a mensagens.
+
+<img width="720" height="432" alt="image" src="https://github.com/user-attachments/assets/c372f5d4-ab78-4967-a6ae-f29614797e28" />
+
+Material de preparação para entrevistas Java e Spring - Antes de qualquer entrevista com desenvolvedores Java e Spring, eu sempre costumo ler os recursos abaixo:
+
+> [!Important]
+> Entrevista Grokking the Java. Eu pessoalmente comprei esses livros para acelerar minha preparação.
+
+Atualmente, os sistemas são frequentemente distribuídos. Isso reflete a necessidade de extensibilidade, escalabilidade e resiliência. Engenheiros e arquitetos estão explorando mais estilos de arquitetura para alcançar esses objetivos. Microsserviços é uma opção. CQRS é outra. EDA também.
+
+Em CQRS, precisamos de sincronização de consistência entre o modelo de leitura e o de escrita, usando um barramento de eventos e implementando um padrão de projeto observador. EDA busca a assincronia e a consistência eventual entre os componentes de um sistema. Em CQRS, precisamos implementar o padrão de coreografia SAGA para garantir a consistência eventual entre os modelos de leitura e escrita. Com EDA, é necessário fornecer um meio para que os componentes se comuniquem entre si. Quando um evento ocorre em um componente, ele é publicado para que outros componentes possam reagir a ele. Esse é o padrão de projeto observador.
+
 ## [Microservices] Service mesh
 <img src="https://img.shields.io/badge/Istio-Service_mesh-blue?style=flat&logo=Istio&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Linkerd-Service_mesh-limegreen?style=flat&logo=Linkerd&logoColor=white"> <img src="https://img.shields.io/badge/Kuma-Service_mesh-black?style=flat&logo=Kuma&logoColor=white">
 
