@@ -719,6 +719,47 @@ Um serviço de sidecar nem sempre faz parte da aplicação, mas está vinculado 
 
 Eles podem ser executados no mesmo processo que a aplicação se estiverem fortemente integrados, fazendo uso ótimo dos recursos compartilhados. Isso, no entanto, implica que eles não estão devidamente separados, e uma falha em um desses componentes pode afetar outros componentes ou toda a aplicação. Além disso, normalmente devem ser escritos no mesmo idioma do programa principal. Como resultado, o componente e a aplicação dependem muito um do outro.
 
+## [Microservices] Circuit breaker
+<img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Circuit_Breaker-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Circuit_Breaker-blue?style=flat&logo=GitBook&logoColor=white">
+
+<img src="https://github.com/user-attachments/assets/bc7a8876-5d7e-4759-b3dc-086a27936c25" height="177" align="right">
+
+**Circuit breaker**, ou disjuntor em português, é um padrão de design utilizado em sistemas distribuídos, principalmente em arquiteturas baseadas em microserviços, para lidar com falhas temporárias e evitar sobrecargas em serviços instáveis ou fora do ar. A ideia central é inspirada nos disjuntores elétricos: quando um circuito apresenta falha ou sobrecarga, o disjuntor desarma para impedir danos maiores; da mesma forma, em software, o circuit breaker monitora chamadas remotas e, ao detectar uma quantidade excessiva de falhas consecutivas, ele "abre" o circuito, interrompendo temporariamente as tentativas de comunicação com o serviço problemático. Padrão de disjuntor: proteja seus microsserviços contra falhas em cascata.
+
+Inspirando-se nos disjuntores elétricos, em sistemas de software, objetos disjuntores funcionam de forma semelhante, interrompendo automaticamente o fluxo de solicitações quando anomalias são detectadas. Ele está situado entre o atendimento e o serviço de chamada.
+O disjuntor 'desliga' quando o interlocutor não está disponível. Esse mecanismo não só previne danos adicionais, mas também permite que o tempo de falha se recupere.
+
+Enquanto o circuito está aberto, as tentativas de acesso ao serviço são bloqueadas de imediato, evitando que a aplicação continue enviando requisições inúteis que só iriam falhar e consumir recursos preciosos. Após um intervalo de tempo pré-definido (geralmente chamado de timeout), o circuito entra em estado de teste (half-open), permitindo algumas chamadas para verificar se o serviço voltou ao normal. Se as tentativas forem bem-sucedidas, o circuito é fechado e o serviço volta a receber tráfego normalmente. Se falhar novamente, o circuito permanece aberto, protegendo o sistema de novos colapsos.
+
+Esse padrão é fundamental para manter a resiliência e a estabilidade de sistemas que dependem de muitos serviços externos ou internos, especialmente em contextos onde a indisponibilidade de um componente pode provocar efeito cascata, travando partes críticas da aplicação. O circuit breaker ajuda a degradar o sistema de forma controlada, oferecendo respostas rápidas de fallback ao invés de deixar os usuários esperando por tempo de resposta indefinido.
+
+Na arquitetura de microserviços, comunicar-se por meio de chamadas remotas de procedimentos e dependências de API a jusante introduz uma camada de complexidade onde erros transitórios podem ocorrer devido a problemas de rede ou o serviço pode falhar por qualquer motivo, como interrupção de rede, sobrecarga do sistema, travamento, etc.
+
+Nessa situação, é muito importante desconectar os componentes/serviços que estão falhando e não solicitar mais informações sabendo que estão falhando no momento, permitindo que o sistema se recupere. Um componente de disjuntor pode facilmente desconectar serviços que falharam a jusante.
+
+<img src="https://github.com/user-attachments/assets/f997bedf-6422-4006-b83b-5510cd07430f" align="right" height="177">
+
+> [!Important]
+> O livro de Michael Nygard, <a href="https://pragprog.com/titles/mnee2/release-it-second-edition/">Release It!</a>, popularizou o padrão Circuit Breaker, que pode impedir que um aplicativo tente executar continuamente uma ação que provavelmente falhará, permitindo que ele prossiga sem esperar a correção do problema ou gastar ciclos de CPU para determinar a duração da falha. “Release It! – Second Edition”, do Michael T. Nygard, é um dos livros mais importantes sobre como projetar, construir e operar sistemas realmente prontos para produção. O tema central não é apenas código, mas como softwares se comportam no mundo real, onde falhas acontecem, tráfego cresce inesperadamente, dependências externas quebram e a infraestrutura reage de formas imprevisíveis.
+
+O padrão de disjuntor também permite que a aplicação determine se o problema foi resolvido ou não. Se o problema parecer resolvido, o programa pode tentar realizar a operação.
+
+> O padrão Disjuntor serve a um propósito distinto do padrão Retry. O padrão Retry permite que uma aplicação tente novamente uma operação na esperança de que ela tenha sucesso na próxima vez.
+
+O design do Disjuntor proíbe que uma aplicação realize uma atividade de risco. Uma aplicação pode usar o padrão Retry para acionar uma ação através de um disjuntor e combinar esses dois padrões. A lógica de retentativa, por outro lado, deve estar alerta para quaisquer exceções fornecidas pelo disjuntor e deve cessar as tentativas repetidas se o disjuntor indicar que a falha não é temporária.
+
+<img width="651" height="539" alt="image" src="https://github.com/user-attachments/assets/29d5340b-0957-4702-aab7-1f5ebb1b3e2e" />
+
+Ferramentas como **Hystrix** (da Netflix), **Resilience4j**, **Polly** (para .NET) e algumas implementações no Spring Cloud oferecem suporte a esse padrão, muitas vezes combinando com retries, timeouts e mecanismos de fallback para formar uma estratégia robusta de tolerância a falhas. Em suma, o circuit breaker permite que aplicações sobrevivam em ambientes imprevisíveis, garantindo que uma falha localizada não se torne um problema sistêmico.
+
+Você está preocupado com o efeito cascata de falhas em sua arquitetura de microsserviços? Conheça o padrão de disjuntor - sua proteção definitiva contra falhas em cascata. Esse padrão monitora falhas e impede que as solicitações cheguem a um serviço com falha, dando tempo para se recuperar e protegendo todo o sistema contra colapso.
+
+Por que você deve implementar o padrão de disjuntor? Em um ecossistema de microsserviços, um único serviço com defeito pode causar um efeito dominó, interrompendo outros serviços que dependem dele. Ao usar disjuntores, você pode isolar o serviço defeituoso e evitar mais danos, garantindo a resiliência e a estabilidade do seu sistema.
+
+Os disjuntores podem ser facilmente implementados usando bibliotecas como Netflix, Hystrix e Resilience4j. Essas bibliotecas oferecem uma variedade de recursos, como métodos de fallback e monitoramento, para ajudá-lo a gerenciar e se recuperar de falhas com eficiência.
+
+Em essência, o padrão de disjuntor é essencial para a criação de microsserviços resilientes e tolerantes a falhas. Ao incorporar esse padrão em sua arquitetura, você pode efetivamente proteger seu sistema contra os efeitos adversos de falhas de serviço. Você está pronto para fortalecer seus microsserviços com o padrão de disjuntor?
+
 ## [Microservices] BFF - Backend for Frontend
 <a href="https://blog.bitsrc.io/bff-pattern-backend-for-frontend-an-introduction-e4fa965128bf?source=post_page---author_recirc--df10edf0e8d0----1---------------------1744195f_55d3_428f_b6fa_370d3ddc78c4--------------"><img src="https://github.com/user-attachments/assets/8afda213-16a2-41b6-8379-8ddead4ac676" align="right" height="277"></a>
 
