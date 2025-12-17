@@ -303,7 +303,7 @@ Sistemas Reativos são:
 
 Grandes sistemas são compostos por sistemas menores e, portanto, dependem das propriedades Reativas de seus componentes. Isso significa que Sistemas Reativos aplicam princípios arquiteturais que fazem com que essas propriedades sejam utilizadas em todos os níveis da escala, de modo que os componentes sejam combináveis entre si. Os maiores sistemas do mundo são construídos sobre arquiteturas que baseiam-se nessas propriedades e servem as necessidades de bilhões de pessoas diariamente. Está na hora de aplicar esses princípios conscientemente do início ao invés de redescobrí-los todas as vezes que implementamos um novo sistema.
 
-## [Microservices] Saga
+## [Microservices] SAGA
 <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Saga-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Saga-blue?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Saga-blue?style=flat&logo=Confluence&logoColor=white">
 
 <img src="https://github.com/user-attachments/assets/54637f6c-1d52-43e8-bfbd-f59840a423b8" align="right" height="77">
