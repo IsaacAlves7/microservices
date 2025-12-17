@@ -487,6 +487,12 @@ Exemplo de Implementação: Suponha um sistema de gerenciamento de pedidos:
   - **PedidoRepositoryImpl**: Implementação do repositório utilizando um banco de dados específico.
   - **NotificacaoServiceImpl**: Implementação do serviço de notificação utilizando um serviço de e-mail externo.
 
+## [Microservices] DDD - Domain-Driven Design
+
+## [Microservices] Clean architecture
+
+## [Microservices] Hexagonal architecture (Ports & Adapters)
+
 ## [Microservices] Tomato architecture
 <img src="https://img.shields.io/badge/Jira-Pomodoro-tomato?style=flat&logo=Jira&logoColor=white"> <img src="https://img.shields.io/badge/ClickUp-Pomodoro-tomato?style=flat&logo=ClickUp&logoColor=white"> <img src="https://img.shields.io/badge/Trello-Pomodoro-tomato?style=flat&logo=Trello&logoColor=white"> <img src="https://img.shields.io/badge/Asana-Pomodoro-tomato?style=flat&logo=Asana&logoColor=white"> <img src="https://img.shields.io/badge/Redmine-Pomodoro-tomato?style=flat&logo=Redmine&logoColor=white"> <img src="https://img.shields.io/badge/Clockify-Pomodoro-tomato?style=flat&logo=clockify&logoColor=white">
 
