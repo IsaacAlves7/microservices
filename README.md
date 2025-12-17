@@ -129,7 +129,50 @@ Aqui estão algumas das plataformas de orquestração que já foram comprovadas:
 Essas plataformas podem ser úteis para gerenciar o provisionamento e implantação de contêineres, balanceamento de carga, escalabilidade, preocupações com comunicação em rede, etc.
 
 Use um sistema de monitoramento eficaz: A arquitetura de microserviços ajuda você a realizar uma enorme escalabilidade de milhares de serviços modulares e oferece potencial para maior velocidade e métodos organizados de monitoramento. É importante, no entanto, revisar todos os seus microserviços e verificar regularmente se eles estão funcionando como desejado e utilizando eficientemente os recursos disponíveis. Dependendo dessas observações, você pode tomar as atitudes apropriadas caso as expectativas não estejam sendo atendidas.
+
 Essa comunicação é muito simples, mas ao mesmo tempo os componentes são altamente acoplados uns aos outros e difíceis de separar e escalar de forma independente.
+
+## [Microservices] Sistemas reativos
+<img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
+
+<img height="77" align="right" src="https://github.com/user-attachments/assets/b0a85aed-004e-41d8-aad6-8cd4919b2b77" />
+
+Com cada vez mais conexões, mais dados e usuários mais exigentes, manter a responsividade de um sistema de microsserviços tem se tornado uma tarefa dolorosa. Por sorte, isso não precisa ser assim. É para amenizar essa dor que existem os **sistemas reativos**. Sistemas criados como reativos são muito mais flexíveis, desacoplados e escaláveis, o que os torna mais fáceis para desenvolver e mais abertos a mudanças. 
+
+Os sistemas reativos são um design de software, eles são projetados para serem mais responsivos, resilientes, elásticos e orientados por mensagens. Esse paradigma de design é especialmente relevante para sistemas distribuídos e modernos, onde a escalabilidade e a capacidade de lidar com falhas são cruciais. O contexto descrito está relacionado ao paradigma de programação reativa. Estamos destacando os desafios de manter a responsividade e a eficiência em sistemas de microsserviços diante do aumento de conexões, volume de dados e demandas dos usuários, e apresenta os sistemas reativos como uma solução para esses problemas.
+
+A **programação reativa** é um estilo de design de software que foca em responder a eventos de forma assíncrona e não bloqueante. No caso de sistemas distribuídos e modernos, como os de microsserviços, a programação reativa é extremamente útil.
+
+As organizações que trabalham em diferentes ramos estão independentemente descobrindo padrões para criar sistemas semelhantes. Esses sistemas são mais robustos, mais resilientes, mais flexíveis e melhor posicionados para sustentar as demandas modernas.
+
+Essas transformações estão acontecendo porque os requisitos de sistemas mudaram drasticamente nos últimos anos. Há apenas alguns anos, uma grande aplicação tinha dezenas de servidores, tempo de resposta na casa dos segundos, horas de indisponibilidade para manutenção e gigabytes de dados. Aplicações atuais são entregues em todos os lugares, desde aplicativos móveis até aplicações na nuvem com clusters rodando milhares de processadores multi-core. Geralmente os usuários esperam respostas em milissegundos e 100% de disponibilidade. Dados são mensurados em petabytes. As demandas de hoje simplesmente não são mais atendidas pelas arquiteturas do passado.
+
+Nós acreditamos que é preciso haver uma abordagem consistente para arquitetura de sistemas, e acreditamos que todos os aspectos necessários já são reconhecidos individualmente: nós queremos sistemas Responsivos, Resilientes, Elásticos e Orientados a Mensagens. Nós chamamos isso de <a href="https://www.reactiveprinciples.org/index.html">Sistemas Reativos</a>.
+
+Sistemas criados como Reativos são muito mais flexíveis, desacoplados e escaláveis. Isso os torna mais fáceis para desenvolver e mais abertos a mudanças. São significativamente mais tolerantes a falhas e quando elas ocorrem são tratadas com elegância ao invés de desastre. Sistemas Reativos são altamente responsivos, dando aos usuários um efetivo feedback interativo.
+
+<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/d1e1a2cf-323a-444f-817d-f01edd890686" align="right" height="177">
+
+> [!Important]
+> No livro <a href="https://www.casadocodigo.com.br/products/livro-sistemas-reativos">Sistemas reativos: Não confundir com sistemas radioativos</a>, Guilherme Moraes aborda a aplicação da perspectiva reativa no desenvolvimento para garantir que seus sistemas sejam mais resilientes, elásticos e responsivos. Você passará por conceitos complexos da Arquitetura de Software e sistemas distribuídos, mas em uma aprendizagem envolvente com doses cavalares de humor e descontração, estabelecendo relações práticas com muito do que você já faz em seu dia a dia. E, meio sem perceber, você ampliará sua perspectiva sobre software e nunca mais reagirá da mesma maneira ao escutar a seguinte pergunta: "A gente já chegou?".
+
+Sistemas Reativos são:
+
+<div align="center"><img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/280a334e-ea32-428e-af93-9171f9d5217d" height="277"></div><br />
+
+- **Responsivos**: O sistema responde em um tempo razoável, se possível. Responsividade é a pedra fundamental da usabilidade e da utilidade, mas, mais do que isso, responsividade significa que problemas podem ser detectados rapidamente e tratados com a máxima eficácia. Sistemas responsivos têm como objetivo prover tempos de resposta curtos e consistentes, estabelecendo margens de tolerância confiáveis que garantem uma qualidade de serviço consistente. Esse comportamento consistente, por sua vez, simplifica tratamentos de erro, reforça a confiança do usuário final e incentiva interações futuras.
+
+- **Resilientes**: O sistema continua responsivo em caso de falha. Isso aplica-se não apenas para sistemas de alta disponibilidade e missão crítica  qualquer sistema que não é resiliente ficará indisponível após uma falha. Resiliência é obtida por meio de replicação, contenção, isolamento e delegação. Falhas são contidas dentro de cada componente, isolando-os uns dos outros e, portanto, garantindo que partes do sistema podem falhar e se recuperar sem comprometer o sistema como um todo. A recuperação de cada componente é delegada a outro componente (externo) e alta disponibilidade é garantida por replicação, quando necessária. Os clientes de cada componente não são sobrecarregados com a responsabilidade do tratamento de falhas.
+
+<img src="https://github.com/user-attachments/assets/62b63ffa-8db1-4620-9442-2d589e95147b" align="right" height="177">
+
+- **Elásticos**: O sistema continua responsivo mesmo sob variações de carga de demanda. Sistemas Reativos podem reagir a mudanças na taxa de solicitações por meio do aumento ou diminuição dos recursos alocados para lidar com essas entradas. Isso requer uma arquitetura que não tenha pontos de contenção ou gargalos, o que permite dividir ou replicar componentes e distribuir a demanda entre eles. Sistemas Reativos suportam algoritmos de escalonagem preditivos e Reativos porque geram métricas de desempenho relevantes e em tempo real. Assim, conseguem elasticidade com baixo custo em hardware e plataformas de software padrões.
+
+- **Orientados a Mensagens**: Sistemas Reativos baseiam-se em transferência de mensagens assíncronas para estabelecer fronteiras entre os componentes e garantir baixo acoplamento, isolamento, transparência na localização. Essas fronteiras também provêem meios para delegar o tratamento de erros na forma de mensagens. Utilizar explicitamente a transferência de mensagens permite o gerenciamento de carga, elasticidade e controle de fluxo, por meio da modelagem e monitoramento das filas no sistema e aplicação de contrapressão quando necessária. Roteamento de mensagens com transparência na localização como o meio de comunicação torna possível o gerenciamento de falhas da mesma maneira seja em um cluster ou em um único host. Comunicação não bloqueante permite que os destinatários consumam recursos apenas enquanto estão ativos, o que leva a uma menor sobrecarga no sistema.
+
+<img src="https://github.com/user-attachments/assets/bdc78ab5-276b-452f-ae88-f937dfc84960" align="right" height="177">
+
+Grandes sistemas são compostos por sistemas menores e, portanto, dependem das propriedades Reativas de seus componentes. Isso significa que Sistemas Reativos aplicam princípios arquiteturais que fazem com que essas propriedades sejam utilizadas em todos os níveis da escala, de modo que os componentes sejam combináveis entre si. Os maiores sistemas do mundo são construídos sobre arquiteturas que baseiam-se nessas propriedades e servem as necessidades de bilhões de pessoas diariamente. Está na hora de aplicar esses princípios conscientemente do início ao invés de redescobrí-los todas as vezes que implementamos um novo sistema.
 
 ## [Microservices] AG - API Gateway
 <a href=""><img src="https://img.shields.io/badge/Kong-24.0.1-003459?style=flat&logo=Kong&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Nginx-24.0.1-limegreen?style=flat&logo=Nginx&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Terraform-24.0.1-844FBA?style=flat&logo=Terraform&logoColor=white"></a> <a href="https://ngrok.com/docs/universal-gateway/examples/microservices-gateway?utm_campaign=september_2025_newsletter_content_a&utm_medium=newsletter&_hsenc=p2ANqtz-8WI06tvfCxMZimoOpNdlTDF3plxzsopr8WcnqMdKL16obTxSLnCVtUcT8AtzopCEiAC30cf9XxtiZ3gHj--Hwxhj08TR7_n0COA3XGLtE5Am4BKO0&_hsmi=381970286&utm_content=homepage&utm_source=email
@@ -260,48 +303,6 @@ Na prática, se o diagrama fosse expandido, veríamos o **Service Discovery** (c
 Se fosse descrever com rigor de senior:
 
 > “Essa arquitetura implementa um modelo de microsserviços com API Gateway, comunicação síncrona via REST e resolução dinâmica de endpoints por meio de Service Discovery, garantindo balanceamento, disponibilidade e desacoplamento entre serviços.”
-
-## [Microservices] Sistemas reativos
-<img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
-
-<img height="77" align="right" src="https://github.com/user-attachments/assets/b0a85aed-004e-41d8-aad6-8cd4919b2b77" />
-
-Com cada vez mais conexões, mais dados e usuários mais exigentes, manter a responsividade de um sistema de microsserviços tem se tornado uma tarefa dolorosa. Por sorte, isso não precisa ser assim. É para amenizar essa dor que existem os **sistemas reativos**. Sistemas criados como reativos são muito mais flexíveis, desacoplados e escaláveis, o que os torna mais fáceis para desenvolver e mais abertos a mudanças. 
-
-Os sistemas reativos são um design de software, eles são projetados para serem mais responsivos, resilientes, elásticos e orientados por mensagens. Esse paradigma de design é especialmente relevante para sistemas distribuídos e modernos, onde a escalabilidade e a capacidade de lidar com falhas são cruciais. O contexto descrito está relacionado ao paradigma de programação reativa. Estamos destacando os desafios de manter a responsividade e a eficiência em sistemas de microsserviços diante do aumento de conexões, volume de dados e demandas dos usuários, e apresenta os sistemas reativos como uma solução para esses problemas.
-
-A **programação reativa** é um estilo de design de software que foca em responder a eventos de forma assíncrona e não bloqueante. No caso de sistemas distribuídos e modernos, como os de microsserviços, a programação reativa é extremamente útil.
-
-As organizações que trabalham em diferentes ramos estão independentemente descobrindo padrões para criar sistemas semelhantes. Esses sistemas são mais robustos, mais resilientes, mais flexíveis e melhor posicionados para sustentar as demandas modernas.
-
-Essas transformações estão acontecendo porque os requisitos de sistemas mudaram drasticamente nos últimos anos. Há apenas alguns anos, uma grande aplicação tinha dezenas de servidores, tempo de resposta na casa dos segundos, horas de indisponibilidade para manutenção e gigabytes de dados. Aplicações atuais são entregues em todos os lugares, desde aplicativos móveis até aplicações na nuvem com clusters rodando milhares de processadores multi-core. Geralmente os usuários esperam respostas em milissegundos e 100% de disponibilidade. Dados são mensurados em petabytes. As demandas de hoje simplesmente não são mais atendidas pelas arquiteturas do passado.
-
-Nós acreditamos que é preciso haver uma abordagem consistente para arquitetura de sistemas, e acreditamos que todos os aspectos necessários já são reconhecidos individualmente: nós queremos sistemas Responsivos, Resilientes, Elásticos e Orientados a Mensagens. Nós chamamos isso de <a href="https://www.reactiveprinciples.org/index.html">Sistemas Reativos</a>.
-
-Sistemas criados como Reativos são muito mais flexíveis, desacoplados e escaláveis. Isso os torna mais fáceis para desenvolver e mais abertos a mudanças. São significativamente mais tolerantes a falhas e quando elas ocorrem são tratadas com elegância ao invés de desastre. Sistemas Reativos são altamente responsivos, dando aos usuários um efetivo feedback interativo.
-
-<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/d1e1a2cf-323a-444f-817d-f01edd890686" align="right" height="177">
-
-> [!Important]
-> No livro <a href="https://www.casadocodigo.com.br/products/livro-sistemas-reativos">Sistemas reativos: Não confundir com sistemas radioativos</a>, Guilherme Moraes aborda a aplicação da perspectiva reativa no desenvolvimento para garantir que seus sistemas sejam mais resilientes, elásticos e responsivos. Você passará por conceitos complexos da Arquitetura de Software e sistemas distribuídos, mas em uma aprendizagem envolvente com doses cavalares de humor e descontração, estabelecendo relações práticas com muito do que você já faz em seu dia a dia. E, meio sem perceber, você ampliará sua perspectiva sobre software e nunca mais reagirá da mesma maneira ao escutar a seguinte pergunta: "A gente já chegou?".
-
-Sistemas Reativos são:
-
-<div align="center"><img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/280a334e-ea32-428e-af93-9171f9d5217d" height="277"></div><br />
-
-- **Responsivos**: O sistema responde em um tempo razoável, se possível. Responsividade é a pedra fundamental da usabilidade e da utilidade, mas, mais do que isso, responsividade significa que problemas podem ser detectados rapidamente e tratados com a máxima eficácia. Sistemas responsivos têm como objetivo prover tempos de resposta curtos e consistentes, estabelecendo margens de tolerância confiáveis que garantem uma qualidade de serviço consistente. Esse comportamento consistente, por sua vez, simplifica tratamentos de erro, reforça a confiança do usuário final e incentiva interações futuras.
-
-- **Resilientes**: O sistema continua responsivo em caso de falha. Isso aplica-se não apenas para sistemas de alta disponibilidade e missão crítica  qualquer sistema que não é resiliente ficará indisponível após uma falha. Resiliência é obtida por meio de replicação, contenção, isolamento e delegação. Falhas são contidas dentro de cada componente, isolando-os uns dos outros e, portanto, garantindo que partes do sistema podem falhar e se recuperar sem comprometer o sistema como um todo. A recuperação de cada componente é delegada a outro componente (externo) e alta disponibilidade é garantida por replicação, quando necessária. Os clientes de cada componente não são sobrecarregados com a responsabilidade do tratamento de falhas.
-
-<img src="https://github.com/user-attachments/assets/62b63ffa-8db1-4620-9442-2d589e95147b" align="right" height="177">
-
-- **Elásticos**: O sistema continua responsivo mesmo sob variações de carga de demanda. Sistemas Reativos podem reagir a mudanças na taxa de solicitações por meio do aumento ou diminuição dos recursos alocados para lidar com essas entradas. Isso requer uma arquitetura que não tenha pontos de contenção ou gargalos, o que permite dividir ou replicar componentes e distribuir a demanda entre eles. Sistemas Reativos suportam algoritmos de escalonagem preditivos e Reativos porque geram métricas de desempenho relevantes e em tempo real. Assim, conseguem elasticidade com baixo custo em hardware e plataformas de software padrões.
-
-- **Orientados a Mensagens**: Sistemas Reativos baseiam-se em transferência de mensagens assíncronas para estabelecer fronteiras entre os componentes e garantir baixo acoplamento, isolamento, transparência na localização. Essas fronteiras também provêem meios para delegar o tratamento de erros na forma de mensagens. Utilizar explicitamente a transferência de mensagens permite o gerenciamento de carga, elasticidade e controle de fluxo, por meio da modelagem e monitoramento das filas no sistema e aplicação de contrapressão quando necessária. Roteamento de mensagens com transparência na localização como o meio de comunicação torna possível o gerenciamento de falhas da mesma maneira seja em um cluster ou em um único host. Comunicação não bloqueante permite que os destinatários consumam recursos apenas enquanto estão ativos, o que leva a uma menor sobrecarga no sistema.
-
-<img src="https://github.com/user-attachments/assets/bdc78ab5-276b-452f-ae88-f937dfc84960" align="right" height="177">
-
-Grandes sistemas são compostos por sistemas menores e, portanto, dependem das propriedades Reativas de seus componentes. Isso significa que Sistemas Reativos aplicam princípios arquiteturais que fazem com que essas propriedades sejam utilizadas em todos os níveis da escala, de modo que os componentes sejam combináveis entre si. Os maiores sistemas do mundo são construídos sobre arquiteturas que baseiam-se nessas propriedades e servem as necessidades de bilhões de pessoas diariamente. Está na hora de aplicar esses princípios conscientemente do início ao invés de redescobrí-los todas as vezes que implementamos um novo sistema.
 
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
