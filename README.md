@@ -1277,6 +1277,31 @@ Em um projeto de um sistema de integração entre aplicações, alguns fatores/p
 
 ![527342228_1267838731798263_2909866205762398317_n](https://github.com/user-attachments/assets/5a759381-2886-47a2-868f-8393f007b337)
 
+## [Microservices] Outbox Pattern
+<img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" />
+
+Simplesmente, quando sua API publica mensagens de evento, ela não as envia diretamente. Em vez disso, as mensagens são mantidas em uma tabela de banco de dados. Depois disso, um trabalho publica eventos no sistema do agente de mensagens em intervalos de tempo predefinidos.
+
+Basicamente, o padrão de caixa de saída (**Outbox Pattern**) fornece a publicação de eventos de forma confiável. A ideia dessa abordagem é ter uma tabela "Caixa de saída" no banco de dados do microsserviço.
+
+Nesse método, os eventos de domínio não são gravados diretamente em um barramento de eventos. Em vez disso, ele é gravado em uma tabela na função "caixa de saída" do serviço que armazena o evento em seu próprio banco de dados.
+
+No entanto, o ponto crítico aqui é que a transação executada antes do evento e o evento gravado na tabela da caixa de saída fazem parte da mesma transação.
+
+<img width="700" height="361" alt="image" src="https://github.com/user-attachments/assets/19fdca78-5dcd-4192-9365-93005db42742" />
+
+Por exemplo, quando um novo produto é adicionado ao sistema, o processo de adicionar o produto e gravar o evento ProductCreated na tabela da caixa de saída é feito na mesma transação, garantindo que o evento seja salvo no banco de dados.
+
+A segunda etapa é receber esses eventos gravados na tabela de caixa de saída por um serviço independente e gravá-los no barramento de eventos.
+
+Como você pode ver na imagem acima, o serviço Order executa suas operações de caso de uso e atualiza sua própria tabela e, em vez de publicar um evento, ele escreve outra tabela com esse registro de evento e esse evento é lido de outro serviço e publica um evento.
+
+Por que usamos este padrão de caixa de saída? Se você estiver trabalhando com dados críticos que precisam ser consistentes e precisos para capturar todas as solicitações, é bom usar o padrão Caixa de saída. Se no seu caso, a atualização do banco de dados e o envio da mensagem devem ser atômicos para garantir a consistência dos dados, é bom usar o padrão de caixa de saída.
+
+Por exemplo, as transações de venda de pedidos, já está claro o quão importantes são esses dados. Porque eles são sobre negócios financeiros. Assim, os cálculos devem estar 100% corretos. Para poder acessar essa precisão, devemos ter certeza de que nosso sistema não está perdendo nenhuma mensagem de evento. Portanto, o padrão de caixa de saída deve ser aplicado neste tipo de casos.
+
+Portanto, devemos evoluir nossa arquitetura com a aplicação de outros padrões de dados de microsserviços para acomodar adaptações de negócios, tempo de lançamento no mercado mais rápido e lidar com solicitações maiores.
+
 ## [Microservices] Sidecar
 <img height="577" align="right" src="https://github.com/user-attachments/assets/79738b6d-a379-45c2-9d46-32dc5afb4a64" />
 
