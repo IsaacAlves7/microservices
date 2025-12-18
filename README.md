@@ -1636,6 +1636,62 @@ Exemplo de Implementação: Suponha um sistema de gerenciamento de pedidos:
   - **NotificacaoServiceImpl**: Implementação do serviço de notificação utilizando um serviço de e-mail externo.
 
 ## [Microservices] Clean architecture
+A **Arquitetura limpa** (Clean Architecture) é um conjunto de princípios e práticas que buscam organizar o código de uma aplicação de forma que ela seja sustentável, flexível e fácil de manter ao longo do tempo. A ideia central é separar claramente as responsabilidades das diferentes partes do sistema, mantendo os detalhes de implementação (como frameworks, bancos de dados ou interfaces) isolados do **núcleo da aplicação** (Application Core), que contém as regras de negócio e lógica central. Essa separação permite que mudanças em tecnologias externas, como a troca de um banco de dados ou a modificação de uma interface de usuário, não impactem diretamente o núcleo do sistema. 
+
+O Clean Code e a Clean Architecture são conceitos diferentes, embora ambos tenham como objetivo melhorar a qualidade e a manutenibilidade do software, eles se concentram em áreas distintas do desenvolvimento. Em resumo, o Clean Code se concentra na legibilidade e manutenibilidade do código em si, enquanto a Clean Architecture trata da organização e estruturação do sistema como um todo, visando criar sistemas mais independentes, testáveis e adaptáveis. Esses conceitos muitas vezes são aplicados em conjunto para desenvolver sistemas de software de alta qualidade e facilmente mantidos.
+
+As regras universais de arquitetura de software desempenham um papel fundamental na produtividade dos desenvolvedores ao longo da vida útil dos sistemas. Agora, aproveitando o sucesso dos aclamados livros "Código Limpo" e "O Codificador Limpo", o renomado artesão de software Robert C. Martin, também conhecido como "Uncle Bob", traz sua experiência para apresentar essas regras e auxiliar os leitores em sua aplicação.
+
+<img src="https://github.com/user-attachments/assets/038eb886-2db7-456a-a67c-3707b7020c31" align="right" height="177">
+
+> [!Important]
+> Em **A Arquitetura Limpa: O Guia do Artesão para Estrutura e Design de Software**, Martin vai além de um simples catálogo de opções. Com base em mais de meio século de experiência em diversos ambientes de software, ele oferece orientações sobre as escolhas cruciais e explica por que são essenciais para o sucesso. Como esperado de Uncle Bob, o livro apresenta soluções simples e diretas para os desafios reais enfrentados pelos desenvolvedores, desafios que podem determinar o êxito ou o fracasso de seus projetos.
+
+O desenvolvimento de software moderno geralmente envolve sistemas complexos que precisam se adaptar rapidamente às mudanças, sejam requisitos do usuário, atualizações de tecnologia ou mudanças de mercado.
+
+A Clean Architecture pode ajudar com isso. É uma filosofia de design de software que enfatiza a criação de sistemas fáceis de entender, manter e estender.
+
+<img src="https://github.com/user-attachments/assets/52dc9da7-7b78-42cc-91cf-a899804b2e4d" align="right" height="277">
+
+Em sua essência, a Clean Architecture tenta garantir que as partes mais importantes do seu aplicativo, como regras de negócios e lógica, sejam independentes de preocupações externas, como estruturas, bancos de dados ou interfaces de usuário.
+
+A Arquitetura Limpa foi popularizada por Robert C. Martin, também conhecido como Tio Bob. Ele introduziu o conceito em seu livro Clean Architecture, onde se baseou em paradigmas de design anteriores, como Hexagonal Architecture e Onion Architecture.
+
+<img width="1141" height="506" alt="clean-architecture-1" src="https://github.com/user-attachments/assets/0212933c-7199-4f15-ba63-94580c350a57" />
+
+O principal objetivo da Clean Architecture é:
+
+- Torne o software sustentável
+- Melhore a escalabilidade
+- Melhore a capacidade de teste dos componentes
+- Desacoplar a lógica de negócios dos detalhes externos
+
+Em termos simples, a Clean Architecture organiza um sistema de software em camadas, cada uma com uma responsabilidade específica. As dependências fluem apenas em uma direção: em direção à lógica de negócios principal. Essa estrutura ajuda a manter o sistema modular, testável e resiliente a alterações.
+
+Exploraremos os princípios-chave da Arquitetura Limpa e também examinaremos as várias partes da estrutura em camadas.
+
+A obra aborda uma ampla gama de tópicos, incluindo as metas dos arquitetos de software, disciplinas e práticas fundamentais para alcançá-las, princípios essenciais de design de software para lidar com funcionalidades, separação de componentes e gerenciamento de dados, além da influência dos paradigmas de programação na disciplina dos desenvolvedores. Martin também ensina a distinguir o que é crucialmente importante do que é apenas um "detalhe", e explora a implementação de estruturas de alto nível para diferentes tipos de aplicações. O livro ainda aborda a importância de estabelecer limites apropriados, organizar componentes e serviços, e oferece insights sobre a prevenção e correção de falhas em designs e arquiteturas, bem como a compreensão de suas causas.
+
+Com sua vasta experiência e expertise, Robert C. Martin fornece insights valiosos para o desenvolvimento de software de qualidade, tornando este livro um guia abrangente e prático para arquitetura de software eficiente. Se você busca aprimorar suas habilidades e elevar seu trabalho a um nível superior, "A Arquitetura Limpa" é uma leitura imprescindível que abrirá novos horizontes em sua jornada como desenvolvedor de software.
+
+O Clean Architecture é um conjunto de práticas para projetar a arquitetura de um sistema de software, separando as preocupações em camadas distintas e definindo claramente como as diferentes partes do sistema se relacionam. Enfatiza a separação de preocupações (separation of concerns), criando fronteiras bem definidas entre as camadas da aplicação. Propõe uma estrutura modular que permite que o código de negócio não dependa de detalhes de implementação externos, como banco de dados ou frameworks específicos. Busca criar sistemas flexíveis, testáveis e independentes de detalhes de implementação, facilitando a manutenção e a evolução do software ao longo do tempo.
+
+<img src="https://github.com/user-attachments/assets/8fc2d208-54d2-4e30-a01b-d26056dd268e" align="right" height="277">
+
+O foco está na independência e na testabilidade do código. Na arquitetura limpa, as regras de negócio não dependem de detalhes de implementação, mas o contrário pode acontecer: os detalhes devem se conformar às regras de negócio. Isso é alcançado por meio de camadas bem definidas, onde a camada mais interna (ou núcleo) contém as entidades e casos de uso, enquanto as camadas externas lidam com detalhes como APIs, frameworks ou dispositivos.
+
+Essa abordagem também promove a inversão de dependência, geralmente utilizando interfaces para desacoplar implementações concretas. O resultado é um sistema mais modular, onde cada parte pode ser alterada ou substituída sem afetar significativamente o restante da aplicação. Arquitetura limpa não é uma receita fixa, mas sim um guia para projetar sistemas que resistam à passagem do tempo e às inevitáveis mudanças de requisitos, priorizando sempre a clareza e a simplicidade no design.
+
+A arquitetura limpa se encaixa bem tanto em aplicações monolíticas quanto em arquiteturas de microserviços, pois seus princípios são agnósticos em relação à forma como o software é implantado ou estruturado. O objetivo principal da arquitetura limpa é organizar o código de maneira que ele seja fácil de manter, testar e evoluir, independentemente do contexto em que está sendo usado. 
+
+No caso de uma **aplicação monolítica**, a arquitetura limpa ajuda a modularizar o sistema internamente. Mesmo que todo o código esteja em um único processo ou projeto, a separação de camadas e responsabilidades evita que partes diferentes do sistema fiquem acopladas de forma inadequada. Isso significa que, mesmo em um monólito, é possível aplicar as mesmas boas práticas de desacoplamento que seriam usadas em microserviços. Além disso, facilita a refatoração ou a futura divisão do sistema em serviços menores, caso seja necessário migrar para microserviços no futuro.
+
+Por outro lado, em um contexto de **microserviços**, a arquitetura limpa é igualmente valiosa, pois cada serviço é tratado como uma unidade independente. Dentro de cada microserviço, os princípios da arquitetura limpa podem ser aplicados para garantir que ele tenha uma estrutura interna bem definida e resiliente a mudanças. Isso é especialmente importante em cenários de microserviços, onde a comunicação entre serviços já adiciona complexidade, e manter cada serviço coeso e bem organizado é fundamental para evitar problemas de manutenção e escalabilidade.
+
+Portanto, a arquitetura limpa não é restrita a um único paradigma de implantação. Ela é uma abordagem universal que visa garantir qualidade e sustentabilidade no desenvolvimento, seja em um monólito ou em um conjunto de microserviços. O contexto ideal depende mais das necessidades do sistema e dos objetivos do time do que do padrão arquitetural escolhido.
+
+![What is Clean Architecture2](https://github.com/user-attachments/assets/fbf314e1-e62a-4b5a-ad36-7b555426c097)
+
 
 ## [Microservices] DDD - Domain-Driven Design
 <img src="https://img.shields.io/badge/Python-3.10.7-3776AB?style=flat&logo=Python&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-339933?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/Ruby-3.3-CC342D?style=flat&logo=Ruby&logoColor=white"> <img src="https://img.shields.io/badge/Go-1.21-00ADD8?style=flat&logo=Go&logoColor=white"> <img src="https://img.shields.io/badge/PHP-8.2-777BB4?style=flat&logo=PHP&logoColor=white"> <img src="https://img.shields.io/badge/C++-23-F5455C?style=flat&logo=CPlusPlus&logoColor=white"> <img src="https://img.shields.io/badge/Java-22.0.1-chocolate?style=flat&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/.NET-8.0.300-512BD4?style=flat&logo=DotNet&logoColor=white"> <img src="https://img.shields.io/badge/Rust-1.82.0-dda584?style=flat&logo=Rust&logoColor=white"> <img src="https://img.shields.io/badge/UML-diagrams-purple?style=flat&logo=UML&logoColor=white"> 
