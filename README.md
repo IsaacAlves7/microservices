@@ -187,6 +187,19 @@ A aplicação no **AMQP** é igualmente poderosa, mas segue uma lógica mais ric
 
 A diferença fundamental na aplicação prática está na **filosofia de uso**. O MQTT, com seus tópicos hierárquicos e broker centralizado, é incrivelmente simples e intuitivo para cenários de IoT e telemetria, onde o foco é a disseminação eficiente de dados. O AMQP, com seu modelo baseado em Exchanges e Filas, oferece um controle muito mais granular sobre o fluxo de mensagens, permitindo padrões complexos de roteamento, persistência e garantias de entrega que são essenciais em sistemas empresariais. Em resumo, enquanto o MQTT oferece um "sistema de tópicos" pronto para uso, o AMQP fornece os "tijolos de construção" para que você mesmo monte seu próprio sistema de Pub/Sub com o nível de sofisticação exigido pela aplicação.
 
+**Space-based** architecture é um estilo arquitetural voltado principalmente para aplicações altamente escaláveis e resilientes, especialmente aquelas que enfrentam cargas de trabalho imprevisíveis ou picos de acesso intensos. A ideia central do modelo space-based é eliminar gargalos comuns de acesso e processamento centralizado — como ocorre em bancos de dados relacionais tradicionais — distribuindo o estado da aplicação em memória através de múltiplos nós (clusters) que compartilham um "espaço de dados" (data grid), de onde vem o termo "space". Essa abordagem busca minimizar a contenção por recursos compartilhados, permitindo que os nós operem de forma mais autônoma, mantendo o estado da aplicação localmente, replicando-o conforme necessário.
+
+No space-based, a aplicação é dividida em unidades chamadas de “processing units” (unidades de processamento), cada uma contendo a lógica de negócio, dados relevantes e, às vezes, o mecanismo de persistência local. Essas unidades são implantadas de forma redundante em diferentes servidores, e o sistema gerencia automaticamente o balanceamento de carga e a tolerância a falhas. Os dados e as tarefas de processamento são mantidos em um espaço distribuído em memória, como um cache altamente disponível, evitando assim o uso intensivo de banco de dados em tempo real. Isso é especialmente eficaz em sistemas como e-commerces durante Black Friday, sistemas bancários com transações simultâneas, ou qualquer cenário com grande volume de leitura e escrita concorrente.
+
+Essa arquitetura é inspirada no conceito de tuple space (espaço de tuplas), popularizado pelo modelo Linda de programação paralela, onde elementos podem ser inseridos, buscados ou removidos de um espaço compartilhado, de forma assíncrona e desacoplada. Ao utilizar esse espaço como uma camada de abstração entre os componentes do sistema, o space-based promove o desacoplamento, a escalabilidade horizontal e a alta disponibilidade. A persistência eventual em bancos de dados pode ser usada para backup ou consistência de longo prazo, mas não interfere no desempenho em tempo real.
+
+Em suma, space-based architecture é uma abordagem orientada à memória, com foco em escalabilidade e resiliência, onde os dados e processos circulam por um espaço distribuído e compartilhado entre os nós da aplicação. Ela é ideal para aplicações que não podem depender de uma única fonte de verdade centralizada e precisam operar sob alta concorrência e baixa latência.
+
+**Rule-based**, ou sistema baseado em regras, é uma abordagem na qual o comportamento de um sistema é determinado por um conjunto explícito de regras lógicas e condicionais, geralmente escritas na forma de “se... então...” (if... then...). Esse tipo de sistema atua avaliando constantemente as regras definidas em sua base de conhecimento para tomar decisões, executar ações ou inferir novos dados a partir de informações fornecidas como entrada. É um paradigma fortemente utilizado em inteligência artificial simbólica, sistemas especialistas, motores de decisão e automações de negócios. Em vez de escrever um fluxo rígido de controle de programação, o desenvolvedor ou especialista define um conjunto de condições e consequências, e o motor de regras se encarrega de aplicar essas instruções de acordo com os dados e o contexto.
+
+O grande diferencial de sistemas rule-based é a sua flexibilidade e facilidade de modificação. Como o comportamento é guiado por regras separadas da lógica de aplicação principal, é possível adaptar e expandir o sistema alterando ou adicionando novas regras, sem a necessidade de reescrever o código central. Essa característica os torna úteis em domínios onde o conhecimento muda com frequência ou onde especialistas não técnicos precisam alterar a lógica, como em sistemas jurídicos, financeiros, diagnósticos médicos ou motores de recomendação. Motores como Drools, no ecossistema Java, são exemplos típicos de implementação desse conceito, permitindo que o sistema reaja dinamicamente às entradas conforme as regras são disparadas.
+
+No entanto, sistemas baseados em regras também apresentam desafios, principalmente à medida que a complexidade aumenta. Quando há muitas regras interdependentes, pode se tornar difícil prever os efeitos colaterais de uma nova regra ou compreender completamente o comportamento do sistema. Além disso, sistemas rule-based não lidam bem com incerteza ou ambiguidade, como modelos probabilísticos fariam. Mesmo assim, sua transparência e explicabilidade os tornam ideais para contextos em que decisões precisam ser justificáveis e auditáveis. Portanto, rule-based é uma abordagem lógica e determinística, onde o conhecimento do domínio é traduzido em regras explícitas e aplicadas sistematicamente para produzir decisões, diagnósticos ou ações.
 
 ## [Microservices] Sistemas reativos
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
@@ -1464,6 +1477,28 @@ Em um projeto de um sistema de integração entre aplicações, alguns fatores/p
 - **MODO DE TRANSFERÊNCIA**: O modo de transferência em um sistema de mensagens pode ser entendido como a maneira pela qual os dados são transferidos de uma aplicação de origem para a aplicação receptora. Exemplo: Modos síncrono, assíncrono e em lote.
 
 ![527342228_1267838731798263_2909866205762398317_n](https://github.com/user-attachments/assets/5a759381-2886-47a2-868f-8393f007b337)
+
+**Event-Based Architecture** é frequentemente usada como sinônimo de Event-Driven Architecture. Quando alguém se refere a uma arquitetura baseada em eventos, geralmente está falando de um sistema onde os eventos desempenham um papel central na comunicação e no controle do fluxo de trabalho, com características semelhantes às descritas na EDA.
+
+As diferenças sutis, se houverem, se for necessário fazer uma distinção técnica entre Event-Based e Event-Driven, pode-se considerar:
+
+- Event-Based pode ser uma descrição mais ampla que inclui qualquer sistema que use eventos como parte de sua lógica, sem necessariamente seguir todos os princípios de uma arquitetura Event-Driven, como desacoplamento rigoroso e comunicação assíncrona.
+
+- Event-Driven implica um conjunto mais específico de princípios e práticas que promovem a reatividade, a escalabilidade e o desacoplamento através do uso de eventos.
+
+Um **Event-bus**, ou barramento de eventos, é um padrão de arquitetura de software usado para facilitar a comunicação assíncrona entre diferentes partes de um sistema distribuído. Ele permite que os componentes do sistema comuniquem-se entre si sem ter conhecimento direto uns dos outros.
+
+Basicamente, um Event-bus atua como um intermediário entre os vários componentes de um sistema, permitindo que eles publiquem eventos (mensagens, notificações, atualizações etc.) e se inscrevam para receber eventos específicos que são relevantes para eles.
+
+Existem dois tipos principais de Event-bus:
+
+- Event-bus baseado em mensagens: Neste tipo, os componentes enviam e recebem mensagens assíncronas através de um barramento centralizado. Cada componente pode ser um produtor (enviando eventos) ou um consumidor (recebendo eventos). Exemplos populares incluem Apache Kafka, RabbitMQ e ActiveMQ.
+
+- Event-bus baseado em publish/subscribe (publicar/inscrever-se): Aqui, os componentes publicam eventos em "tópicos" específicos e outros componentes se inscrevem nos tópicos relevantes para receber esses eventos. Quando um evento é publicado em um tópico, todos os assinantes desse tópico recebem o evento. Exemplos incluem o uso de sistemas de mensagens como MQTT ou tecnologias como Redis Pub/Sub.
+
+O Event-bus é amplamente utilizado em arquiteturas de microsserviços, sistemas distribuídos e ambientes orientados a eventos, pois oferece flexibilidade, escalabilidade e desacopla os componentes do sistema, permitindo que eles evoluam independentemente.
+
+Ao adotar um Event-bus, é essencial planejar cuidadosamente os eventos que serão enviados e recebidos, garantir a confiabilidade na entrega de mensagens e considerar a escalabilidade e o desempenho do sistema como um todo.
 
 ## [Microservices] Outbox Pattern
 <img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" />
