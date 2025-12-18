@@ -1078,6 +1078,44 @@ Neste exemplo monolítico, a classe chama diretamente métodos dentro e . Como t
 
 <img width="720" height="364" alt="image" src="https://github.com/user-attachments/assets/41b090e2-732a-4ce0-ad08-b85b9d0b08e6" />
 
+## [Microservices] Event Sourcing
+**Event Sourcing** é um padrão de arquitetura em que o estado de uma aplicação não é armazenado diretamente em estruturas de dados tradicionais, como tabelas com os dados finais atualizados, mas sim reconstruído a partir de uma sequência de eventos que descrevem tudo o que aconteceu com aquele dado ao longo do tempo. Em vez de gravar apenas o estado atual de uma entidade, cada mudança de estado é registrada como um evento imutável e persistido de forma sequencial. 
+
+Por exemplo, em vez de simplesmente atualizar o saldo de uma conta bancária, o sistema registraria eventos como “depósito de 100”, “saque de 50”, “transferência de 200 recebida”, e assim por diante. O estado atual da conta pode ser reconstruído a qualquer momento aplicando essa sequência de eventos na ordem em que ocorreram.
+
+Essa abordagem tem diversas vantagens. Ela garante uma trilha auditável de tudo que aconteceu no sistema, o que é extremamente útil para rastreabilidade, debugging e conformidade. Além disso, permite flexibilidade para construir diferentes projeções ou visualizações dos dados, já que os eventos podem ser reprocessados para gerar outras formas de representar o estado. Também facilita integrações com outras partes do sistema que queiram reagir a eventos, alimentando notificações, logs ou sincronizações com outras bases. Em sistemas altamente distribuídos, especialmente quando usados em conjunto com o padrão CQRS (Command Query Responsibility Segregation), o Event Sourcing se encaixa muito bem, pois separa claramente o que muda os dados (comandos e eventos) do que apenas os consulta (queries e projeções).
+
+Por outro lado, Event Sourcing também traz complexidades. Como os eventos são imutáveis, qualquer mudança de lógica de negócio pode demandar a reinterpretação ou migração de eventos antigos, o que exige cuidado com versionamento de eventos. Além disso, reconstruir o estado de entidades pode se tornar custoso com muitos eventos, exigindo uso de snapshots intermediários. Apesar disso, em sistemas onde a rastreabilidade, auditabilidade e reatividade são prioridades, o Event Sourcing oferece um modelo poderoso e alinhado com a natureza temporal dos dados. Ele muda a forma de pensar o estado: não como algo fixo e mutável, mas como uma consequência acumulada de tudo que já aconteceu.
+
+O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD tradicional e o design de um sistema de Event Sourcing. Usamos um serviço de pedidos como exemplo:
+
+![unnamed](https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220)
+
+O paradigma de Event Sourcing é usado para projetar um sistema com determinismo. Isso altera a filosofia dos projetos de sistemas tradicionais.
+
+Como isso funciona? Em vez de registrar os estados dos pedidos no banco de dados, o design de Event Sourcing persiste os eventos que levam às mudanças de estado no repositório de eventos. O repositório de eventos é um log de somente acréscimo. Os eventos devem ser sequenciados com números incrementais para garantir sua ordem. Os estados dos pedidos podem ser reconstruídos a partir dos eventos e mantidos na OrderView. Se a OrderView estiver indisponível, podemos sempre contar com o repositório de eventos, que é a fonte da verdade, para recuperar os estados dos pedidos.
+
+Vejamos os passos detalhados:
+
+Sem Event Sourcing:
+
+- Passos 1 e 2: Bob quer comprar um produto. O pedido é criado e inserido no banco de dados.
+- Passos 3 e 4: Bob quer alterar a quantidade de 5 para 6. O pedido é modificado com um novo estado.
+
+Com Event Sourcing:
+
+- Passos 1 e 2: Bob quer comprar um produto. Um evento `NewOrderEvent` é criado, sequenciado e armazenado no repositório de eventos com `eventID=321`.
+- Etapas 3 e 4: Bob deseja alterar a quantidade de 5 para 6. Um evento `ModifyOrderEvent` é criado, sequenciado e persistido no repositório de eventos com `eventID=322`.
+- Etapa 5: A visualização do pedido é reconstruída a partir dos eventos do pedido, mostrando o estado mais recente de um pedido.
+
+A maioria dos aplicativos opera com dados, e o método comum é o programa manter os dados em seu estado atual, atualizando-os quando os usuários interagem com eles. Na arquitetura clássica de criar, ler, atualizar e excluir (CRUD), por exemplo, uma operação típica de dados é receber dados do armazenamento, fazer algumas alterações neles e então atualizar o estado atual dos dados com os novos valores — muitas vezes utilizando transações que travam os dados.
+
+O design de Event Sourcing define um método para lidar com atividades de dados que são acionadas por uma série de eventos, cada um dos quais é registrado em um armazenamento apenas de anexação. O código da aplicação entrega uma série de eventos para o armazenamento de eventos, onde eles são mantidos em manuse, que devem descrever cada ação que ocorreu nos dados. Cada evento descreve uma coleção de mudanças de dados (por exemplo, "`AddedItemToOrder`").
+
+<img width="720" height="459" alt="image" src="https://github.com/user-attachments/assets/c82a6be2-9c44-4148-8715-14edfae6801e" />
+
+Os eventos são salvos em um armazenamento de eventos, que serve como sistema de registro (a fonte oficial de dados) para o estado atual dos dados. Esses eventos geralmente são publicados pelo varejista para que os consumidores estejam cientes e possam lidar com eles, se necessário. Os consumidores podem, por exemplo, iniciar tarefas que aplicam as operações dos eventos a outros sistemas, ou podem executar qualquer outra ação associada necessária para concluir o processo. Vale notar que o código da aplicação que gera os eventos é separado dos sistemas que os subscrevem.
+
 ## [Microservices] Event-bus
 <img src="https://em-content.zobj.net/source/microsoft-teams/400/bus_1f68c.png" align="right" height="77">
 
