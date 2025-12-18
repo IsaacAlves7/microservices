@@ -1659,8 +1659,8 @@ A Arquitetura Limpa foi popularizada por Robert C. Martin, também conhecido com
 
 <table>
 	<tr>
-		<td><img src="https://github.com/user-attachments/assets/52dc9da7-7b78-42cc-91cf-a899804b2e4d"></td>
-		<td><img src="https://github.com/user-attachments/assets/0212933c-7199-4f15-ba63-94580c350a57" /></td>
+		<td><img src="https://github.com/user-attachments/assets/52dc9da7-7b78-42cc-91cf-a899804b2e4d" height="50%"></td>
+		<td><img src="https://github.com/user-attachments/assets/0212933c-7199-4f15-ba63-94580c350a57" height="50%"></td>
 	</tr>
 </table>
 
