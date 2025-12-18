@@ -2130,7 +2130,9 @@ Comecei com minha equipe a adotar o Domain-Driven Design (DDD) em nosso trabalho
 > [!Note]
 > Não existe tal arquitetura que sirva para todos. Toda arquitetura ou padrão de desenvolvimento de software tem prós e contras; Baseie sua decisão no projeto, no escopo e na equipe. Vamos descrever o caminho que tomamos.
 
-<img height="477" src="https://github.com/user-attachments/assets/e5af5f61-d5e1-4d2f-af36-cab98828ac36" />
+Exemplo: DDD + Hexagonal Architecture
+
+<img src="https://github.com/user-attachments/assets/e5af5f61-d5e1-4d2f-af36-cab98828ac36" />
 
 Nos concentraremos em como estruturamos o código de acordo com DDD e Clean Architecture, para que o código também fale a linguagem onipresente do domínio com mais facilidade:
 
