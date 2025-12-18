@@ -1653,13 +1653,16 @@ O desenvolvimento de software moderno geralmente envolve sistemas complexos que 
 
 A Clean Architecture pode ajudar com isso. É uma filosofia de design de software que enfatiza a criação de sistemas fáceis de entender, manter e estender.
 
-<img src="https://github.com/user-attachments/assets/52dc9da7-7b78-42cc-91cf-a899804b2e4d" align="right" height="277">
-
 Em sua essência, a Clean Architecture tenta garantir que as partes mais importantes do seu aplicativo, como regras de negócios e lógica, sejam independentes de preocupações externas, como estruturas, bancos de dados ou interfaces de usuário.
 
 A Arquitetura Limpa foi popularizada por Robert C. Martin, também conhecido como Tio Bob. Ele introduziu o conceito em seu livro Clean Architecture, onde se baseou em paradigmas de design anteriores, como Hexagonal Architecture e Onion Architecture.
 
-<img width="1141" height="506" alt="clean-architecture-1" src="https://github.com/user-attachments/assets/0212933c-7199-4f15-ba63-94580c350a57" />
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/52dc9da7-7b78-42cc-91cf-a899804b2e4d"></td>
+		<td><img src="https://github.com/user-attachments/assets/0212933c-7199-4f15-ba63-94580c350a57" /></td>
+	</tr>
+</table>
 
 O principal objetivo da Clean Architecture é:
 
