@@ -7,6 +7,10 @@ Em engenharia de software, uma arquitetura de **microsserviços** (microservices
 
 > Um **serviço** (service) é uma parte da nossa aplicação back-end isolada, contendo as regras de negócio, APIs e controle de dados.
 
+Os microserviços representam uma mudança de paradigma na arquitetura de software, dividindo as aplicações em pequenos serviços implantáveis de forma independente. Essa abordagem oferece flexibilidade incomparável na escalabilidade e manutenção dos componentes do sistema, permitindo que as organizações desenvolvam e evoluam diferentes partes de suas aplicações de forma independente.
+
+Com base em nossa discussão anterior sobre arquiteturas de 3 níveis, que podem ser implementadas usando abordagens monolíticas ou microserviços, este artigo explora os conceitos e insights essenciais dos microsserviços. Nosso objetivo é fornecer uma compreensão abrangente desse paradigma contemporâneo de design de sistemas, equipando você com conhecimentos cruciais para a arquitetura moderna de software e preparando para se destacar nas próximas entrevistas.
+
 **Um microsserviço** é um serviço web responsável por parte da lógica de domínio. Vários microsserviços são combinados para criar um aplicativo, e cada um representa uma funcionalidade para o domínio. Os microsserviços interagem uns com os outros por meio de APIs, como REST ou gRPC ou GraphQL, mas não têm conhecimento da atividade interna de outros serviços. Essa interação harmoniosa entre microsserviços é a arquitetura de microsserviços. Ele faz com que o software seja composto de múltiplos serviços de ligação solta que são independentes uns dos outros e implantados separadamente.
 
 Os microsserviços surgiram como uma alternativa mais popular a SOA devido aos seus benefícios. Os microsserviços são mais compostos, permitindo que as equipes reutilizem a funcionalidade oferecida pelos pequenos pontos centrais de serviço. Os microsserviços são mais robustos e permitem um escalonamento vertical e horizontal mais dinâmico. Portanto, eles são um padrão de arquitetura orientado a serviços em que os aplicativos são construídos como uma coleção de várias unidades de serviço independentes menores. 
