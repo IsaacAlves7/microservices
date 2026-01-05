@@ -1609,6 +1609,18 @@ Na arquitetura de microserviços, comunicar-se por meio de chamadas remotas de p
 
 Nessa situação, é muito importante desconectar os componentes/serviços que estão falhando e não solicitar mais informações sabendo que estão falhando no momento, permitindo que o sistema se recupere. Um componente de disjuntor pode facilmente desconectar serviços que falharam a jusante.
 
+1. **O fracasso que não ficou contido**: Começou, como essas coisas costumam acontecer, com um gráfico um pouco estranho. Um serviço a jusante foi mais lento que o normal — não foi para baixo, apenas lento. Nenhum alerta disparado. As taxas de erro estavam boas. Mas em poucos minutos, os painéis de serviços não relacionados começaram a ficar âmbar, depois vermelhos. Latências aumentaram lentamente. Piscinas de fios preenchidas. Tentativas se acumulavam sobre chamadas já lentas. De repente, o problema não era mais aquele serviço — era tudo.
+
+O que tornava tudo doloroso em retrospecto era o quão previsível era. Nada exótico falhou. Sem falha no data center. Apenas uma dependência sendo lenta, permitida continuar prejudicando seus chamadores. Este artigo não é sobre prevenir falhas completamente. É sobre contê-los. Disjuntores não são uma solução mágica. Eles são uma forma de impedir que uma interação ruim arraste uma plataforma inteira para baixo.
+
+![1_2MQxm46MrcgLVZ37g2rmXQ](https://github.com/user-attachments/assets/e7daddf3-64a2-4427-a4a7-985202917205)
+
+2. **Como as falhas em cascata realmente acontecem**: A maioria das falhas em cascata não é misteriosa. Eles são mecânicos.
+
+Imagine uma cadeia simples: `Serviço A → Serviço B → Serviço C`
+
+O serviço C desacelera — talvez um problema no banco de dados, talvez pressão do GC. O serviço B chama C sincronizadamente, espera
+
 <img src="https://github.com/user-attachments/assets/f997bedf-6422-4006-b83b-5510cd07430f" align="right" height="177">
 
 > [!Important]
