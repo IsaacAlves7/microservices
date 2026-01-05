@@ -480,9 +480,19 @@ Portanto, devemos evoluir nossa arquitetura com a aplicação de outros padrões
 
 <img src="https://github.com/user-attachments/assets/54637f6c-1d52-43e8-bfbd-f59840a423b8" align="right" height="77">
 
-O padrão **Saga** é uma abordagem para gerenciar transações distribuídas em uma arquitetura de microsserviços. Em sistemas distribuídos, uma **transação** (transaction) pode envolver múltiplos microsserviços, o que torna o uso de transações tradicionais (como as que utilizam o protocolo de commit em duas fases) impraticável devido à complexidade e ao impacto na performance. O padrão Saga oferece uma maneira de garantir a consistência dos dados e a execução das transações em tais sistemas. O padrão Saga é frequentemente associado ao conceito de Long-Running Transactions (LRTs).
+O padrão **Saga** é uma abordagem para gerenciar transações distribuídas em uma arquitetura de microsserviços. Em sistemas distribuídos, uma **transação** (transaction) pode envolver múltiplos microsserviços, o que torna o uso de transações tradicionais (como as que utilizam o protocolo de commit em duas fases) impraticável devido à complexidade e ao impacto na performance. O padrão Saga oferece uma maneira de garantir a consistência dos dados e a execução das transações em tais sistemas. O padrão Saga é frequentemente associado ao conceito de Long-Running Transactions (LRTs). Foi originalmente proposto pelos cientistas da computação Hector Gracia Molina e Kenneth Salem.
 
 > SAGA pode ser descrito como uma sequência de transações que podem ser intercaladas com outras transações.
+
+> [!Caution]
+> **Problema**: Microserviços têm suas próprias vantagens e desvantagens. Uma dessas desvantagens é gerenciar transações distribuídas. Digamos que sua transação abrange 4 microserviços diferentes. Como garantir que sua transação seja confirmada com sucesso com todas as 4 tarefas ou fracasse se alguma das tarefas não for concluída (as concluídas forem revertidas)? O Spring Boot fornece a `@Transactional` de anotação para gerenciar transações. Mas isso funciona apenas dentro de um único método e dentro de um único projeto.
+
+O Spring Boot fornece a @Transactional de anotação para gerenciar transações.
+
+Mas isso funciona apenas dentro de um único método e dentro de um único projeto.
+
+Solução
+Existe um padrão de design que resolve o problema com transações distribuídas em microserviços.
 
 Nos aprofundamos no intrincado mundo das transações distribuídas através das lentes do padrão SAGA, uma estratégia fundamental para gerenciar a consistência de dados em arquiteturas de microsserviços descentralizadas. Com o brilho dos microsserviços, o SAGA é quase a solução ideal quando se trata de transações distribuídas, entender como lidar efetivamente com transações que abrangem vários serviços torna-se crucial. Esta discussão visa não apenas esclarecer os princípios fundamentais dos SAGAs, mas também fornecer insights práticos sobre sua aplicação estratégica, garantindo interações robustas e sem erros dentro de seus serviços.
 
