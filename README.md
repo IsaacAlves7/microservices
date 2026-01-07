@@ -2831,6 +2831,8 @@ A arquitetura hexagonal, também conhecida como arquitetura de portas e adaptado
 
 Por exemplo, um Interactor pode obter a entrada do usuário de um formulário da Web (por meio de um adaptador de entrada), processá-la por meio de regras de negócios e, em seguida, persistir os resultados usando um repositório (por meio de um adaptador de saída).
 
+![0_qLwWGERvZjcqs0ii](https://github.com/user-attachments/assets/3372d7a2-4d5e-4f72-b0c9-aa3374bfb780)
+
 5. **Repositórios** (camada de persistência): Os repositórios são usados para gerenciar a persistência de dados. Eles fornecem uma camada entre a lógica principal e o sistema de armazenamento de dados (como um banco de dados). Os repositórios geralmente são implementados como adaptadores de saída que interagem com o banco de dados por meio de portas de saída. Eles encapsulam a lógica necessária para recuperar e armazenar dados em sistemas de armazenamento externos, permitindo que a lógica principal permaneça independente do banco de dados.
 
 6. **Camada de transporte**: A camada de transporte lida com a comunicação entre usuários ou sistemas externos e o aplicativo. Isso pode incluir o tratamento de solicitações HTTP, filas de mensagens ou outras formas de operações de entrada/saída. A camada de transporte interage com os adaptadores de entrada para encaminhar solicitações ao sistema principal. Na Arquitetura Hexagonal, essa camada é desacoplada da lógica de negócios, permitindo que o sistema suporte vários mecanismos de comunicação (por exemplo, API REST, WebSocket, etc.).
