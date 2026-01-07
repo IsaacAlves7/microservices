@@ -1861,7 +1861,6 @@ Portanto, a arquitetura limpa não é restrita a um único paradigma de implanta
 
 ![What is Clean Architecture2](https://github.com/user-attachments/assets/fbf314e1-e62a-4b5a-ad36-7b555426c097)
 
-
 ## [Microservices] DDD - Domain-Driven Design
 <img src="https://img.shields.io/badge/Python-3.10.7-3776AB?style=flat&logo=Python&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-339933?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/Ruby-3.3-CC342D?style=flat&logo=Ruby&logoColor=white"> <img src="https://img.shields.io/badge/Go-1.21-00ADD8?style=flat&logo=Go&logoColor=white"> <img src="https://img.shields.io/badge/PHP-8.2-777BB4?style=flat&logo=PHP&logoColor=white"> <img src="https://img.shields.io/badge/C++-23-F5455C?style=flat&logo=CPlusPlus&logoColor=white"> <img src="https://img.shields.io/badge/Java-22.0.1-chocolate?style=flat&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/.NET-8.0.300-512BD4?style=flat&logo=DotNet&logoColor=white"> <img src="https://img.shields.io/badge/Rust-1.82.0-dda584?style=flat&logo=Rust&logoColor=white"> <img src="https://img.shields.io/badge/UML-diagrams-purple?style=flat&logo=UML&logoColor=white"> 
 
@@ -2734,6 +2733,12 @@ Sendo um ensaio de arquitetura, não discutiremos os mecanismos e tecnologias do
 
 > [!Note]
 > Esses padrões e pontos de vista da arquitetura de integração resistirão ao teste do tempo. Gosto de estudar e descrever ideias estáveis pelo seu valor prático. Veja as formas fundamentais pelas quais as coisas interagem; Tudo flui a partir daí. Vá em frente e arquitete, arquiteto.
+
+O termo 'micro' em Microserviços, embora indicativo do tamanho de um serviço, não é o único critério que torna uma aplicação um Microserviço. Quando as equipes migram para uma arquitetura baseada em microserviços, elas buscam aumentar sua agilidade — implantando recursos de forma autônoma e frequente. É difícil definir uma única definição concisa desse estilo arquitetônico. Gostei dessa breve definição:
+
+> "arquitetura orientada a serviços composta por elementos frouxamente acoplados que possuem contextos limitados." — Adrian Cockcroft
+
+Embora isso defina uma heurística de design de alto nível, a arquitetura de microserviços possui algumas características únicas que a diferenciam da arquitetura orientada a serviços de antigamente. Algumas dessas características, abaixo. Esses e alguns outros são bem documentados — <a href="https://martinfowler.com/articles/microservices.html">o artigo de Martin Fowler</a> e Building Microservices, de Sam Newman, para citar alguns.
 
 ## [Microservices] Hexagonal architecture (Ports & Adapters)
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-limegreen?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Kotlin-16-indigo?style=flat&logo=Kotlin&logoColor=white">  <img src="https://img.shields.io/badge/.NET-10-indigo?style=flat&logo=.NET&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-339933?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16-orange?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17-blue?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16-lime?style=flat&logo=MongoDB&logoColor=white">
