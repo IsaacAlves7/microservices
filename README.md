@@ -2853,7 +2853,7 @@ A arquitetura hexagonal desempenha um papel significativo no projeto do sistema 
 
 A arquitetura hexagonal, também conhecida como arquitetura de portas e adaptadores, consiste em vários componentes-chave que trabalham juntos para criar um sistema flexível, desacoplado e sustentável. Aqui estão os principais componentes da Arquitetura Hexagonal:
 
-<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/8dd1424b-090d-4ce5-9227-a704d680f5e4" align="right" height="377">
+<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/8dd1424b-090d-4ce5-9227-a704d680f5e4" height="377">
 
 1. **Entidades** (Core Business Logic): No coração da Arquitetura Hexagonal estão as Entidades, que representam a lógica de negócios principal e as regras do aplicativo. Essas entidades são completamente independentes de sistemas externos e permanecem isoladas de preocupações como bancos de dados ou interfaces de usuário. O objetivo é garantir que a lógica de negócios seja encapsulada e possa operar independentemente de como os dados são recebidos ou persistidos.
 
