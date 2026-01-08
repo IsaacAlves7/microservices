@@ -142,7 +142,7 @@ Construir software escalável exige que um engenheiro/arquiteto de software esco
 
 Arquitetura monolítica geralmente é a primeira escolha em mente para a maioria dos engenheiros porque é fácil e não precisa lidar com a complexidade do sistema distribuído, já que toda uma aplicação está no mesmo enorme código quando lida com entrega ágil de software; A aplicação monolith pode não ser a escolha certa porque, quando fazer pequenas alterações no código exige que implantemos uma aplicação inteira, o que pode ser demorado, outra coisa é que nem podemos escalar componentes/serviços individuais.
 
-Se houver um erro em qualquer módulo/funcionalidade/serviço, isso pode afetar a disponibilidade de toda a aplicação e é por isso que a Microservice Architecture vem ao resgate.
+Se houver um erro em qualquer módulo/funcionalidade/serviço, isso pode afetar a disponibilidade de toda a aplicação e é por isso que a <a href="https://medium.com/javarevisited/do-you-know-about-microservices-and-their-design-patterns-e8d7c8193dfe">Microservice Architecture</a> vem ao resgate.
 
 Aqui estão os 10 padrões de microserviços que os engenheiros de software devem conhecer:
 
