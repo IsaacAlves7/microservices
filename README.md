@@ -2853,7 +2853,12 @@ A arquitetura hexagonal desempenha um papel significativo no projeto do sistema 
 
 A arquitetura hexagonal, também conhecida como arquitetura de portas e adaptadores, consiste em vários componentes-chave que trabalham juntos para criar um sistema flexível, desacoplado e sustentável. Aqui estão os principais componentes da Arquitetura Hexagonal:
 
-<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/8dd1424b-090d-4ce5-9227-a704d680f5e4" height="377">
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/945d2d87-6b9f-4700-81e2-cd95451070f5" height="477"></td>
+		<td><img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/8dd1424b-090d-4ce5-9227-a704d680f5e4" height="477"></td>
+	</tr>
+</table>
 
 1. **Entidades** (Core Business Logic): No coração da Arquitetura Hexagonal estão as Entidades, que representam a lógica de negócios principal e as regras do aplicativo. Essas entidades são completamente independentes de sistemas externos e permanecem isoladas de preocupações como bancos de dados ou interfaces de usuário. O objetivo é garantir que a lógica de negócios seja encapsulada e possa operar independentemente de como os dados são recebidos ou persistidos.
 
@@ -2905,8 +2910,6 @@ Embora a arquitetura hexagonal ofereça inúmeros benefícios, ela também apres
 5. Mais abstrações para gerenciar: A arquitetura hexagonal envolve várias camadas de abstração - portas, adaptadores, entidades, interagentes - cada uma responsável por diferentes aspectos do sistema. Embora essas abstrações sejam essenciais para o desacoplamento, às vezes elas podem dificultar os problemas de depuração e rastreamento, pois você precisa navegar por várias camadas para entender o fluxo de dados e a lógica.
 
 A implementação da arquitetura hexagonal requer uma estratégia cuidadosa para garantir que o sistema mantenha seus benefícios de flexibilidade, desacoplamento e capacidade de manutenção. Aqui estão as principais estratégias para implementar com sucesso a arquitetura hexagonal no projeto do sistema:
-
-<img src="https://github.com/user-attachments/assets/945d2d87-6b9f-4700-81e2-cd95451070f5" align="right" height="477">
 
 1. Comece com a Lógica de Domínio Principal (Entidades): Defina a lógica de negócios principal: comece implementando a lógica de negócios principal (entidades). A parte central da Arquitetura Hexagonal é o modelo de domínio, que deve permanecer independente de sistemas externos, como bancos de dados, APIs ou interfaces de usuário. Isso garante que as regras de negócios estejam no centro do sistema e não sejam afetadas por alterações na infraestrutura.
 
