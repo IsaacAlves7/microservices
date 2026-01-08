@@ -2795,7 +2795,7 @@ A arquitetura hexagonal foi inventada por Alistair Cockburn em 2005, em uma tent
 
 Os objetivos de uma Arquitetura Hexagonal são parecidos com os de uma Arquitetura Limpa. Mas, para reforçar, a ideia é construir sistemas que favorecem reusabilidade de código, alta coesão, baixo acoplamento, independência de tecnologia e que são mais fáceis de serem testados. A arquitetura hexagonal, também conhecida como arquitetura de portas e adaptadores, pode ser combinada com outras arquiteturas e designs de software para criar sistemas mais robustos e flexíveis como a Arquitetura em Camadas (N-Tier/ Layered Architecture), SOA - Arquitetura Orientada a Serviços, Microservices, DDD - Domain-Driven Design, Arquitetura Limpa e CQRS - Command Query Responsibility Segregation.
 
-Uma Arquitetura Hexagonal divide as classes de um sistema em dois grupos principais:
+Uma <a href="https://medium.com/codex/clean-architecture-for-dummies-df6561d42c94">Arquitetura Hexagonal</a> divide as classes de um sistema em dois grupos principais:
 
 <img src="https://github.com/user-attachments/assets/a83de780-4af3-4860-9433-381fce97116e" align="right" height="377">
 
