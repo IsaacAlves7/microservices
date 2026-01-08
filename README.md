@@ -1562,7 +1562,7 @@ O Event-bus é amplamente utilizado em arquiteturas de microsserviços, sistemas
 Ao adotar um Event-bus, é essencial planejar cuidadosamente os eventos que serão enviados e recebidos, garantir a confiabilidade na entrega de mensagens e considerar a escalabilidade e o desempenho do sistema como um todo.
 
 ## [Microservices] Outbox Pattern
-<img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" />
+<a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
 Simplesmente, quando sua API publica mensagens de evento, ela não as envia diretamente. Em vez disso, as mensagens são mantidas em uma tabela de banco de dados. Depois disso, um trabalho publica eventos no sistema do agente de mensagens em intervalos de tempo predefinidos.
 
