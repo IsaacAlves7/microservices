@@ -138,6 +138,34 @@ Use um sistema de monitoramento eficaz: A arquitetura de microserviços ajuda vo
 
 Essa comunicação é muito simples, mas ao mesmo tempo os componentes são altamente acoplados uns aos outros e difíceis de separar e escalar de forma independente.
 
+Construir software escalável exige que um engenheiro/arquiteto de software escolha a arquitetura certa, especialmente ao construir software/aplicações empresariais.
+
+Arquitetura monolítica geralmente é a primeira escolha em mente para a maioria dos engenheiros porque é fácil e não precisa lidar com a complexidade do sistema distribuído, já que toda uma aplicação está no mesmo enorme código quando lida com entrega ágil de software; A aplicação monolith pode não ser a escolha certa porque, quando fazer pequenas alterações no código exige que implantemos uma aplicação inteira, o que pode ser demorado, outra coisa é que nem podemos escalar componentes/serviços individuais.
+
+Se houver um erro em qualquer módulo/funcionalidade/serviço, isso pode afetar a disponibilidade de toda a aplicação e é por isso que a Microservice Architecture vem ao resgate.
+
+Aqui estão os 10 padrões de microserviços que os engenheiros de software devem conhecer:
+
+- API Gateway: É o ponto de entrada para acessar qualquer microserviço e podemos implementar aqui questões transversais como Segurança, Limite de Taxa e Balanceamento de Carga. Podemos usar o Spring Cloud Zuul ou o Spring Cloud Gateway para implementar isso.
+
+- Service Discovery: Permitir que os serviços se encontrem por meio de um nome em vez de um IP. Por que não propriedade intelectual? Porque o IP frequentemente muda em tempo de execução devido à frequência com que os containers são girados e destruídos. Podemos usar o serviço Spring Cloud Eureka ou Kubernetes para implementar isso.
+
+- Circuit breaker: Esse padrão é muito útil ao lidar com erros transitórios. Por exemplo, quando o serviço a chama o serviço b e o serviço b está indisponível (timeout), ele pode retornar um resultado de cache como resposta padrão ou um recurso de retenção para fazer uma solicitação a outro serviço auxiliar para obter o resultado e permitir que o serviço b recupere sem tentar fazer mais requisições para ele. Podemos usar Hystrix ou Resilient4J para implementar isso.
+
+- Bulkhead: Esse padrão ajuda a lidar com a tolerância a falhas relacionada ao pool de threads, dividindo o pool de threads com base no número de serviços que precisavam ser chamados. Por exemplo, definimos um pool de 50 threads no serviço A e o serviço A fará requisições para os serviços B e C. Assim, o serviço A deve dividir o pool de 50 threads em 2 (25 para o serviço B, outros 25 para o serviço C), assim, se o serviço C não estiver disponível ou demorar mais para processar a solicitação, isso não afete a chamada do serviço B porque ele tem seu próprio pool de threads para realizar o trabalho. Podemos usar o Resilient4J para implementar isso.
+
+- CQRS: poderíamos separar Command(write) e Query(read), o que significa que poderíamos projetar uma tabela de banco de dados otimizando para escrita e leitura de forma diferente para escalabilidade.
+
+- Event Driven Pattern: Esse padrão permite um acoplamento frouxo entre serviços, o que significa que os serviços não precisam se conhecer para se comunicar. O protocolo de comunicação geralmente ocorre por meio de eventos usando Mensagens Queue, como AMQP (RabbitMQ) ou Apache Kafka.
+
+- Saga: Como sabemos, lidar com sistemas distribuídos é difícil, especialmente quando se trata de transações distribuídas; O commit de 2 fases era a melhor opção, mas devido à sua natureza de bloqueio pessimista, dificulta escalar, por isso os padrões Saga entram em cena. Existem maneiras de implementar o padrão Saga, que são Orquestração e Coreografia.
+
+- Strangler Pattern: Esta é uma forma de decompor uma aplicação monólita em microsserviços, extraindo gradualmente cada recurso do aplicativo monolítico em microsserviços individuais e permitindo que a aplicação monolítica chame esses novos microsserviços. Ao criar novos recursos, comece criando um novo microserviço em vez de criar esse novo recurso dentro do aplicativo monolito. A extração também pode incluir a criação de um novo banco de dados para esses novos serviços.
+
+- Sidecar: Provavelmente um dos padrões mais legais de conhecer. Por quê? porque é uma forma de conectar serviços de negócios transversais como um sidecar ao serviço empresarial real. Normalmente, isso é feito implantando um serviço de sidecar no mesmo pod do serviço empresarial propriamente dito. Caso de uso: comunicação segura, entre serviço e serviço, implementação de logging ou métrica. Podemos usar o proxy do Envoy como sidecar.
+
+- BFF: Também conhecido como Backend para Frontend. Implementar microserviços para cada plataforma permite mais personalização/otimização com base em cada plataforma. Por exemplo, um aplicativo móvel pode não precisar de fotos ou vídeos de grande porte como aplicativos web, mas lembre-se de que o serviço pode ser redundante.
+
 **Component-based** é uma abordagem de arquitetura de software onde os sistemas são construídos a partir de unidades modulares e reutilizáveis chamadas componentes. Cada componente é uma entidade funcional independente, encapsulando dados, lógica de negócio e comportamento, podendo ser desenvolvido, testado e mantido de forma isolada. O principal objetivo do component-based é promover reutilização, manutenção facilitada, escalabilidade e separação de preocupações. Em vez de criar sistemas como blocos monolíticos de código interdependente, o component-based permite montar aplicações como se fossem conjuntos de peças de Lego, onde cada peça realiza uma função específica e pode ser substituída ou atualizada sem impactar o todo, desde que sua interface permaneça a mesma.
 
 Na prática, os componentes possuem interfaces bem definidas e comunicam-se entre si de forma controlada, muitas vezes por meio de eventos, injeção de dependência ou contratos formais de dados. Isso os torna altamente portáveis e adaptáveis a diferentes contextos. No front-end, esse conceito é amplamente adotado em frameworks como React, Angular e Vue, onde cada parte da interface — como botões, formulários ou tabelas — é um componente reutilizável. No back-end, esse paradigma também pode ser aplicado através de serviços encapsulados ou bibliotecas modulares que se integram em uma arquitetura maior. Em ambientes mais complexos, os componentes podem evoluir para microcomponentes ou micro frontends, refletindo a mesma filosofia de modularidade.
