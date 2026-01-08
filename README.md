@@ -188,7 +188,7 @@ A principal ideia é que o Controller manipula o caso de uso: recebe a requisiç
 
 Esse padrão é muito útil em sistemas que lidam com múltiplos formatos de resposta ou que exigem clareza entre as etapas da aplicação. Também contribui para testes mais precisos, pois separa a lógica de negócios (que pode ser testada em nível de controller e serviço) da apresentação (testada via responder). Em síntese, o Controller-Responder promove um controle mais claro e segmentado sobre o fluxo de uma requisição e permite que cada parte do sistema seja responsável por uma única coisa: o controller decide o que aconteceu, o responder decide como mostrar isso.
 
-<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/33fbe46b-9d77-49ea-b5be-e2b09160517b" height="177">
+<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/33fbe46b-9d77-49ea-b5be-e2b09160517b">
 
 **Broker** (Pub/Sub) é um padrão arquitetural e também um conceito amplamente utilizado em sistemas distribuídos, onde sua principal função é atuar como um intermediário entre componentes que produzem dados (produtores) e componentes que consomem dados (consumidores). 
 
