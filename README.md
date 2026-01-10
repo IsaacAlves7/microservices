@@ -247,6 +247,13 @@ O grande diferencial de sistemas rule-based é a sua flexibilidade e facilidade 
 
 No entanto, sistemas baseados em regras também apresentam desafios, principalmente à medida que a complexidade aumenta. Quando há muitas regras interdependentes, pode se tornar difícil prever os efeitos colaterais de uma nova regra ou compreender completamente o comportamento do sistema. Além disso, sistemas rule-based não lidam bem com incerteza ou ambiguidade, como modelos probabilísticos fariam. Mesmo assim, sua transparência e explicabilidade os tornam ideais para contextos em que decisões precisam ser justificáveis e auditáveis. Portanto, rule-based é uma abordagem lógica e determinística, onde o conhecimento do domínio é traduzido em regras explícitas e aplicadas sistematicamente para produzir decisões, diagnósticos ou ações.
 
+Evolução da Arquitetura da API da Netflix: A arquitetura da API da Netflix passou por 4 estágios principais:
+
+- Monolith
+- Direct access
+- Gateway aggregation layer
+- Federated gateway
+
 ## [Microservices] Sistemas reativos
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
 
