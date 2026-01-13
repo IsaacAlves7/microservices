@@ -353,7 +353,7 @@ Esse padrão deve ser usado se o aplicativo cliente tiver que invocar vários mi
 
 <table>
 	<tr>
-		<td><img height="377" src="https://github.com/user-attachments/assets/6049c51f-5d11-46cd-bb90-ae1e2e6aea27" /></td>
+		<td><a href="https://medium.com/design-microservices-architecture-with-patterns/microservices-architecture-for-enterprise-large-scaled-application-825436c9a78a"><img height="377" src="https://github.com/user-attachments/assets/6049c51f-5d11-46cd-bb90-ae1e2e6aea27" /></a></td>
 		<td><img height="377" src="https://github.com/user-attachments/assets/aa05f06e-1b18-4f1c-b16f-9515f356a74b" /></td>
 	</tr>
 </table>
