@@ -565,7 +565,7 @@ Uma compreensão fundamental dos microsserviços é essencial para compreender t
 
 <img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/be0e8414-d158-4c2e-bd18-65718528780d">
 
-Da arquitetura monolítica à arquitetura de microsserviços, quase todas as solicitações tratadas por um aplicativo empresarial são executadas em uma transação de banco de dados. Os desenvolvedores de aplicativos corporativos usam estruturas e bibliotecas que simplificam o gerenciamento de transações. Algumas estruturas e bibliotecas fornecem uma API programática para iniciar, confirmar e reverter transações explicitamente. Outras estruturas, como a estrutura Spring, fornecem um mecanismo declarativo.
+Da arquitetura monolítica à arquitetura de microsserviços, quase todas as solicitações tratadas por um aplicativo empresarial são executadas em uma transação de <a href="https://blog.dataengineerthings.org/breaking-apart-legacy-databases-a-personal-guide-to-microservices-data-migration-f0b18fa412fd">banco de dados</a>. Os desenvolvedores de aplicativos corporativos usam estruturas e bibliotecas que simplificam o gerenciamento de transações. Algumas estruturas e bibliotecas fornecem uma API programática para iniciar, confirmar e reverter transações explicitamente. Outras estruturas, como a estrutura Spring, fornecem um mecanismo declarativo.
 
 O Spring fornece uma anotação `@Transactional` que organiza as invocações de método a serem executadas automaticamente em uma transação. Como resultado, é simples escrever lógica de negócios transacional.
 
