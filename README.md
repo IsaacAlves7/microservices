@@ -13,6 +13,15 @@
 - https://medium.com/@somasharma_81597/50-microservices-interview-questions-for-java-programmers-70a4a68c4349
 - https://medium.com/@detoxicdev/7-architecture-design-patterns-you-wish-you-knew-before-interview-e9806bc01b6f
 - https://medium.com/@ssshogunnn/how-a-solution-architect-thinks-part-1-working-with-requirements-662b81541e04
+- https://medium.com/@damithns/securing-your-microservices-architecture-with-spring-boot-an-in-depth-guide-to-authentication-and-d4acd8cf7efb?source=email-afeafff77325-1685597052433-digest.reader-9758482ba857-d4acd8cf7efb----0-98------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@martinstm/cqrs-pattern-c-a6632693d3e1?source=email-afeafff77325-1685597052433-digest.reader--a6632693d3e1----1-98------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@tony.infisical/the-death-of-the-env-file-6d65bfc6ac5e?source=email-afeafff77325-1685597052433-digest.reader--6d65bfc6ac5e----2-59------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@TinderEng/how-we-built-the-tinder-api-gateway-831c6ca5ceca?source=email-afeafff77325-1685597052433-digest.reader-906928af8599-831c6ca5ceca----5-59------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@bubu.tripathy/best-practices-for-designing-rest-apis-5b1809545e3c?source=email-afeafff77325-1685597052433-digest.reader--5b1809545e3c----7-98------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@DevChris01/springboot-api-versioning-fast-easy-c3ef2c87452f?source=email-afeafff77325-1685597052433-digest.reader--c3ef2c87452f----10-98------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@vinciabhinav7/common-problems-in-message-queues-with-solutions-f0703c0bd5af?source=email-afeafff77325-1685597052433-digest.reader--f0703c0bd5af----11-98------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@adewopol/devops-project-8ef09a0e172a?source=email-afeafff77325-1685597052433-digest.reader--8ef09a0e172a----14-98------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
+- https://medium.com/@maherz/10-mind-blowing-c-hacks-95fa629cfcef?source=email-afeafff77325-1685597052433-digest.reader--95fa629cfcef----4-99------------------e9ef0b9b_3f84_43ce_a1fa_2934b9815a1f-1
 
 # 📦 Microservices 
 <a href="https://github.com/IsaacAlves7/qa"><img src="https://img.shields.io/badge/QA-Microservices-5B4638?style=flat&logo=GitHub&logoColor=white"></a> <a href="https://python.plainenglish.io/top-11-tools-for-microservices-backend-development-in-2023-3d9cdd61ef10"><img src="https://img.shields.io/badge/Medium-Microservices-5B4638?style=flat&logo=Medium&logoColor=white"></a> <img src="https://img.shields.io/badge/DEV-Microservices-976857?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Microservices-cf8f63?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Microservices-dcb284?style=flat&logo=Confluence&logoColor=white">
