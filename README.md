@@ -6,6 +6,7 @@
 - https://medium.com/nerd-for-tech/multi-tenant-architecture-in-a-nutshell-78dafe7dc847
 - https://semaphoreci.medium.com/microservices-best-practices-eacd67b40680
 - https://priyalwalpita.medium.com/latest-trends-in-software-architecture-ad7925a255b4
+- https://medium.com/data-science/10-common-software-architectural-patterns-in-a-nutshell-a0b47a1e9013
 
 # 📦 Microservices 
 <a href="https://github.com/IsaacAlves7/qa"><img src="https://img.shields.io/badge/QA-Microservices-5B4638?style=flat&logo=GitHub&logoColor=white"></a> <a href="https://python.plainenglish.io/top-11-tools-for-microservices-backend-development-in-2023-3d9cdd61ef10"><img src="https://img.shields.io/badge/Medium-Microservices-5B4638?style=flat&logo=Medium&logoColor=white"></a> <img src="https://img.shields.io/badge/DEV-Microservices-976857?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Microservices-cf8f63?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Microservices-dcb284?style=flat&logo=Confluence&logoColor=white">
