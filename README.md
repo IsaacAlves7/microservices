@@ -12,6 +12,7 @@
 - https://medium.com/@olgamitroshyna/software-architecture-i-wish-i-had-known-about-this-earlier-4df43eae57db
 - https://medium.com/@somasharma_81597/50-microservices-interview-questions-for-java-programmers-70a4a68c4349
 - https://medium.com/@detoxicdev/7-architecture-design-patterns-you-wish-you-knew-before-interview-e9806bc01b6f
+- https://medium.com/@ssshogunnn/how-a-solution-architect-thinks-part-1-working-with-requirements-662b81541e04
 
 # 📦 Microservices 
 <a href="https://github.com/IsaacAlves7/qa"><img src="https://img.shields.io/badge/QA-Microservices-5B4638?style=flat&logo=GitHub&logoColor=white"></a> <a href="https://python.plainenglish.io/top-11-tools-for-microservices-backend-development-in-2023-3d9cdd61ef10"><img src="https://img.shields.io/badge/Medium-Microservices-5B4638?style=flat&logo=Medium&logoColor=white"></a> <img src="https://img.shields.io/badge/DEV-Microservices-976857?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Microservices-cf8f63?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Microservices-dcb284?style=flat&logo=Confluence&logoColor=white">
