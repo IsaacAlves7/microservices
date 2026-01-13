@@ -1604,6 +1604,8 @@ O Event-bus é amplamente utilizado em arquiteturas de microsserviços, sistemas
 
 Ao adotar um Event-bus, é essencial planejar cuidadosamente os eventos que serão enviados e recebidos, garantir a confiabilidade na entrega de mensagens e considerar a escalabilidade e o desempenho do sistema como um todo.
 
+https://medium.com/@vinciabhinav7/common-problems-in-message-queues-with-solutions-f0703c0bd5af
+
 ## [Microservices] Outbox Pattern
 <a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
