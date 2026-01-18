@@ -117,6 +117,7 @@
 - https://medium.com/@iamalexmathers/cut-out-these-11-habits-if-you-want-more-respect-ea9b3f149e55?source=email-afeafff77325-1689052910076-digest.reader--ea9b3f149e55----2-58------------------a5d177f8_b88a_451f_bc61_ff37bd154167-1
 - https://medium.com/@youssefraafat57/13-sql-statements-for-90-of-your-data-science-tasks-27902996dc2b?source=email-afeafff77325-1689052910076-digest.reader-5517fd7b58a6-27902996dc2b----1-102------------------a5d177f8_b88a_451f_bc61_ff37bd154167-1
 - https://medium.com/@kishorek2511/5-important-microservices-design-patterns-c4d636b0051?source=email-afeafff77325-1689052910076-digest.reader-d3a191ac6ed-c4d636b0051----0-58------------------a5d177f8_b88a_451f_bc61_ff37bd154167-1
+- https://blog.stackademic.com/how-to-implement-saga-design-pattern-in-spring-boot-a7f2614c21b1
 
 # 📦 Microservices 
 <a href="https://github.com/IsaacAlves7/qa"><img src="https://img.shields.io/badge/QA-Microservices-5B4638?style=flat&logo=GitHub&logoColor=white"></a> <a href="https://python.plainenglish.io/top-11-tools-for-microservices-backend-development-in-2023-3d9cdd61ef10"><img src="https://img.shields.io/badge/Medium-Microservices-5B4638?style=flat&logo=Medium&logoColor=white"></a> <img src="https://img.shields.io/badge/DEV-Microservices-976857?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Microservices-cf8f63?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Microservices-dcb284?style=flat&logo=Confluence&logoColor=white">
