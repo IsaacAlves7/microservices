@@ -2341,6 +2341,8 @@ Os eventos de domínio existem no centro de domínio de alto nível de um diagra
 
 <img width="720" height="313" alt="image" src="https://github.com/user-attachments/assets/2ed856b3-baf7-49f2-bf70-c4d3c52e17f2" />
 
+![Domain-Driven-Design-Introduction-48-2048](https://github.com/user-attachments/assets/0402fae7-d682-4b35-ba61-7cc365ab3909)
+
 Para que um usuário interaja com um sistema e para que ele seja útil, precisamos ser capazes de fazer duas coisas. A primeira é exibir informações para o usuário.
 
 O Clean Architecture (CA) é a diretriz de arquitetura de sistemas proposta por Robert C. Martin (Uncle Bob) derivada de muitas diretrizes arquitetônicas como Hexagonal Architecture e Onion Architecture, entre outras. Eric Evans introduziu o conceito de Domain-Driven Design (DDD). Ele escreveu sobre isso em seu livro Domain-driven Design em 2004 (também conhecido como "The Big Blue Book"). O Design Orientado a Domínio é uma abordagem para o desenvolvimento de software que centra o desenvolvimento na programação de um modelo de domínio com uma rica compreensão dos processos e regras de um domínio.
