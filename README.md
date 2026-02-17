@@ -1978,7 +1978,12 @@ Portanto, o design orientado por domínio baseia-se nos seguintes objetivos:
 2. Basear projetos complexos em um modelo do domínio;
 3. Iniciando uma colaboração criativa entre especialistas técnicos e especialistas do domínio para refinar iterativamente um modelo conceitual que aborde problemas específicos do domínio.
 
-![Screenshot_20251210-113111_Instagram](https://github.com/user-attachments/assets/dff34406-3889-446f-818f-2353d4be9589)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/dff34406-3889-446f-818f-2353d4be9589"></td>
+		<td><img src="https://github.com/user-attachments/assets/40d50d38-bef7-4b85-8aab-8eba9d22891b"></td>
+	</tr>
+</table>
 
 <img src="https://github.com/user-attachments/assets/038eb886-2db7-456a-a67c-3707b7020c31" align="right" height="177">
 
