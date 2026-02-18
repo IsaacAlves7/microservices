@@ -150,6 +150,8 @@ Aqui estão os 10 padrões de microserviços que os engenheiros de software deve
 
 ![633988640_1671001741014720_1873344397966094120_n](https://github.com/user-attachments/assets/453bef11-af5a-451a-9a02-19effeb2c8dd)
 
+![Screenshot_20241022-230512_Instagram](https://github.com/user-attachments/assets/8b432d31-3848-4996-a1a5-92921fec1404)
+
 - API Gateway: É o ponto de entrada para acessar qualquer microserviço e podemos implementar aqui questões transversais como Segurança, Limite de Taxa e Balanceamento de Carga. Podemos usar o Spring Cloud Zuul ou o Spring Cloud Gateway para implementar isso.
 
 - Service Discovery: Permitir que os serviços se encontrem por meio de um nome em vez de um IP. Por que não propriedade intelectual? Porque o IP frequentemente muda em tempo de execução devido à frequência com que os containers são girados e destruídos. Podemos usar o serviço Spring Cloud Eureka ou Kubernetes para implementar isso.
