@@ -152,6 +152,8 @@ Aqui estão os 10 padrões de microserviços que os engenheiros de software deve
 
 ![Screenshot_20241022-230512_Instagram](https://github.com/user-attachments/assets/8b432d31-3848-4996-a1a5-92921fec1404)
 
+![FB_IMG_1733228987280](https://github.com/user-attachments/assets/caf7b934-fde2-489c-affe-ce7e16241678)
+
 - API Gateway: É o ponto de entrada para acessar qualquer microserviço e podemos implementar aqui questões transversais como Segurança, Limite de Taxa e Balanceamento de Carga. Podemos usar o Spring Cloud Zuul ou o Spring Cloud Gateway para implementar isso.
 
 - Service Discovery: Permitir que os serviços se encontrem por meio de um nome em vez de um IP. Por que não propriedade intelectual? Porque o IP frequentemente muda em tempo de execução devido à frequência com que os containers são girados e destruídos. Podemos usar o serviço Spring Cloud Eureka ou Kubernetes para implementar isso.
@@ -462,6 +464,8 @@ Se fosse descrever com rigor de senior:
 https://medium.com/tinder/how-we-built-the-tinder-api-gateway-831c6ca5ceca
 
 ![FB_IMG_1729248332522](https://github.com/user-attachments/assets/0eeee857-d322-458d-8702-89de320bcf35)
+
+![FB_IMG_1733322278960](https://github.com/user-attachments/assets/2f7c18d7-b68a-4fed-870a-68b0bea3109a)
 
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
