@@ -337,6 +337,8 @@ O diagrama abaixo mostra os detalhes:
 
 ![Screenshot_20240828-154608_Instagram](https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d)
 
+![FB_IMG_1728237050361](https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c)
+
 Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
 Passo 2 - O gateway da API analisa e valida os atributos na requisição HTTP.
@@ -458,6 +460,8 @@ Se fosse descrever com rigor de senior:
 > “Essa arquitetura implementa um modelo de microsserviços com API Gateway, comunicação síncrona via REST e resolução dinâmica de endpoints por meio de Service Discovery, garantindo balanceamento, disponibilidade e desacoplamento entre serviços.”
 
 https://medium.com/tinder/how-we-built-the-tinder-api-gateway-831c6ca5ceca
+
+![FB_IMG_1729248332522](https://github.com/user-attachments/assets/0eeee857-d322-458d-8702-89de320bcf35)
 
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
@@ -1679,6 +1683,8 @@ Um serviço de sidecar nem sempre faz parte da aplicação, mas está vinculado 
 <img width="705" height="335" alt="image" src="https://github.com/user-attachments/assets/e8e09de0-8b91-4f24-9bce-1c9334cedf31" />
 
 Eles podem ser executados no mesmo processo que a aplicação se estiverem fortemente integrados, fazendo uso ótimo dos recursos compartilhados. Isso, no entanto, implica que eles não estão devidamente separados, e uma falha em um desses componentes pode afetar outros componentes ou toda a aplicação. Além disso, normalmente devem ser escritos no mesmo idioma do programa principal. Como resultado, o componente e a aplicação dependem muito um do outro.
+
+![FB_IMG_1729173505724](https://github.com/user-attachments/assets/e99a84c7-247d-4559-a6f8-ca605e51db89)
 
 ## [Microservices] Circuit breaker
 <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Circuit_Breaker-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Circuit_Breaker-blue?style=flat&logo=GitBook&logoColor=white">
