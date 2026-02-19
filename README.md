@@ -333,6 +333,8 @@ O diagrama abaixo mostra os detalhes:
 
 ![unnamed](https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278)
 
+![Screenshot_20240828-154608_Instagram](https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d)
+
 Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
 Passo 2 - O gateway da API analisa e valida os atributos na requisição HTTP.
