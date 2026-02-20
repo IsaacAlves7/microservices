@@ -262,6 +262,12 @@ Evolução da Arquitetura da API da Netflix: A arquitetura da API da Netflix pas
 - Gateway aggregation layer
 - Federated gateway
 
+![FB_IMG_1722531344115](https://github.com/user-attachments/assets/d2ea7a2a-93a2-4fc0-a032-e6f13c302c0b)
+![FB_IMG_1722461479416](https://github.com/user-attachments/assets/e5e8b6fe-9a02-483e-b210-8750cffba180)
+![FB_IMG_1722096754127](https://github.com/user-attachments/assets/fd5e6c9b-f1fe-4519-9e80-a07810d8ea8e)
+![FB_IMG_1721753552315](https://github.com/user-attachments/assets/ae5f9263-a440-4cc5-9e1a-159ac125c398)
+![FB_IMG_1721753534122](https://github.com/user-attachments/assets/d72c5509-4909-4fa7-84c4-110914b82030)
+
 ## [Microservices] Sistemas reativos
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
 
@@ -340,6 +346,12 @@ O diagrama abaixo mostra os detalhes:
 ![Screenshot_20240828-154608_Instagram](https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d)
 
 ![FB_IMG_1728237050361](https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c)
+
+![FB_IMG_1723070454356](https://github.com/user-attachments/assets/9f70ea59-cd9f-4c93-af85-1738b9009a83)
+
+![FB_IMG_1722959525727](https://github.com/user-attachments/assets/a153616b-7058-40f7-8514-f7422708c78c)
+
+![FB_IMG_1722606400370](https://github.com/user-attachments/assets/ebf0d996-77fa-426a-9095-2692d92050a2)
 
 Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
@@ -1221,6 +1233,8 @@ O diagrama abaixo é uma arquitetura de microsserviços baseada em **Service Reg
 
 Em poucas palavras, o padrão de descoberta de serviço desempenha um papel fundamental na manutenção de uma arquitetura de microsserviços robusta e adaptável. Ao implementar esse padrão, você pode gerenciar e dimensionar facilmente seus serviços sem suar a camisa. Você está preparado para conquistar o labirinto de microsserviços com o Service Discovery?
 
+![FB_IMG_1723734690810](https://github.com/user-attachments/assets/4544ca94-5d71-4307-a202-08ff86aa18ae)
+
 ## [Microservices] Inter-Service Communication
 Comunicação entre serviços em aplicações monolíticas: Em uma arquitetura monolítica, todos os componentes e módulos do aplicativo são totalmente integrados em uma única base de código e são executados no mesmo processo ou na mesma máquina. Como todos os componentes fazem parte do mesmo aplicativo, normalmente não há necessidade de comunicação entre serviços ou chamadas remotas para funções internas de negócios. A comunicação entre os componentes é obtida por meio de chamadas de método no nível da linguagem ou chamadas de função simples na mesma base de código
 
@@ -1689,6 +1703,8 @@ Um serviço de sidecar nem sempre faz parte da aplicação, mas está vinculado 
 Eles podem ser executados no mesmo processo que a aplicação se estiverem fortemente integrados, fazendo uso ótimo dos recursos compartilhados. Isso, no entanto, implica que eles não estão devidamente separados, e uma falha em um desses componentes pode afetar outros componentes ou toda a aplicação. Além disso, normalmente devem ser escritos no mesmo idioma do programa principal. Como resultado, o componente e a aplicação dependem muito um do outro.
 
 ![FB_IMG_1729173505724](https://github.com/user-attachments/assets/e99a84c7-247d-4559-a6f8-ca605e51db89)
+
+![FB_IMG_1724073369311](https://github.com/user-attachments/assets/9ce31510-ba4c-4427-b597-bd3955719a4a)
 
 ## [Microservices] Circuit breaker
 <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Circuit_Breaker-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Circuit_Breaker-blue?style=flat&logo=GitBook&logoColor=white">
