@@ -25,6 +25,8 @@ A <a href="https://www.instagram.com/valdircezarr/">arquitetura de microsserviç
 
 Se falarmos sobre seu nível elementar, um microsserviço específico atua como um aplicativo em si mesmo que forma um aplicativo maior com outros microsserviços; Isso permite:
 
+<img src="https://github.com/user-attachments/assets/a7c5794e-03b6-4b1a-86c1-a5091c1bee8a" align="right" height="177">
+
 - Desenvolvimento mais fácil e rápido
 - Manutenibilidade
 - Escalabilidade
