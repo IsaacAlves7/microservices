@@ -347,6 +347,8 @@ O diagrama abaixo mostra os detalhes:
 
 ![unnamed](https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278)
 
+![Screenshot_20240620-113030_Instagram](https://github.com/user-attachments/assets/87fefd9b-435b-48c8-a89d-eac83e7bd959)
+
 ![Screenshot_20240828-154608_Instagram](https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d)
 
 ![FB_IMG_1728237050361](https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c)
