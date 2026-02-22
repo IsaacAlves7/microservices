@@ -129,26 +129,16 @@ Alguns dos padrões mais comuns e populares para implantação de microserviços
 
 A orquestração dos seus microserviços é um dos fatores mais influentes para alcançar sucesso tanto no processo quanto nas ferramentas. Você pode usar o Docker para rodar containers em uma VM, mas ele não oferece o mesmo nível de resiliência que uma plataforma de orquestração de containers oferece. Essa decisão pode muito bem afetar negativamente seu tempo de atividade ao tentar adotar uma arquitetura de microserviços.
 
-Aqui estão algumas das plataformas de orquestração que já foram comprovadas:
+<img src="https://github.com/user-attachments/assets/ec3b7c8e-29c2-4361-a6d3-d7bc17599bce" align="right" height="177">
+
+Aqui estão algumas das plataformas de orquestração que já foram comprovadas: Essas plataformas podem ser úteis para gerenciar o provisionamento e implantação de contêineres, balanceamento de carga, escalabilidade, preocupações com comunicação em rede, etc.
 
 - K8s (Kubernetes)
 - AKS (Azure Kubernetes Services)
 - ECS (Serviços de Contêineres Elásticos da Amazon)
 - Azure Container Apps
 
-Essas plataformas podem ser úteis para gerenciar o provisionamento e implantação de contêineres, balanceamento de carga, escalabilidade, preocupações com comunicação em rede, etc.
-
-Aqui estão algumas das plataformas de orquestração que já foram comprovadas:
-
-- K8s (Kubernetes)
-- AKS (Azure Kubernetes Services)
-- ECS (Serviços de Contêineres Elásticos da Amazon)
-- Azure Container Apps
-
-Essas plataformas podem ser úteis para gerenciar o provisionamento e implantação de contêineres, balanceamento de carga, escalabilidade, preocupações com comunicação em rede, etc.
-
-Use um sistema de monitoramento eficaz
-A arquitetura de microserviços ajuda você a realizar uma enorme escalabilidade de milhares de serviços modulares e oferece potencial para maior velocidade e métodos organizados de monitoramento. É importante, no entanto, revisar todos os seus microserviços e verificar regularmente se eles estão funcionando como desejado e utilizando eficientemente os recursos disponíveis. Dependendo dessas observações, você pode tomar as atitudes apropriadas caso as expectativas não estejam sendo atendidas.
+Use um sistema de monitoramento eficaz: A arquitetura de microserviços ajuda você a realizar uma enorme escalabilidade de milhares de serviços modulares e oferece potencial para maior velocidade e métodos organizados de monitoramento. É importante, no entanto, revisar todos os seus microserviços e verificar regularmente se eles estão funcionando como desejado e utilizando eficientemente os recursos disponíveis. Dependendo dessas observações, você pode tomar as atitudes apropriadas caso as expectativas não estejam sendo atendidas.
 
 Vamos analisar uma situação de exemplo e imaginar que você aplicou um padrão de arquitetura de microserviços que não tem capacidade para lidar com requisições, mas que ainda estão rodando. Por exemplo, se ele ficar sem conexões de banco de dados, o sistema de monitoramento deve ser capaz de gerar um alerta sempre que uma instância falhar e as requisições devem ser roteadas para instâncias de serviço em funcionamento.
 
