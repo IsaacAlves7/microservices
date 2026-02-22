@@ -138,6 +138,230 @@ Aqui estão algumas das plataformas de orquestração que já foram comprovadas:
 
 Essas plataformas podem ser úteis para gerenciar o provisionamento e implantação de contêineres, balanceamento de carga, escalabilidade, preocupações com comunicação em rede, etc.
 
+Aqui estão algumas das plataformas de orquestração que já foram comprovadas:
+
+- K8s (Kubernetes)
+- AKS (Azure Kubernetes Services)
+- ECS (Serviços de Contêineres Elásticos da Amazon)
+- Azure Container Apps
+
+Essas plataformas podem ser úteis para gerenciar o provisionamento e implantação de contêineres, balanceamento de carga, escalabilidade, preocupações com comunicação em rede, etc.
+
+Use um sistema de monitoramento eficaz
+A arquitetura de microserviços ajuda você a realizar uma enorme escalabilidade de milhares de serviços modulares e oferece potencial para maior velocidade e métodos organizados de monitoramento. É importante, no entanto, revisar todos os seus microserviços e verificar regularmente se eles estão funcionando como desejado e utilizando eficientemente os recursos disponíveis. Dependendo dessas observações, você pode tomar as atitudes apropriadas caso as expectativas não estejam sendo atendidas.
+
+Vamos analisar uma situação de exemplo e imaginar que você aplicou um padrão de arquitetura de microserviços que não tem capacidade para lidar com requisições, mas que ainda estão rodando. Por exemplo, se ele ficar sem conexões de banco de dados, o sistema de monitoramento deve ser capaz de gerar um alerta sempre que uma instância falhar e as requisições devem ser roteadas para instâncias de serviço em funcionamento.
+
+Monitorar microserviços e manter essas estatísticas explicadas com precisão ajudará você a melhorar a tomada de decisões e manter seus microserviços disponíveis quando necessário.
+
+Vamos dar uma olhada em alguns exemplos de ferramentas de monitoramento de microserviços.
+
+- AWS CloudWatch: um serviço de monitoramento, observabilidade e gerenciamento que coleta e visualiza logs em tempo real e fornece insights acionáveis para aplicações e recursos de infraestrutura da AWS, híbridos e locais.
+
+- Jaeger: software projetado para monitorar e solucionar problemas complexos em um ambiente de microserviços.
+
+- Datagod: uma plataforma de observabilidade, segurança e análise para aplicações em escala de nuvem que oferece uma solução abrangente para bancos de dados, serviços e ferramentas usando uma plataforma de análise de dados baseada em SaaS.
+
+- Graphite: como o nome sugere, é um software de código aberto que monitora e grava graficamente dados numéricos de séries temporais e fornece insights aprofundados sobre o sistema subjacente.
+
+- Prometheus: uma ferramenta de software livre e de código aberto que oferece soluções de monitoramento e modificação.
+
+<img src="https://user-images.githubusercontent.com/61624336/209388964-cc8c82aa-206e-4643-93ca-153a129d2334.svg" height="77" align="right">
+
+Outro ponto bastante importante, em um contexto de microsserviços, é sobre um **domínio** (domain) que refere-se a uma parte específica ou a um conjunto de funcionalidades de um sistema maior que é dividido em microsserviços, os domínios podem ser considerados como o núcleo de um microsserviço em uma arquitetura baseada nessa divisão. Em termos de design de microsserviços, a ideia é organizar serviços em torno de áreas específicas de funcionalidade ou de um contexto de negócios. 
+
+Essas áreas específicas são comumente referidas como domínios. Cada microsserviço é responsável por lidar com um domínio específico do negócio ou uma parte bem definida da aplicação. Os microsserviços são projetados para serem autônomos e independentes, e a ideia é que cada um deles se concentre em um domínio delimitado. Por exemplo, em um sistema de e-commerce, pode haver microsserviços separados para lidar com a gestão de produtos, carrinho de compras, processamento de pedidos, autenticação de usuários, etc. 
+
+Cada um desses microsserviços abordaria um domínio específico do sistema. Ao dividir um sistema em microsserviços baseados em domínios, há vantagens como:
+
+- Escalabilidade e Desempenho: Cada microsserviço pode ser escalado independentemente, focando nos domínios mais exigidos.
+
+- Manutenção e Evolução: Mudanças em um domínio específico podem ser feitas sem afetar outros microsserviços, facilitando a manutenção e evolução do sistema.
+
+- Desenvolvimento Ágil: Equipes podem se concentrar em microsserviços específicos, acelerando o desenvolvimento e permitindo que cada equipe tenha autonomia sobre o seu domínio.
+
+A **lógica de domínio** é uma parte fundamental do desenvolvimento de software, onde reside a essência das regras de negócio e o comportamento específico de um determinado domínio ou área de conhecimento. Ela encapsula as regras, restrições e operações que governam o funcionamento e as relações dentro desse domínio. Lembrando que em um sistema de software, o domínio refere-se à área de negócio ou problema que o software está sendo desenvolvido para resolver. Por exemplo, em um sistema bancário, o domínio pode incluir conceitos como contas, transações, clientes, etc.
+
+A lógica de domínio trata dessas entidades e das operações que podem ser realizadas sobre elas. Ela não está ligada diretamente à implementação técnica, como a interface do usuário ou o armazenamento de dados, mas sim à representação das regras e processos que definem o comportamento do sistema.
+
+Por exemplo, no contexto de um sistema de reservas de voos, a lógica de domínio pode incluir regras sobre disponibilidade de assentos, restrições de datas, políticas de cancelamento e assim por diante.
+
+A separação da lógica de domínio é um princípio fundamental no design de software, como na arquitetura em camadas ou no uso de padrões como o Modelo de Domínio, onde a lógica de domínio é isolada e mantida separada das outras partes do sistema. Isso facilita a manutenção, a compreensão e a evolução do software, uma vez que as mudanças no domínio podem ser feitas sem afetar desnecessariamente outras partes do sistema.
+
+É possível implementar microsserviços em aplicativos desktop, web e móveis. A arquitetura de microsserviços é uma abordagem na qual um aplicativo é construído como um conjunto de serviços pequenos e independentes, cada um focado em realizar uma função específica. Para aplicativos desktop e móveis, os microsserviços podem ser implementados de maneira semelhante aos aplicativos web. Os serviços podem ser desenvolvidos separadamente e podem se comunicar por meio de APIs (Interfaces de Programação de Aplicativos), permitindo que diferentes partes do aplicativo interajam entre si de forma independente. 
+
+Você pode utilizar programação com sockets também em microsserviços, embora não seja a abordagem mais comum. A programação com sockets permite uma comunicação direta e bidirecional entre os serviços, o que pode ser vantajoso em algumas situações específicas. No entanto, é importante considerar os prós e contras dessa abordagem em comparação com os métodos mais comuns de comunicação entre microsserviços, como HTTP/REST, gRPC e mensageria. Você pode desenvolver um sistema de compartilhamento de arquivos P2P usando sockets em uma arquitetura de microsserviços que é uma abordagem viável e pode trazer várias vantagens em termos de escalabilidade, flexibilidade e manutenção, e é crucial garantir a robustez e a segurança do sistema. Implementar medidas de autenticação, autorização e criptografia de dados é essencial para proteger os dados dos usuários e manter a integridade do sistema. Além disso, monitorar e gerenciar a comunicação entre os peers é fundamental para assegurar a eficiência e a escalabilidade da rede P2P.
+
+<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/185da4d4-c3de-49f5-bfdd-d06a0582f63c" align="right" height="177">
+
+Por exemplo, em um aplicativo de e-commerce (sistema de vendas), pode haver um microsserviço para gerenciar o catálogo de produtos, outro para processar pagamentos, outro para gerenciar usuários e assim por diante. Cada um desses serviços pode ser desenvolvido separadamente e ser consumido pelo aplicativo desktop ou móvel por meio de chamadas de API. No entanto, é importante considerar alguns desafios ao implementar microsserviços em aplicativos desktop e móveis, como a latência da rede em dispositivos móveis, o consumo de recursos, a sincronização de dados offline e a segurança na comunicação entre os serviços. Com uma arquitetura bem planejada e estruturada, é viável implementar microsserviços em aplicativos desktop e móveis, aproveitando os benefícios de escalabilidade, manutenção simplificada e flexibilidade no desenvolvimento e atualização de diferentes partes do aplicativo.
+
+A definição clara de limites de domínio é essencial para o sucesso dos microsserviços. Isso envolve identificar fronteiras bem definidas entre os diferentes domínios, para que cada microsserviço possa ser desenvolvido, mantido e escalado de forma independente. A comunicação entre os microsserviços geralmente é realizada através de APIs, independente do tipo arquitetural delas, permitindo que eles interajam uns com os outros para cumprir processos mais complexos ou fluxos de trabalho do sistema maior.
+
+Nem sempre um domínio é diretamente equivalente a um microsserviço, embora essa seja uma maneira comum de organizar a arquitetura de microsserviços. Em muitos casos, um microsserviço pode abranger mais de um domínio, ou pode haver múltiplos microsserviços lidando com um único domínio. A ideia principal é que cada microsserviço seja especializado em uma área específica do negócio, mas a definição exata dos limites de um microsserviço pode variar dependendo do contexto e da complexidade do sistema.
+
+Por exemplo, em um sistema de comércio eletrônico, pode haver um microsserviço responsável pela gestão de pedidos, que abrange vários domínios, como processamento de pagamentos, verificação de disponibilidade de produtos, gerenciamento de estoque, etc. Este microsserviço pode abranger múltiplos domínios, mas ainda está focado em uma área específica do negócio: o fluxo de pedidos.
+
+Por outro lado, pode haver um domínio como o de autenticação e gerenciamento de usuários, que é abordado por vários microsserviços. Um microsserviço pode ser responsável pela autenticação, outro pelo gerenciamento de perfis de usuários e outro pelo controle de acesso.
+
+A chave é encontrar um equilíbrio entre a granularidade dos microsserviços e a clareza das responsabilidades de cada um. A divisão deve permitir que os microsserviços sejam suficientemente independentes para serem desenvolvidos, implantados e mantidos de maneira ágil, mas também devem colaborar de forma eficiente para atender às necessidades do sistema como um todo.
+
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/59cecdee-0e6a-4d8c-a115-6dd18d979a8f" height="777"></td>
+		<td><img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/c5d3b0dd-3df3-4eac-878a-a86803221771" height="777"></td>
+		<td><img src="https://github.com/user-attachments/assets/90283b3a-8d82-4e72-8829-81fe65396b0f" height="777"></td>
+	</tr>
+</table>
+
+A arquitetura de microsserviços, também conhecida como "microsserviços", é a abordagem de criação de aplicativos como uma série de serviços com implementação independente e desenvolvimento descentralizado e autônomo. Esses serviços são pouco integrados, implementáveis com independência e fáceis de manter. Enquanto o aplicativo monolítico, estrutura centralizada, é criado como unidade indivisível, os microsserviços dividem essa unidade em uma coleção de unidades independentes que contribuem para o todo. Os microsserviços são parte integral do DevOps, pois são a base para práticas de entrega contínua que permitem que equipes se adaptem com rapidez aos requisitos do usuário.
+
+Uma arquitetura de microsserviços é um tipo de sistema distribuído, pois decompõe um aplicativo em componentes ou “serviços” diferentes. Por exemplo, uma arquitetura de microsserviços pode ter serviços que correspondem a recursos de negócios (pagamentos, usuários, produtos etc.) em que cada componente correspondente lida com a lógica empresarial para essa responsabilidade. O sistema vai ter várias cópias redundantes dos serviços para que não haja um ponto central de falha para um serviço.
+
+Com a arquitetura de microsserviços, desenvolvedores podem se organizar em equipes menores especializadas em serviços diferentes, com pilhas distintas e implementações dissociadas. Por exemplo, o Jira é formado por diversos microsserviços, e cada um representa uma funcionalidade específica, como pesquisa de itens, visualização de informações sobre o item, comentários, transições de item e muito mais.
+
+<img src="https://user-images.githubusercontent.com/61624336/232251177-abafc647-65f7-4fd4-ad93-213395659fa2.png" align="right" height="307">
+
+Então, baseado em um contexto histórico, uma forma de desenvolver uma aplicação é colocar todas as funcionalidades em um único "lugar". Ou seja, a aplicação roda em uma única instância (ou servidor) que possui todas as funcionalidades. Isso talvez seja a forma mais simples de criar uma aplicação (também a mais natural), mas quando a base de código cresce, alguns problemas podem aparecer. Por exemplo, qualquer atualização ou `bug fix` necessita parar todo o sistema, buildar o sistema todo e subir novamente. Isso pode ficar demorado e lento. Em geral, quanto maior a base de código, mais difícil será para manter ela mesmo com uma boa cobertura de testes e as desvantagens não param por ai. Outro problema é se alguma funcionalidade possuir um gargalo no desempenho o sistema todo será afetado. Não é raro de ver sistemas onde relatórios só devem ser gerados à noite para não afetar o desempenho de outras funcionalidades. Outro problema comum é com os ciclos de testes e builds demorados (falta de agilidade no desenvolvimento), problemas no monitoramento da aplicação ou falta de escalabilidade. Enfim, o sistema se torna um legado pesado, onde nenhum desenvolvedor gostaria de colocar a mão no fogo.
+
+Então, a ideia é fugir desse tipo de arquitetura monolítica (com os padrões arquiteturais MVC, MVVP, PVC, MVP) monstruosa e dividir ela em pequenos pedaços. Cada pedaço possui uma funcionalidade bem definida e roda como se fosse um "mini sistema" isolado. Ou seja, em vez de termos uma única aplicação back-end enorme, teremos várias instâncias menores que dividem e coordenam o trabalho. Essas instâncias são chamadas de Microserviços (Microservices).
+
+Agora fica mais fácil monitorar cada serviço específico, atualizá-lo ou escalá-lo pois a base de código é muito menor, e assim o deploy e o teste serão mais rápidos. Podemos agora achar soluções específicas para esse serviço sem precisar alterar os demais. Outra vantagem é que um desenvolvedor novo não precisa conhecer o sistema todo para alterar uma funcionalidade, basta ele focar na funcionalidade desse microsserviço.
+
+> Importante também é que um microsserviço seja acessível remotamente, normalmente usando o protocolo HTTP trocando mensagens JSON ou XML, mas nada impede que outro protocolo seja usado. Um microsserviço pode usar outros serviços para coordenar o trabalho.
+
+Repare que isso é uma outra abordagem arquitetural bem diferente do monolítico e por isso também é chamado de arquitetura de microsserviços.
+
+Por fim, uma arquitetura de Microserviços tem um grau de complexidade muito alta se comparada com uma arquitetura monolítica. Aliás, há aqueles profissionais que indicam partir para uma arquitetura monolítica primeiro e mudar para uma baseada em microsserviços depois, quando estritamente necessário.
+
+Repare que a UI, ou seja nossa View ou aplicação front-end, fica dividida para cada microservice (nossas APIs) contendo as regras de negócio e acesso a camada de dados, e nossos microserviços ficam divididos ou se relacionando com os outros a fim de realizar uma tarefa necessária no nosso back-end e atuando em banco de dados próprios para os microsserviços específicos.
+
+Os microservices podem ser trabalhados com patterns (padrões) em seu desenvolvimento, tais como:
+
+<img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85" align="right" height="477">
+
+- **API Gateway pattern**: Esse padrão envolve ter um único ponto de entrada para todas as solicitações do cliente, que encaminha essas solicitações para o microsserviço apropriado. Isso simplifica a comunicação com os clientes e permite que o gateway lide com funções como autenticação, autorização e transformação de dados.
+
+- **Circuit Breaker pattern**: Este padrão é utilizado para lidar com falhas em uma arquitetura de microsserviços. Quando um microsserviço falha ou deixa de responder, o disjuntor dispara e redireciona as solicitações para um serviço de fallback.
+
+- **Retry pattern**: Automaticamente tenta novamente as operações (requests) que falharam para prover as chances de sucesso.
+
+- **Service Registry pattern**: Este padrão é usado para rastrear todos os serviços em uma arquitetura de microsserviços. O registro atua como um diretório central para descoberta de serviço.
+
+- **Mesh Service pattern**: esse padrão envolve a adição de uma camada de infraestrutura entre microsserviços para lidar com preocupações transversais, como descoberta de serviço, balanceamento de carga e segurança.
+
+- **Event-Driven Architecture pattern**: esse padrão envolve o uso de eventos para comunicação entre microsserviços. Cada microsserviço pode publicar eventos e assinar eventos publicados por outros microsserviços.
+
+- **Saga pattern**: Este padrão é usado para gerenciar transações que abrangem vários microsserviços. Envolve dividir a transação em etapas individuais menores e usar ações de compensação para desfazer as etapas concluídas se ocorrer um erro.
+
+- **Bulkhead pattern**: Este padrão é utilizado para isolar falhas em uma arquitetura de microsserviços. Cada microsserviço é colocado em um contêiner separado, portanto, se um microsserviço falhar, ele não afetará outros microsserviços.
+
+- **Sidecar pattern**: esse padrão envolve a implantação de um contêiner separado ao lado de cada microsserviço para lidar com preocupações transversais, como registro, monitoramento e segurança.
+
+- **CQRS pattern**: Esse padrão envolve a separação dos modelos de leitura e gravação em uma arquitetura de microsserviços. O modelo de leitura é otimizado para consultar dados, enquanto o modelo de gravação é otimizado para atualizar dados.
+
+- **Strangler pattern**: esse padrão envolve a substituição gradual de um aplicativo monolítico por microsserviços, adicionando gradualmente novos microsserviços e removendo a funcionalidade do monólito.
+
+- **Shared Database pattern**: esse padrão é praticamente uma base de dados compartilhada, ela é muito comum no processo pós migração de arquiteturas monolíticas para microsserviços. Onde os microsserviços vão sendo criados e vão ficando independentes, mas a base de dados ainda continua sendo compartilhada nesse serviço.
+
+- **Database Per Service pattern**: esse padrão é chamado de banco de dados por serviço, onde cada serviço geralmente possui seu próprio banco de dados, o que ajuda a evitar acoplamento entre serviços e permite que cada serviço escolha o banco de dados mais adequado às suas necessidades.
+
+- **Test Automation patten**: Automatizar testes, incluindo testes de unidade, testes de integração e testes de aceitação, para garantir a qualidade e a confiabilidade dos microsserviços.
+
+<img src="https://github.com/user-attachments/assets/5d535c27-fda8-46eb-b138-29b027d651b6" align="right" height="577">
+
+Ao desenvolver microsserviços, precisamos seguir as seguintes boas práticas:
+
+1. Utilizar armazenamento de dados separado para cada microsserviço
+
+2. Manter o código em um nível de maturidade semelhante
+
+3. Realizar builds separados para cada microsserviço
+
+4. Atribuir a cada microsserviço uma única responsabilidade
+
+5. Implantar em contêineres
+
+6. Projetar serviços sem estado
+
+7. Adotar o design orientado a domínio (DDD)
+
+8. Projetar micro front-ends
+
+9. Orquestrar microsserviços
+
+Lembre-se de que a escolha dos padrões arquiteturais depende dos requisitos específicos do projeto e das necessidades de negócios. Não existe uma única abordagem correta para a arquitetura de microsserviços, e você pode combinar vários desses padrões de acordo com suas necessidades. O importante é manter os princípios de isolamento, independência e coesão ao projetar e implementar microsserviços.
+
+Exemplo: Microservices Communication - Implementando duas APIs e realizando comunicações síncronas e assíncronas via chamadas HTTP por meio de API REST e fila de mensagens com RabbitMQ. Por fim, iremos subir toda a aplicação no Docker com docker-compose, e iremos disponibilizar também no Heroku. Cada microsserviço vai cuidar de uma parte específica dentro do sistema.
+
+Na prática, iremos simular um pequeno <a href="#">sistema de vendas</a>:
+
+1. Teremos uma API isolada em Node.js para nos autenticar que através do nome do usuário e a senha ele vai gerar um token de acesso e nisso ele será usado em todas as aplicações e todos os endpoints,
+2. Outra API Node.js será responsável por registrar vendas,
+3. API em Spring responsável por cuidar do estoque de produtos.
+4. Toda vez que uma venda for realizada na aplicação de vendas em Node.js, será enviada uma mensagem da API de vendas para a API de produtos para que o estoque seja atualizado.
+5. Para a realização de cada venda, será necessário requisitar para a API de produtos os dados dos IDs dos produtos que constam no carrinho de compras.
+6. Ao receber uma mensagem de venda para atualizarmos o estoque, retornaremos uma mensagem para a aplicação de vendas informando se foi tudo ok ou não, para atualizá-la para `CANCELADA` ou `CONCLUÍDA`.
+
+O conceito chave dessa aplicação é entender como funciona os microserviços, onde cada serviço cuida de uma parte pequena da aplicação, onde estamos descentralizando os serviços da API que seria de uma aplicação monolítica para uma aplicação em microsserviços.
+
+O interessante é que vamos requisitar em uma comunicação síncrona por isso quando a gente tiver mensagem vai ser uma comunicação assíncrona a gente vai utilizar repetindo aquilo que vai ser isso a gente vai mandar uma mensagem a outra aplicação não vai escutar isso na hora a gente vai mandar para o repetir e vai ter. Isso vai cair numa fila.
+
+Vai ter alguma outra aplicação que vai estar ouvindo essa fila em algum momento. Não precisa ser naquele exato instante que a gente publicou e quando ela ouvir ela vai processar essa mensagem.
+
+Então beleza vamos supor que nossa aplicação caiu ela está fora por motivos de falta de alguma atualização gente que teve que dar um build lá em produção. Então a gente publicou uma mensagem e se ela estiver fora não vai impactar no nosso processamento da informação.
+
+A aplicação vai estar fora a beleza mas em algum momento ela vai voltar a ficar operante e quando ela voltar a ficar operante ela vai processar essa mensagem e vai dar sequência no fluxo para realização de cada venda vai ser necessário requisitar então os produtos porque como a gente vendia só usar em dias a gente vai buscar todos os produtos informados no carrinho de compras e vai salvar eles da venda salvou a venda vai ficar com pendente.
+
+A gente vai publicar a mensagem para pedir produtos e lá ele vai receber os produtos que a gente está tentando vender e a quantidade.
+
+Então ele vai atualizar esse estoque caso vamos supor que a gente é formular o produto. Ele tem só lá no produto ele tem esse tipo dois itens só em estoque e a gente mandou fazer uma venda com cinco. A gente não vai conseguir atualizar essa venda para concluir ela vai ter que ser cancelada porque a gente não tem esse estoque disponível. Ou então vamos supor que a gente tem dois anos de estoque e a gente quer vender só um.
+
+A gente vai embeleza a gente vai atualizar esse estoque para 1 e a gente vai finalizar essa venda a gente vai devolver uma mensagem para fazer uma nova publicação como concluída para a área de vendas.
+
+Então assim a gente vai ter um método para publicar e para ele escutar mensagens um vice e um senador ou então publisher chegou subscrever tanto nas duas APIs de venda de produtos porque a gente vai implementar a lógica de ouvir as filas e de publicar nas filas tanto no Japão quanto no novo vocês conseguem ter uma noção de como faz em cada uma dessas tecnologias.
+
+E essa aqui é uma imagem que eu criei um diagrama especificando como é que vai ser a nossa arquitetura aqui no quadrado principal e a aplicação em si. A aplicação de Java naqueles produtos é a aplicação de jazz que é de vendas. Elas vão se comunicar de maneira síncrona via chamadas HTTP através de uma API REST. E a gente vai ter uma token JWT protegendo essas chamadas.
+
+Esse toque vai ser chamado por essa aplicação mas porque ele está num quadro de separado porque ela não vai ter interação alguma com essas aplicações. Ela só vai gerar em stock mas nada elas não vão se comunicar em momento algum nem envia via mensagem e nem envia chamada Oeste e também eu coloquei que servidor Red time que o que ele vai ser um serviço de mensageiro.
+
+A gente vai subir um contêiner Docker. Então a gente faz com que Os dois que têm uma faixa de bidirecional por que ele vai enviar e escutar. Ele também vai enviar e vai escutar tanto a venda quanto produtos irão enviar ou escutar mensagens para esse servidor.
+
+A gente vai ter um bom banco de dados em mongoDB para o próprio e de vendas. 
+
+A gente vai ter um banco de dados imposto de Goiás que ele próprio de produto e a gente vai ter um pouco das dados que SQL para pedir de autenticação. Esse último quadrado aqui em cima de toque com poucos a gente vai a gente tem todos os contêineres.
+
+A gente tem um total de sete contêineres. A gente vai ter então dois contentes do posto de Goiás que é um para aplicação de autenticação e aplicação de produtos. Vamos repetir aqui porque são dois são dois deles então um do Acre também uma antena para aplicação de produtos ou uma aplicação de autenticação de vendas do Banco de Gutemberg.
+
+E sempre o time caiu e a gente vai subir tudo isso com o Dakar pulso a ideia que a gente dê apenas um Docker Compose e ele consiga subir todo todas aqui e já ter o sistema pronto para gente utilizá-la. O utilizador vai fazendo chamadas pelo Postman coisas do tipo.
+
+A arquitetura de microsserviços é a bala de prata? O diagrama abaixo mostra por que os jogos em tempo real e os aplicativos de negociação de baixa latência não devem usar a arquitetura de microsserviço.
+
+<table>
+	<tr>
+		<td><img height="577" src="https://github.com/user-attachments/assets/c14d1c83-b66c-447a-a993-015bfa4f2a50" /></td>
+		<td><img height="577" src="https://github.com/user-attachments/assets/bac174a0-22f1-404d-895d-8b6f29e2c527" /></td>
+	</tr>
+</table>
+
+Existem alguns recursos comuns a esses aplicativos, que os fazem escolher a arquitetura monolítica:
+
+- Esses aplicativos são muito sensíveis à latência. Para jogos em tempo real, a latência deve estar no nível de milissegundos; Para negociação de baixa latência, a latência deve estar no nível de microssegundos. Não podemos separar os serviços em processos diferentes porque a latência da rede é insuportável.
+
+- A arquitetura de microsserviços geralmente é sem estado e os estados são mantidos no banco de dados. Os jogos em tempo real e a negociação de baixa latência precisam armazenar os estados na memória para atualizações rápidas. Por exemplo, quando um personagem é ferido em um jogo, não queremos ver a atualização 3 segundos depois. Esse tipo de experiência do usuário pode matar um jogo.
+
+- Os jogos em tempo real e a negociação de baixa latência precisam se comunicar com o servidor em alta frequência, e as solicitações precisam ir para a mesma instância em execução. Portanto, conexões de soquete da web e roteamento fixo são necessários.
+
+Portanto, a arquitetura de microsserviços é projetada para resolver problemas para determinados domínios. Precisamos pensar no "porquê" ao projetar aplicativos.
+
+👉 Para você: você já se deparou com situações semelhantes no trabalho quando teve que escolher uma arquitetura diferente de microsserviço?
+
+<img width="720" height="378" alt="image" src="https://github.com/user-attachments/assets/4eddd12f-070c-4835-b1c7-5585db5b4932" />
+
+Quando falamos de aplicações monolíticas, dissemos que a comunicação em aplicações monolíticas é uma comunicação entre processos. Isso significa que ele está trabalhando em um único processo que invoca um para o outro usando chamadas de método. Basta criar uma classe e chamar o método dentro do módulo de destino. Todos executando o mesmo processo.
+
+Essa comunicação é muito simples, mas ao mesmo tempo os componentes são altamente acoplados uns aos outros e difíceis de separar e escalar de forma independente.
+
 Use um sistema de monitoramento eficaz: A arquitetura de microserviços ajuda você a realizar uma enorme escalabilidade de milhares de serviços modulares e oferece potencial para maior velocidade e métodos organizados de monitoramento. É importante, no entanto, revisar todos os seus microserviços e verificar regularmente se eles estão funcionando como desejado e utilizando eficientemente os recursos disponíveis. Dependendo dessas observações, você pode tomar as atitudes apropriadas caso as expectativas não estejam sendo atendidas.
 
 Essa comunicação é muito simples, mas ao mesmo tempo os componentes são altamente acoplados uns aos outros e difíceis de separar e escalar de forma independente.
