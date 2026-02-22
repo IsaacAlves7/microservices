@@ -323,9 +323,17 @@ Grandes sistemas são compostos por sistemas menores e, portanto, dependem das p
 
 <a href="https://youtu.be/Uu32ggF-DWg"><img src="https://github.com/user-attachments/assets/8a11f9f6-3095-46f5-bdf0-0541bcf5119a" height="77" align="right"></a>
 
-Um **API Gateway** é um componente essencial em arquiteturas modernas, especialmente em sistemas baseados em microserviços. Ele atua como um intermediário entre clientes e um conjunto de serviços backend, gerenciando todas as solicitações que entram no sistema. Sua principal função é receber, rotear, transformar e controlar as solicitações de API, além de retornar respostas apropriadas aos clientes. Padrão de API gateway: seu balcão único para microsserviços.
+Um **API Gateway** é um componente essencial em arquiteturas modernas, especialmente em sistemas baseados em microserviços. Ele atua como um intermediário entre clientes e um conjunto de serviços backend, gerenciando todas as solicitações que entram no sistema. Sua principal função é receber, rotear, transformar e controlar as solicitações de API, além de retornar respostas apropriadas aos clientes.
 
 Você está cansado de gerenciar vários pontos de entrada para seus microsserviços? O padrão API Gateway está aqui para salvar o dia! Atuando como um único ponto de entrada para todas as solicitações do cliente, o API Gateway simplifica o acesso aos seus microsserviços, oferecendo comunicação perfeita entre clientes e serviços.
+
+Gateways de API são componentes essenciais em arquiteturas de software modernas, especialmente em sistemas baseados em microsserviços. Padrão de API gateway: seu balcão único para microsserviços.
+
+Eles atuam como um único ponto de entrada para todas as requisições de API, fornecendo uma interface unificada para acessar diversos serviços e dados. Ao desacoplar aplicações clientes dos microserviços backend, os API Gateways simplificam o gerenciamento de APIs e melhoram o desempenho geral e a segurança do sistema.
+
+Gateways de API ajudam a aprimorar a experiência do desenvolvedor enquanto constroem sistemas escaláveis e manuteníveis. As organizações podem alcançar melhor controle sobre seu cenário de APIs utilizando APIs Gateways.
+
+À medida que a complexidade dos sistemas de software continua a crescer, os Gateways de API desempenharão um papel cada vez mais importante ao possibilitar uma comunicação e integração eficazes entre serviços e clientes.
 
 Vamos falar sobre Padrões de Design da arquitetura de Microsserviços, que é o padrão de **Agregação de Gateway** (Gateway Aggregation Pattern). Como você sabe, aprendemos práticas e padrões e os adicionamos à nossa caixa de ferramentas de design. E usaremos esses padrões e práticas ao projetar a arquitetura de microsserviços.
 
@@ -345,11 +353,13 @@ Algumas soluções populares do API Gateway incluem Amazon API Gateway, Kong e A
 
 O diagrama abaixo mostra os detalhes:
 
-![unnamed](https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278)
-
-![Screenshot_20240620-113030_Instagram](https://github.com/user-attachments/assets/87fefd9b-435b-48c8-a89d-eac83e7bd959)
-
-![Screenshot_20240828-154608_Instagram](https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278"></td>
+		<td><img src="https://github.com/user-attachments/assets/87fefd9b-435b-48c8-a89d-eac83e7bd959"></td>
+		<td><img src="https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d"></td>
+	</tr>
+</table>
 
 ![FB_IMG_1728237050361](https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c)
 
@@ -358,6 +368,8 @@ O diagrama abaixo mostra os detalhes:
 ![FB_IMG_1722959525727](https://github.com/user-attachments/assets/a153616b-7058-40f7-8514-f7422708c78c)
 
 ![FB_IMG_1722606400370](https://github.com/user-attachments/assets/ebf0d996-77fa-426a-9095-2692d92050a2)
+
+<img width="2250" height="2504" alt="unnamed" src="https://github.com/user-attachments/assets/4b929edf-c4a7-4393-92d7-108b8556d1f5" />
 
 Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
