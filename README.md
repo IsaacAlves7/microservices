@@ -743,6 +743,200 @@ A equipe de engenharia precisava de mais do que um gateway de API. Era necessár
 
 Foi aqui que nasceu o TAG (Tinder API Gateway).
 
+Desafios antes do TAG: Antes do TAG, a lógica do gateway no Tinder era um mosaico de soluções de terceiros. Diferentes equipes de aplicação adotaram diferentes produtos de gateway de API, cada um com sua própria pilha tecnológica, modelo operacional e limitações. O que funcionava bem para um time virou um gargalo para outro.
+
+Essa configuração fragmentada introduziu atrito real:
+
+- Stacks tecnológicos incompatíveis dificultavam o compartilhamento de código ou configuração.
+- Componentes reutilizáveis não podiam se propagar entre equipes, levando à duplicação e desvio.
+- O comportamento do gerenciamento de sessões variava entre gateways, criando bugs sutis e experiências de usuário inconsistentes.
+- A sobrecarga operacional aumentou. Cada portal tinha suas peculiaridades, ciclo de atualização e custo de manutenção.
+- A velocidade de implantação diminuiu. As equipes passaram mais tempo aprendendo, depurando e contornando limitações do gateway do que enviando recursos.
+
+Aqui está um vislumbre da complexidade do gerenciamento de sessões entre APIs no Tinder antes do TAG.
+
+<img width="1100" height="559" alt="image" src="https://github.com/user-attachments/assets/9e5aa464-e976-4bd5-b784-2866efa60e9e" />
+
+Ao mesmo tempo, recursos centrais simplesmente estavam ausentes ou difíceis de implementar em gateways existentes. Alguns exemplos foram os seguintes:
+
+Não há uma maneira limpa de criar gateways por aplicação que pudessem escalar de forma independente.
+
+Suporte limitado para fluxos de trabalho nativos do Kubernetes, que o Tinder já havia adotado em outros lugares.
+
+Os formatos de configuração eram pesados ou inflexíveis, retardando as equipes que tentavam expor ou modificar rotas.
+
+Construir middleware personalizado, como filtros para detecção de bots ou aplicação de esquema de requisições, era ou sem suporte ou difícil de manter.
+
+Transformar pedidos e respostas na borda exigia escrever boilerplate ou adotar plugins frágeis.
+
+Esses não eram casos extremos. Eram necessidades diárias em um produto de rápida escala global.
+
+A necessidade era clara: uma estrutura interna única que permitisse a qualquer equipe do Tinder construir e operar um gateway de API seguro e de alto desempenho com atritos mínimos.
+
+Limitações das Soluções Existentes: Antes de construir o TAG, a equipe avaliou várias soluções populares de gateway de API, incluindo AWS API Gateway, Apigee, Kong, Tyk, KrakenD e Express Gateway.
+
+Cada uma dessas plataformas tinha seus pontos fortes, mas nenhuma se alinhava bem com as demandas operacionais e arquitetônicas do Tinder.
+
+Várias questões centrais surgiram durante a avaliação:
+
+Integração fraca com o Envoy, que serve como a espinha dorsal da malha interna de serviço do Tinder.
+
+A sobrecarga de configuração era alta. Configurar até mesmo rotas ou transformações básicas envolvia arquivos de configuração detalhados, sistemas de plugins desconhecidos ou scripts personalizados.
+
+Curvas de aprendizado íngremes retardaram o onboarding e a depuração. As equipes precisavam aprender o interior de cada gateway em vez de focar em entregar recursos.
+
+O suporte ruim para as linguagens e ferramentas preferidas do Tinder significava mais código de colagem e menos reutilização. O atrito aumentou rapidamente.
+
+A extensibilidade era limitada. Adicionar filtros personalizados ou middleware frequentemente significava forkar o gateway, escrever plugins não suportados ou lidar com hooks de ciclo de vida frágeis.
+
+O que é TAG? TAG, abreviação de Tinder API Gateway, é um framework baseado em JVM construído sobre o Spring Cloud Gateway.
+
+Não é um produto plug-and-play nem uma única instância de gateway compartilhada. É um kit de ferramentas para construir gateways. Cada equipe de aplicação pode usá-lo para criar sua própria instância de gateway de API, adaptada às suas rotas, filtros e necessidades de tráfego específicas. Veja o diagrama abaixo para referência:
+
+<img width="1100" height="641" alt="image" src="https://github.com/user-attachments/assets/c11c240d-6398-4464-a0a2-fe122f173f93" />
+
+No seu cerne, o TAG transforma a configuração em infraestrutura. As equipes definem suas rotas, regras de segurança e comportamento de middleware usando arquivos simples YAML ou JSON. O TAG cuida do resto ligando tudo nos bastidores usando o motor reativo da Spring.
+
+Esse design desbloqueia três resultados críticos:
+
+Fluxos de trabalho mais rápidos para desenvolvedores, já que a maioria das mudanças não exige código, apenas configuração.
+
+Limites de segurança mais fortes, porque as equipes possuem e isolam suas instâncias de gateway.
+
+Melhor reutilização, por meio de filtros compartilhados e padrões comuns de middleware.
+
+Do ponto de vista do desenvolvedor, a experiência é a seguinte:
+
+Defina rotas em um arquivo de configuração.
+
+Aplique filtros embutidos como setPath, rewriteResponse ou addHeader.
+
+Reutilize filtros globais para questões compartilhadas, como autenticação ou métricas.
+
+Inclua filtros personalizados onde for necessário validação, transformação ou controle específico.
+
+Fluxo de Boot do TAG: A maioria dos gateways de API sofre quando a configuração cresce. As rotas levam tempo para carregar. Filtros adicionam complexidade. Alguns sistemas até analisam a configuração em tempo real, introduzindo latência no momento da solicitação. O TAG evita isso completamente fazendo o trabalho pesado na inicialização.
+
+Construído sobre o Spring Cloud Gateway, o TAG estende o ciclo de vida padrão com componentes personalizados que processam toda a configuração antes que o tráfego comece a fluir. O resultado é um motor de roteamento totalmente preparado, pronto desde a primeira solicitação.
+
+Veja como funciona o boot flow:
+
+O Gateway Watcher inicia o processo, sinalizando que é hora de carregar as definições de rota.
+
+O Gateway Config Parser lê a configuração YAML específica do ambiente e valida a estrutura. Isso inclui caminhos de rota, predicados, filtros e vinculações de serviços backend.
+
+O Gerenciador de Gateway monta um mapeamento dos IDs de rota para seus filtros associados (pré-construídos, personalizados e globais).
+
+O Gateway Route Locator pega esse mapeamento e vincula os predicados de cada rota, filtrando-os para o motor interno de roteamento do Spring Cloud Gateway.
+
+A tabela completa de roteamento é carregada na memória, então, quando o TAG começa a receber tráfego, não há necessidade de análise ou avaliação de configuração em tempo de execução.
+
+<img width="1100" height="754" alt="unnamed" src="https://github.com/user-attachments/assets/bd030964-3903-41a2-8d41-488149b16da5" />
+
+Esse projeto garante que a lógica de roteamento seja executada com sobrecarga mínima. Todas as decisões já foram tomadas. Cada rota, predicado e filtro é compilado no grafo de tempo de execução.
+
+A troca é simples e deliberada: se algo estiver configurado incorretamente, o gateway falha rapidamente na inicialização em vez de falhar lentamente durante o tráfego de produção. Ele impõe a correção cedo e protege o desempenho em tempo de execução.
+
+Ciclo de Vida de Solicitação no TAG
+Quando uma solicitação atinge um gateway alimentado por TAG, ela passa por um pipeline bem definido de filtros, transformações e consultas antes de chegar ao backend. Esse fluxo é um caminho de execução consistente que dá controle às equipes em cada etapa.
+
+Veja o diagrama abaixo:
+
+<img width="1100" height="696" alt="unnamed" src="https://github.com/user-attachments/assets/5e5adc5c-5b2f-462c-a302-3808e41d053c" />
+
+Veja como o TAG lida com uma solicitação recebida do início ao fim:
+
+Busca Reversa de IP Geo (RGIL)
+O primeiro passo é a geolocalização. O TAG aplica um filtro global que mapeia o endereço IP do cliente para um código de país ISO de três letras. Este teste leve alimenta:
+
+Limitação de taxa específica por país
+
+Banimento de pedidos geo-conscientes
+
+Comportamento regional de características
+
+O filtro roda antes de qualquer correspondência de rota, garantindo que até caminhos inválidos ou bloqueados possam ser parados antecipadamente.
+
+Varredura de Solicitação e Resposta
+O TAG captura esquemas de requisição e resposta, não cargas completas. Isso acontece por meio de um filtro global e assíncrono que publica eventos na Amazon MSK (Kafka).
+
+O fluxo de dados possibilita:
+
+Geração automática de esquemas para documentação de API
+
+Detecção de bots, baseada em padrões e formato de requisição
+
+Ferramentas de detecção de anomalias que analisam a estrutura do tráfego em tempo real
+
+O filtro funciona fora da thread principal, evitando impacto na latência da requisição.
+
+Gerenciamento de Sessões
+Um filtro global centralizado lida com a validação e atualizações das sessões, garantindo que a lógica da sessão permaneça consistente em todos os gateways e serviços.
+
+Não há desvio por sessão por serviço ou lógica duplicada.
+
+Correspondência de Predicados
+Uma vez concluídos os filtros preliminares, o TAG corresponde ao caminho da requisição a uma rota configurada usando o mecanismo de predicados do Spring Cloud Gateway.
+
+Se nenhuma correspondência for encontrada, o pedido é rejeitado antecipadamente.
+
+Descoberta de Serviços (Service Discovery): Com a rota identificada, o TAG usa a malha de serviço do Envoy para resolver o serviço backend correto. Essa abordagem desacopla o roteamento de IPs fixos ou listas de serviço estáticas.
+
+Pré-Filtros: Antes de encaminhar a solicitação, o TAG aplica quaisquer pré-filtros definidos para essa rota. Esses podem incluir:
+
+Roteamento ponderado entre diferentes versões do backend.
+
+Conversão de HTTP para gRPC, quando os clientes frontend falam HTTP, mas o backend fala gRPC.
+
+Filtros personalizados, como cortar cabeçalhos ou validar campos de requisição.
+
+Os pré-filtros rodam em uma sequência definida, determinada pela configuração.
+
+Pós-Filtros: Após a resposta do serviço de backend, o TAG processa a saída por meio de filtros pós-post. Esses frequentemente incluem:
+
+Registro ou enriquecimento de erros
+
+Modificação de cabeçalhos ou mascaramento de campos sensíveis
+
+Transformações de resposta para normalização de formas
+
+Novamente, a ordem de execução é configurável.
+
+Resposta Final
+Uma vez que todos os filtros pós-filtros estejam concluídos, a resposta final é enviada de volta ao cliente. Sem surpresas, sem efeitos colaterais.
+
+Todo filtro (pré, pós, global ou personalizado) segue uma ordem de execução rigorosa. Desenvolvedores podem:
+
+Insira lógica personalizada em qualquer etapa.
+
+Compartilhe filtros entre rotas.
+
+Defina a prioridade exata de execução.
+
+Essa previsibilidade é o que torna o TAG sustentável sob carga.
+
+Conclusão
+O TAG se tornou o framework padrão de gateway de API em todo o Tinder. Em vez de depender de uma única instância centralizada de gateway, cada equipe de aplicação implanta sua instância TAG com configurações específicas de cada aplicação. Esse modelo dá autonomia às equipes enquanto preserva a consistência em como as rotas são definidas, o tráfego é filtrado e a segurança é aplicada.
+
+Cada instância de TAG escala de forma independente, facilitando a adaptação a mudanças nos padrões de tráfego, lançamentos de recursos ou prioridades de negócios. A TAG agora alimenta tanto o tráfego B2C quanto B2B, não só para o Tinder, mas também para outras marcas do Match Group como Hinge, OkCupid, PlentyOfFish e Ship.
+
+Veja a visualização abaixo para essa capacidade.
+
+![unnamed](https://github.com/user-attachments/assets/4f9a2d0b-922c-40dd-bb6b-5f5e2c3380b1)
+
+O design do TAG desbloqueia várias vantagens de longo prazo:
+
+A lógica de sessão e autenticação é padronizada, eliminando inconsistências entre equipes e serviços.
+
+O suporte a plugins personalizados permite experimentação rápida e ajustes finos no comportamento na borda.
+
+Sem lock-in de fornecedores, o Tinder controla seu caminho evolutivo sem esperar atualizações do roadmap de terceiros.
+
+O Route-as-Config (RAC) permite que as equipes enviem mudanças mais rápido sem precisar escrever código ou esperar pelas equipes centrais.
+
+Além do uso atual em produção, o TAG estabelece a base para futuras iniciativas que exigem visibilidade e controle na camada da API.
+A lição aqui não é que toda empresa precisa construir um gateway personalizado. A lição é que, em certa escala, flexibilidade, consistência e desempenho não podem ser resolvidos apenas com ferramentas prontas. O TAG funciona porque é profundamente moldado por como o Tinder constrói, implanta e defende seu software, sem comprometer a velocidade do desenvolvimento ou a clareza operacional.
+
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
 
