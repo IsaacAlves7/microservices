@@ -723,6 +723,20 @@ How Tinder’s API Gateway Handles A Billion Swipes Per Day:
 > [!Warning]
 > Aviso: Os detalhes deste post foram derivados dos artigos compartilhados online pela equipe de engenharia do Tinder. Todo o crédito pelos detalhes técnicos vai para a equipe de engenharia do Tinder. Os links para os artigos e fontes originais estão presentes na seção de referências ao final do post. Tentamos analisar os detalhes e dar nossa opinião sobre eles. Se você encontrar alguma imprecisão ou omissão, por favor, deixe um comentário e faremos o possível para corrigi-las.
 
+Gateways de API estão na linha de frente de qualquer aplicação em grande escala. Eles expõem os serviços ao mundo externo, garantem segurança e moldam como os clientes interagem com o backend. A maioria das equipes começa com soluções prontas para uso como AWS API Gateway, Apigee ou Kong. E para muitos casos de uso, essas ferramentas funcionam bem, mas em alguns momentos podem não ser suficientes.
+
+O Tinder chegou a esse ponto por volta de 2020.
+
+Ao longo dos anos, o Tinder cresceu para mais de 500 microserviços. Esses serviços se comunicam internamente via malha de serviços, mas APIs voltadas para o exterior, que lidam com tudo, desde recomendações até correspondências e pagamentos, precisavam de um ponto de entrada unificado, seguro e amigável para desenvolvedores. Gateways prontos a oferecer poder, mas não precisão. Eles impuseram restrições à configuração, introduziram complexidade na implantação e careciam de integração profunda com a pilha de nuvem do Tinder.
+
+Também havia um problema de velocidade. Equipes de produto enviam atualizações frequentes para serviços backend e clientes móveis. O portal precisava acompanhar. Cada atraso na exposição de uma nova rota ou comportamento de ajuste na borda retardava a entrega de recursos.
+
+Depois veio a preocupação maior: a segurança. O Tinder opera globalmente. Tráfego real de usuários chega de mais de 190 países. O mesmo vale para o tráfego ruim, incluindo bots, scrapers e tentativas de abuso. O portal se tornou um ponto crítico de estrangulamento. Ele precisava impor controles rigorosos, detectar anomalias e aplicar filtros protetores sem desacelerar o tráfego legítimo.
+
+A equipe de engenharia precisava de mais do que um gateway de API. Era necessário um framework que pudesse escalar com a organização, integrar profundamente com ferramentas internas e permitir que as equipes avançassem rápido sem comprometer a segurança.
+
+Foi aqui que nasceu o TAG (Tinder API Gateway).
+
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
 
