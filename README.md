@@ -718,6 +718,11 @@ https://medium.com/tinder/how-we-built-the-tinder-api-gateway-831c6ca5ceca
 
 ![FB_IMG_1733322278960](https://github.com/user-attachments/assets/2f7c18d7-b68a-4fed-870a-68b0bea3109a)
 
+How Tinder’s API Gateway Handles A Billion Swipes Per Day:
+
+> [!Warning]
+> Aviso: Os detalhes deste post foram derivados dos artigos compartilhados online pela equipe de engenharia do Tinder. Todo o crédito pelos detalhes técnicos vai para a equipe de engenharia do Tinder. Os links para os artigos e fontes originais estão presentes na seção de referências ao final do post. Tentamos analisar os detalhes e dar nossa opinião sobre eles. Se você encontrar alguma imprecisão ou omissão, por favor, deixe um comentário e faremos o possível para corrigi-las.
+
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
 
