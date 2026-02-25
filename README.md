@@ -582,15 +582,15 @@ O diagrama abaixo mostra os detalhes:
 	</tr>
 </table>
 
-![FB_IMG_1728237050361](https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c)
-
-![FB_IMG_1723070454356](https://github.com/user-attachments/assets/9f70ea59-cd9f-4c93-af85-1738b9009a83)
-
-![FB_IMG_1722959525727](https://github.com/user-attachments/assets/a153616b-7058-40f7-8514-f7422708c78c)
-
-![FB_IMG_1722606400370](https://github.com/user-attachments/assets/ebf0d996-77fa-426a-9095-2692d92050a2)
-
-<img width="2250" height="2504" alt="unnamed" src="https://github.com/user-attachments/assets/4b929edf-c4a7-4393-92d7-108b8556d1f5" />
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c"></td>
+		<td><img src="https://github.com/user-attachments/assets/9f70ea59-cd9f-4c93-af85-1738b9009a83"></td>
+		<td><img src="https://github.com/user-attachments/assets/a153616b-7058-40f7-8514-f7422708c78c"></td>
+		<td><img src="https://github.com/user-attachments/assets/ebf0d996-77fa-426a-9095-2692d92050a2"></td>
+		<td><img src="https://github.com/user-attachments/assets/4b929edf-c4a7-4393-92d7-108b8556d1f5"></td>
+	</tr>
+</table>
 
 - Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
