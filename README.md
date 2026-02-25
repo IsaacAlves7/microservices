@@ -862,21 +862,19 @@ O TAG captura esquemas de requisição e resposta, não cargas completas. Isso a
 
 O fluxo de dados possibilita:
 
-Geração automática de esquemas para documentação de API
+1. Geração automática de esquemas para documentação de API
 
-Detecção de bots, baseada em padrões e formato de requisição
+2. Detecção de bots, baseada em padrões e formato de requisição
 
-Ferramentas de detecção de anomalias que analisam a estrutura do tráfego em tempo real
+3. Ferramentas de detecção de anomalias que analisam a estrutura do tráfego em tempo real
 
-O filtro funciona fora da thread principal, evitando impacto na latência da requisição.
+4. O filtro funciona fora da thread principal, evitando impacto na latência da requisição.
 
-Gerenciamento de Sessões
-Um filtro global centralizado lida com a validação e atualizações das sessões, garantindo que a lógica da sessão permaneça consistente em todos os gateways e serviços.
+Gerenciamento de Sessões: Um filtro global centralizado lida com a validação e atualizações das sessões, garantindo que a lógica da sessão permaneça consistente em todos os gateways e serviços.
 
 Não há desvio por sessão por serviço ou lógica duplicada.
 
-Correspondência de Predicados
-Uma vez concluídos os filtros preliminares, o TAG corresponde ao caminho da requisição a uma rota configurada usando o mecanismo de predicados do Spring Cloud Gateway.
+Correspondência de Predicados: Uma vez concluídos os filtros preliminares, o TAG corresponde ao caminho da requisição a uma rota configurada usando o mecanismo de predicados do Spring Cloud Gateway.
 
 Se nenhuma correspondência for encontrada, o pedido é rejeitado antecipadamente.
 
