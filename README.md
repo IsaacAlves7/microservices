@@ -1652,6 +1652,48 @@ A principal função dos serviços de malha é oferecer um conjunto de capacidad
 
 - Controle de Tráfego e Políticas de Acesso: Permitem definir políticas de acesso, regras de autorização, limites de tráfego e outras políticas para controlar o comportamento da rede.
 
+O **Envoy** é um proxy L7 (camada de aplicação) de alto desempenho, open source, projetado para arquiteturas modernas baseadas em microsserviços e ambientes cloud-native. Ele foi criado originalmente pela Lyft para resolver problemas de comunicação entre serviços distribuídos e hoje é um dos componentes centrais de muitas plataformas modernas, sendo amplamente adotado em conjunto com service meshes como o Istio.
+
+Em arquiteturas de microsserviços, dezenas ou centenas de serviços precisam se comunicar entre si de forma confiável, segura e observável. Essa comunicação envolve descoberta de serviços, balanceamento de carga, retries automáticos, controle de timeout, circuit breaking, autenticação mTLS, métricas, tracing distribuído e muito mais. Implementar tudo isso dentro de cada serviço seria complexo e repetitivo. O Envoy resolve esse problema atuando como um proxy intermediário que gerencia toda a comunicação de rede entre serviços.
+
+Ele pode funcionar como sidecar proxy, ou seja, rodando ao lado de cada microsserviço dentro de um container ou pod, interceptando todo o tráfego de entrada e saída. Nesse modelo, o serviço não precisa saber nada sobre balanceamento, segurança ou telemetria — o Envoy assume essas responsabilidades. Isso é a base do conceito de service mesh, onde a malha de comunicação é abstraída da lógica de negócio.
+
+O Envoy opera principalmente na camada 7 (HTTP/HTTPS, gRPC), mas também suporta camada 4 (TCP). Ele entende protocolos modernos, consegue fazer roteamento inteligente baseado em headers, versionamento de API, A/B testing e canary releases. Por exemplo, é possível direcionar 5% do tráfego para uma nova versão de um serviço e monitorar o comportamento antes de liberar totalmente.
+
+Outro ponto forte é a observabilidade. O Envoy gera métricas detalhadas, logs estruturados e integra facilmente com sistemas de tracing distribuído. Isso permite entender latência entre serviços, identificar gargalos e diagnosticar falhas com precisão em sistemas altamente distribuídos.
+
+Em termos de resiliência, ele implementa padrões como circuit breaker (para evitar efeito cascata quando um serviço falha), retries automáticos configuráveis e rate limiting. Isso aumenta significativamente a estabilidade do sistema sob carga ou falhas parciais.
+
+Arquiteturalmente, o Envoy é altamente performático, escrito em C++, com modelo assíncrono e orientado a eventos, capaz de lidar com milhares de conexões simultâneas com baixa latência. Ele também suporta configuração dinâmica via APIs (xDS), permitindo que sua configuração seja atualizada em tempo real sem reiniciar o proxy.
+
+Em resumo, o Envoy é uma peça fundamental na infraestrutura moderna de microsserviços. Ele abstrai complexidade de rede, centraliza políticas de segurança e tráfego, melhora observabilidade e aumenta resiliência, permitindo que desenvolvedores foquem na lógica de negócio enquanto a comunicação distribuída é tratada de forma padronizada e escalável.
+
+Qual é a jornada de uma mensagem do Slack? Em um artigo técnico recente, o Slack explica como funciona sua estrutura de mensagens em tempo real. Aqui está meu resumo curto:
+
+![unnamed](https://github.com/user-attachments/assets/500a51bb-6a65-44ee-b360-d05722b853e3)
+
+Como há muitos canais, o Channel Server (CS) usa hashing consistente para alocar milhões de canais a muitos servidores de canais.
+
+As mensagens do Slack são entregues via WebApp e Admin Server para o Channel Server correto.
+
+Por meio do Gate Server e do Envoy (um proxy), o Channel Server enviará mensagens para os receptores de mensagens.
+
+Receptores de mensagens usam WebSocket, que é um mecanismo de mensagens bidirecional, permitindo receber atualizações em tempo real.
+
+Uma mensagem do Slack passa por cinco servidores importantes:
+
+WebApp: defina a API que um cliente Slack poderia usar
+
+Servidor de Administração (AS): encontre o Servidor de Canal correto usando o ID do canal
+
+Servidor de Canal (CS): manter o histórico do canal de mensagens
+
+Servidor Gateway (GS): implantado em cada região geográfica. Manter a assinatura do canal WebSocket
+
+Envoy: proxy de serviço para aplicações nativas em nuvem
+
+Agora é com você: Os servidores de canal podem cair. Como eles usam hashing consistente, como poderiam se recuperar?
+
 ## [Microservices] Service Discovery
 Embora a tendência do setor seja dividir seu aplicativo monolítico em microsserviços para segregar dados, código e interface, não é uma tarefa fácil de fazer. Especialmente se você não tiver nenhuma experiência no desenvolvimento de microsserviços e não estiver familiarizado com as práticas recomendadas e os padrões e princípios essenciais de design de microsserviços.
 
