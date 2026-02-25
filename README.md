@@ -717,9 +717,12 @@ Se fosse descrever com rigor de senior:
 
 https://medium.com/tinder/how-we-built-the-tinder-api-gateway-831c6ca5ceca
 
-![FB_IMG_1729248332522](https://github.com/user-attachments/assets/0eeee857-d322-458d-8702-89de320bcf35)
-
-![FB_IMG_1733322278960](https://github.com/user-attachments/assets/2f7c18d7-b68a-4fed-870a-68b0bea3109a)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/0eeee857-d322-458d-8702-89de320bcf35"></td>
+		<td><img src="https://github.com/user-attachments/assets/2f7c18d7-b68a-4fed-870a-68b0bea3109a"></td>
+	</tr>
+</table>
 
 How Tinder’s API Gateway Handles A Billion Swipes Per Day:
 
