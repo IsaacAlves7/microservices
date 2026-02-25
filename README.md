@@ -1652,6 +1652,8 @@ A principal função dos serviços de malha é oferecer um conjunto de capacidad
 
 - Controle de Tráfego e Políticas de Acesso: Permitem definir políticas de acesso, regras de autorização, limites de tráfego e outras políticas para controlar o comportamento da rede.
 
+<img src="https://www.vectorlogo.zone/logos/envoyproxyio/envoyproxyio-ar21.svg" align="right" height="77">
+
 O **Envoy** é um proxy L7 (camada de aplicação) de alto desempenho, open source, projetado para arquiteturas modernas baseadas em microsserviços e ambientes cloud-native. Ele foi criado originalmente pela Lyft para resolver problemas de comunicação entre serviços distribuídos e hoje é um dos componentes centrais de muitas plataformas modernas, sendo amplamente adotado em conjunto com service meshes como o Istio.
 
 Em arquiteturas de microsserviços, dezenas ou centenas de serviços precisam se comunicar entre si de forma confiável, segura e observável. Essa comunicação envolve descoberta de serviços, balanceamento de carga, retries automáticos, controle de timeout, circuit breaking, autenticação mTLS, métricas, tracing distribuído e muito mais. Implementar tudo isso dentro de cada serviço seria complexo e repetitivo. O Envoy resolve esse problema atuando como um proxy intermediário que gerencia toda a comunicação de rede entre serviços.
