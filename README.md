@@ -633,7 +633,7 @@ Antes da evolução da arquitetura de microsserviços, a maioria dos sistemas us
 
 As principais funcionalidades de um API Gateway incluem:
 
-<img src="https://github.com/user-attachments/assets/4e8e1f10-ad97-4b15-b570-36eeee8967ac" align="right" height="477">
+<img src="https://github.com/user-attachments/assets/4e8e1f10-ad97-4b15-b570-36eeee8967ac" height="477">
 
 1. **Roteamento de solicitações**: Ele direciona solicitações para o serviço backend apropriado com base no caminho, método HTTP ou outros critérios.
    
