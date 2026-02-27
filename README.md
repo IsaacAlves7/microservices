@@ -733,6 +733,24 @@ Se fosse descrever com rigor de senior:
 
 > “Essa arquitetura implementa um modelo de microsserviços com API Gateway, comunicação síncrona via REST e resolução dinâmica de endpoints por meio de Service Discovery, garantindo balanceamento, disponibilidade e desacoplamento entre serviços.”
 
+Por que precisamos usar um cadeado distribuído (distributed lock)? Um bloqueio distribuído é um mecanismo que garante a exclusão mútua em um sistema distribuído.
+
+Principais 6 Casos de Uso para Bloqueios Distribuídos
+
+- Leader Election: Bloqueios distribuídos podem ser usados para garantir que apenas um nó se torne líder em qualquer momento.
+
+- Task Scheduling: Em um agendador de tarefas distribuído, bloqueios distribuídos garantem que uma tarefa agendada seja executada por apenas um nó de trabalho, evitando execução duplicada.
+
+- Resource Allocation: Ao gerenciar recursos compartilhados como sistemas de arquivos, sockets de rede ou dispositivos de hardware, locks distribuídos garantem que apenas um processo possa acessar o recurso por vez.
+
+- Microservices Coordination: Quando múltiplos microserviços precisam realizar operações coordenadas, como atualizar dados relacionados em diferentes bancos de dados, bloqueios distribuídos garantem que essas operações sejam realizadas de maneira controlada e ordenada.
+
+- Inventory Management: Em plataformas de comércio eletrônico, fechaduras distribuídas podem gerenciar atualizações de estoque para garantir que os níveis de estoque sejam mantidos corretamente quando vários usuários tentam comprar o mesmo item simultaneamente.
+
+- Session Management: Ao lidar com sessões de usuário em um ambiente distribuído, locks distribuídos podem garantir que uma sessão de usuário seja modificada apenas por um servidor por vez, evitando inconsistências.
+
+![unnamed](https://github.com/user-attachments/assets/9362edf2-3cf9-4211-a3e7-eef8025233d2)
+
 https://medium.com/tinder/how-we-built-the-tinder-api-gateway-831c6ca5ceca
 
 <table>
