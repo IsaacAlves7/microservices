@@ -1973,6 +1973,18 @@ A arquitetura orientada a eventos é um padrão de design poderoso que pode forn
 
 Nessa arquitetura, os eventos são usados como meio de comunicação entre os diferentes componentes ou módulos do sistema. Esses eventos podem ser gerados por ações de usuários, sensores, outros sistemas, ou até mesmo pelo próprio sistema. Se você está cansado de lidar com a complexidade e a inflexibilidade das arquiteturas tradicionais de solicitação-resposta, talvez seja hora de considerar a arquitetura orientada a eventos.
 
+A arquitetura de microsserviços promove o desenvolvimento de serviços independentes. No entanto, esses serviços ainda precisam se comunicar entre si para funcionar como um sistema coeso.
+
+Conseguir a comunicação correta entre os microserviços costuma ser um desafio. Existem duas razões principais para isso:
+
+- Quando os microserviços se comunicam por meio de uma rede, enfrentam desafios inerentes associados à comunicação entre processos.
+
+- Desenvolvedores frequentemente escolhem um padrão de comunicação sem considerar cuidadosamente as necessidades específicas do problema. Isso pode levar a desempenho e escalabilidade subótimos.
+
+Exploramos vários padrões de comunicação para microserviços e discutimos seus pontos fortes, fracos e casos de uso ideais.
+
+Mas primeiro, vamos analisar os principais desafios associados à comunicação entre microserviços.
+
 Os microsserviços orientados a eventos são um padrão de design para a criação de sistemas de software escalonáveis e resilientes. Em vez da arquitetura monolítica tradicional, em que todos os componentes são fortemente acoplados e executados em uma sequência predefinida, os microsserviços orientados a eventos desacoplam componentes individuais e permitem que eles se comuniquem e colaborem por meio da troca de eventos.
 
 Em uma arquitetura de microsserviços orientada a eventos, cada microsserviço é projetado para ser pequeno, modular e independente, e se concentra em uma funcionalidade ou funcionalidade de negócios específica. Esses microsserviços se comunicam entre si por meio de um sistema de mensagens, como o Apache Kafka, que atua como um hub central para a troca de eventos. Isso permite que os microsserviços sejam acoplados de forma flexível e permite que sejam desenvolvidos, implantados e dimensionados independentemente uns dos outros.
@@ -1984,6 +1996,8 @@ A arquitetura orientada a eventos facilita o manuseio de processos demorados, fu
 Você pode estar familiarizado com a arquitetura tradicional de solicitação-resposta (um cliente, normalmente um navegador da Web, envia uma solicitação de um recurso para um servidor e o servidor envia de volta uma resposta correspondente ao recurso), na qual os componentes se comunicam entre si fazendo solicitações explícitas e recebendo respostas. Os componentes são fracamente acoplados nesta arquitetura.
 
 Em um sistema orientado a eventos, os componentes se comunicam entre si produzindo e consumindo eventos. Isso permite sistemas mais flexíveis e escaláveis, pois os componentes não precisam esperar por solicitações ou respostas explícitas.
+
+![unnamed](https://github.com/user-attachments/assets/361b5551-7169-4b3c-8c36-f3bfbb7bcc0d)
 
 Um **evento** (event) pode ser definido como uma mudança significativa do seu estado. Nessa arquitetura, os sistemas são construídos em torno da ideia de eventos. Os componentes do sistema podem produzir, consumir ou reagir a eventos. Quando um evento ocorre, os componentes interessados são notificados para tomar ações apropriadas. Essa arquitetura é comumente usada em sistemas de streaming em tempo real, como aplicativos de monitoramento e processamento de dados em tempo real.
 
