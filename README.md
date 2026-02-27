@@ -233,9 +233,25 @@ Por fim, uma arquitetura de Microserviços tem um grau de complexidade muito alt
 
 Repare que a UI, ou seja nossa View ou aplicação front-end, fica dividida para cada microservice (nossas APIs) contendo as regras de negócio e acesso a camada de dados, e nossos microserviços ficam divididos ou se relacionando com os outros a fim de realizar uma tarefa necessária no nosso back-end e atuando em banco de dados próprios para os microsserviços específicos.
 
-Os microservices podem ser trabalhados com patterns (padrões) em seu desenvolvimento, tais como:
+A arquitetura de microserviços ganhou popularidade por sua capacidade de melhorar a flexibilidade, testabilidade e escalabilidade dos sistemas de software.
 
-<img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85" align="right" height="477">
+Ao dividir uma aplicação monolítica em serviços menores e implantáveis de forma independente, os microserviços permitem que as equipes desenvolvam, implantem e escalem cada serviço de forma independente.
+
+No entanto, a implementação da arquitetura de microserviços traz seus próprios desafios, tais como:
+
+- Consistência de Dados e Consistência Eventual: Em uma arquitetura de microserviços, os dados são frequentemente distribuídos por múltiplos nós, que podem estar localizados em diferentes data centers ou até mesmo em diferentes regiões geográficas. Em qualquer momento, podem existir discrepâncias no estado dos dados entre vários nós. Esse fenômeno é conhecido como consistência eventual.
+
+- Segurança: A arquitetura de microserviços introduz uma superfície de ataque maior para atores maliciosos em comparação com sistemas monolíticos. É fundamental estabelecer mecanismos de segurança adequados ao construir microsserviços. Padrões de design como o padrão API Gateway podem ajudar.
+
+- Escalabilidade e Desempenho do Banco de Dados: Os microserviços são conhecidos por sua escalabilidade. No entanto, embora seja relativamente fácil escalar a camada de aplicação adicionando mais instâncias, bancos de dados podem se tornar gargalos de desempenho se não forem projetados para escalabilidade. Padrões como Banco de Dados por Serviço e CQRS ajudam a resolver esse desafio.
+
+Os padrões de design fornecem soluções comprovadas para problemas comuns encontrados em uma arquitetura de microserviços. Ao aplicar um padrão de design apropriado, esses problemas podem ser resolvidos de forma eficaz.
+
+Vamos explorar os padrões de design de microserviços mais populares, junto com seus benefícios e desafios de adoção. Os microservices podem ser trabalhados com patterns (padrões) em seu desenvolvimento, tais como:
+
+<img width="2250" height="2812" alt="unnamed" src="https://github.com/user-attachments/assets/03469298-aa54-476f-89ad-d6345d3907c1" />
+
+<img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85">
 
 - **API Gateway pattern**: Esse padrão envolve ter um único ponto de entrada para todas as solicitações do cliente, que encaminha essas solicitações para o microsserviço apropriado. Isso simplifica a comunicação com os clientes e permite que o gateway lide com funções como autenticação, autorização e transformação de dados.
 
@@ -2540,6 +2556,10 @@ Portanto, o design orientado por domínio baseia-se nos seguintes objetivos:
 		<td><img src="https://github.com/user-attachments/assets/40d50d38-bef7-4b85-8aab-8eba9d22891b"></td>
 	</tr>
 </table>
+
+![unnamed](https://github.com/user-attachments/assets/9ffe0630-1d16-4d7b-b758-5f74ff0c5a24)
+
+https://substack.com/redirect/2ca6dd83-9508-4fc6-ad54-21c78b264b45?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 
 <img src="https://github.com/user-attachments/assets/038eb886-2db7-456a-a67c-3707b7020c31" align="right" height="177">
 
