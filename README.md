@@ -944,7 +944,27 @@ A lição aqui não é que toda empresa precisa construir um gateway personaliza
 
 O **CQRS (Command-Query Responsibility Segregation)** é um padrão arquitetural que separa as operações de escrita **comandos** (`command`) das operações de leitura **consultas** (`query`) em um sistema, atribuindo responsabilidades distintas para cada uma delas. Em vez de usar o mesmo modelo de dados e lógica para lidar tanto com as atualizações quanto com as consultas, o <a href="https://medium.com/@edin.sahbaz/a-demo-on-clean-architecture-with-cqrs-and-repository-pattern-in-net-web-api-986838191e74?source=email-afeafff77325-1697176799007-digest.reader--986838191e74----6-98------------------21db751b_aa12_4c21_9185_c81d1d5c1508-1">CQRS</a> propõe que esses dois aspectos sejam tratados de maneira independente, o que permite otimizações específicas para cada cenário. 
 
-CQRS significa Segregação de Responsabilidade por Comando e Consulta, um padrão que isola processos de leitura e atualização de armazenamento de dados. A implementação do CQRS na sua aplicação pode melhorar seu desempenho, escalabilidade e segurança. A flexibilidade obtida ao migrar para o CQRS permite que um sistema evolua de forma mais eficaz ao longo do tempo e impede que instruções de atualização desencadeem conflitos de fusão no nível do domínio.
+O **CQRS - Command Query Responsibility Segregation** (Segregação de Responsabilidade por Comando e Consulta) é um padrão que isola processos de leitura e atualização de armazenamento de dados. A implementação do CQRS na sua aplicação pode melhorar seu desempenho, escalabilidade e segurança. A flexibilidade obtida ao migrar para o CQRS permite que um sistema evolua de forma mais eficaz ao longo do tempo e impede que instruções de atualização desencadeem conflitos de fusão no nível do domínio.
+
+CQRS, que significa Command Query Responsibility Segregation, é um padrão arquitetônico que separa as preocupações de leitura e gravação de dados.
+
+Ela divide uma aplicação em duas partes distintas:
+
+- **Lado de Comandos** (Command): Responsável por gerenciar solicitações de criação, atualização e exclusão.
+
+- **Lado da Consulta** (Query): Responsável por lidar com requisições de leitura.
+
+O padrão CQRS foi introduzido pela primeira vez por Greg Young, desenvolvedor e arquiteto de software, em 2010. Ele descreveu isso como uma forma de separar a responsabilidade de lidar com comandos (operações de escrita) do tratamento de consultas (operações de leitura) em um sistema.
+
+As origens do CQRS podem ser rastreadas até o princípio de Separação Comando-Consulta (CQS), introduzido por Bertrand Meyer. O CQS afirma que todo método deve ser um comando que executa uma ação ou uma consulta que retorna dados, mas não ambos. O CQRS leva o princípio CQS além, aplicando-o em nível arquitetônico, separando as responsabilidades de comando e consulta em diferentes modelos, serviços ou até bancos de dados.
+
+Desde sua introdução, o CQRS ganhou popularidade na comunidade de desenvolvimento de software, especialmente no contexto de arquiteturas de design orientado a domínio (DDD) e orientado a eventos.
+
+Ele tem sido aplicado com sucesso em diversos domínios, como comércio eletrônico, sistemas financeiros e aplicações colaborativas, onde desempenho, escalabilidade e complexidade são preocupações críticas.
+
+Neste post, vamos aprender sobre o CQRS em detalhes completos. Vamos cobrir os vários aspectos do padrão, junto com uma matriz de decisão sobre quando usá-lo.
+
+
 
 Modelos separados de consulta e atualização facilitam o design e a implementação. embora o código CQRS não possa ser gerado automaticamente a partir de um esquema de banco de dados usando técnicas de andaime, como ferramentas O/RM (embora você possa adicionar seu código personalizado sobre o código gerado).
 
@@ -1031,6 +1051,8 @@ Agora podemos considerar a pilha de tecnologia desses bancos de dados, vou usar 
 Portanto, devemos evoluir nossa arquitetura com a aplicação de outros padrões de dados de microsserviços para acomodar adaptações de negócios, tempo de lançamento no mercado mais rápido e lidar com solicitações maiores.
 
 https://medium.com/@martinstm/cqrs-pattern-c-a6632693d3e1
+
+<img width="1460" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/a84349b3-6c21-4f47-af14-0dffda90c2fb" />
 
 ## [Microservices] SAGA
 <a href="https://medium.com/@joudwawad/microservices-pattern-distributed-transactions-saga-92b5e933cea1"><img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"></a> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Saga-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Saga-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Saga-blue?style=flat&logo=GitBook&logoColor=white"> <img src="https://img.shields.io/badge/Confluence-Saga-blue?style=flat&logo=Confluence&logoColor=white">
