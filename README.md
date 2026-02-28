@@ -1675,6 +1675,129 @@ Atualmente, os sistemas são frequentemente distribuídos. Isso reflete a necess
 
 Em CQRS, precisamos de sincronização de consistência entre o modelo de leitura e o de escrita, usando um barramento de eventos e implementando um padrão de projeto observador. EDA busca a assincronia e a consistência eventual entre os componentes de um sistema. Em CQRS, precisamos implementar o padrão de coreografia SAGA para garantir a consistência eventual entre os modelos de leitura e escrita. Com EDA, é necessário fornecer um meio para que os componentes se comuniquem entre si. Quando um evento ocorre em um componente, ele é publicado para que outros componentes possam reagir a ele. Esse é o padrão de projeto observador.
 
+Como Halo no Xbox Escalou para 10+ Milhões de Jogadores Usando o Padrão Saga?
+
+> [!Warning]
+> Aviso: Os detalhes deste post foram derivados dos artigos/vídeos compartilhados online pela equipe de engenharia do Halo. Todo o crédito pelos detalhes técnicos vai para a equipe de engenharia do Halo/343. Os links para os artigos e vídeos originais estão presentes na seção de referências ao final do post. Tentamos analisar os detalhes e dar nossa opinião sobre eles. Se você encontrar alguma imprecisão ou omissão, por favor, deixe um comentário e faremos o possível para corrigi-las.
+
+No mundo atual de aplicações em larga escala, seja em jogos, redes sociais ou compras online, construir sistemas confiáveis é uma tarefa difícil. À medida que as aplicações crescem, elas frequentemente passam do uso de um único banco de dados centralizado para serem distribuídas por muitos serviços menores e sistemas de armazenamento. Essa mudança, embora necessária para lidar com mais usuários e dados, traz um conjunto totalmente novo de desafios, especialmente em relação à consistência e ao manejo das transações.
+
+Em sistemas tradicionais, se quiséssemos atualizar múltiplos dados (por exemplo, salvar um novo pedido de cliente e reduzir o estoque), poderíamos facilmente contar com uma transação. Uma transação garantiria que todas as atualizações tenham sucesso juntas ou que nenhuma delas aconteça.
+
+No entanto, em sistemas distribuídos, não existe mais apenas um banco de dados para se comunicar. Podemos ter serviços diferentes, cada um gerenciando seus dados em locais distintos. Cada um pode estar rodando em servidores diferentes, provedores de nuvem ou até mesmo continentes diferentes. De repente, conseguir que todos concordem ao mesmo tempo fica muito mais difícil. Falhas de rede, falhas de serviço e inconsistências agora são situações do dia a dia.
+
+Isso cria um grande problema: como mantemos um comportamento correto e confiável quando não podemos mais depender de transações tradicionais? Se estamos reservando uma viagem, não queremos acabar com reserva de hotel e sem voo. Se estamos atualizando as estatísticas de um jogador em um jogo, não podemos nos dar ao luxo de que algumas estatísticas sejam atualizadas e outras desapareçam.
+
+Os engenheiros precisam encontrar novas formas de coordenar operações entre múltiplos sistemas independentes para enfrentar essas questões. Um padrão poderoso para resolver esse problema é o Padrão Saga, uma técnica originalmente proposta no final dos anos 1980, mas cada vez mais relevante hoje. Neste artigo, vamos analisar como a equipe de engenharia do Halo da 343 Game Studio (agora Halo Studios) usou o padrão Saga para melhorar a experiência do jogador.
+
+Transações ACID: Quando engenheiros projetam sistemas que armazenam e atualizam dados, frequentemente dependem de um conjunto de garantias chamadas propriedades ACID. Essas propriedades garantem que, quando algo muda no sistema, como salvar uma compra ou atualizar as estatísticas de um jogador, isso aconteça de forma segura e previsível.
+
+<img width="1100" height="1077" alt="unnamed" src="https://github.com/user-attachments/assets/15aed62b-dda9-413e-86ab-20eb0a6fe23d" />
+
+Aqui está uma rápida análise de cada propriedade.
+
+- Atomicidade: Atomicidade significa "tudo ou nada". Ou cada etapa de uma transação acontece com sucesso, ou nada disso acontece. Se algo der errado no meio do caminho, o sistema cancela tudo para não ficar preso com um trabalho pela metade. Por exemplo, ou reserve um voo e um hotel juntos, ou nenhum dos dois.
+
+- Consistência: A consistência garante que os dados do sistema se movam de um estado válido para outro estado válido. Após o término de uma transação, os dados ainda devem seguir todas as regras e restrições que devem seguir. Por exemplo, após comprar um ingresso, o sistema não deve mostrar disponibilidade negativa de assentos. As regras sobre o que é válido são sempre respeitadas.
+
+- Isolamento: O isolamento garante que as transações não interfiram umas nas outras mesmo que ocorram ao mesmo tempo. Deveria parecer que cada transação acontece uma após a outra, mesmo quando acontecem em paralelo. Por exemplo, se duas pessoas estiverem tentando comprar o último bilhete ao mesmo tempo, apenas uma transação é bem-sucedida.
+
+- Durabilidade: Durabilidade significa que, uma vez que uma transação é comprometida, ela é permanente. Mesmo que o sistema trave logo depois, o resultado permanece seguro e não será perdido. Por exemplo, se um usuário comprou um ingresso e o aplicativo trava imediatamente depois, o ingresso ainda está reservado e não está perdido no sistema.
+
+Modelo de Banco de Dados Único: Em arquiteturas de sistemas antigas, a forma típica de construir aplicações era ter um único banco de dados SQL grande que atuava como a fonte central de verdade.
+
+<img width="1100" height="705" alt="unnamed" src="https://github.com/user-attachments/assets/4e947f4e-0c90-46bb-a6da-e5b12724aaba" />
+
+Cada parte do aplicativo, seja um jogo como Halo, um site de comércio eletrônico ou um aplicativo bancário, enviaria todos os seus dados para um único lugar.
+
+Veja como funcionava:
+
+Aplicações (como servidores de jogos ou sites) se comunicariam com um serviço sem estado.
+
+Esse serviço sem estado então se comunicaria diretamente com o único banco de dados SQL.
+
+O banco de dados armazenaria tudo: estatísticas dos jogadores, progresso do jogo, inventário, transações financeiras, tudo em um único local centralizado e consistente.
+
+Algumas vantagens do modelo de banco de dados único eram fortes garantias impostas pelas propriedades ACID, simplicidade de desenvolvimento e escalabilidade vertical.
+
+Crise de Escalabilidade de Halo 4
+Durante o desenvolvimento de Halo 4, a equipe de engenharia enfrentou desafios de escala sem precedentes que não haviam sido encontrados em títulos anteriores da franquia.
+
+Halo 4 experimentou um nível de engajamento avassalador:
+
+Mais de 1,5 bilhão de jogos foram disputados.
+
+Mais de 11,6 milhões de jogadores únicos se conectaram e competiram online.
+
+Cada partida gerava dados detalhados de telemetria para cada jogador: abates, assistências, mortes, uso de armas, medalhas e várias outras estatísticas relacionadas ao jogo. Essas informações precisavam ser ingeridas, processadas, armazenadas e tornadas acessíveis em múltiplos serviços, tanto para feedback em tempo real no próprio jogo quanto para plataformas externas de análise como o Halo Waypoint.
+
+A complexidade aumentava ainda mais porque uma única partida podia envolver de 1 a 32 jogadores. Para cada sessão de jogo, as estatísticas precisavam ser atualizadas de forma confiável em vários registros de jogadores simultaneamente, preservando a precisão e consistência dos dados.
+
+Inadequação de um Banco de Dados SQL Único
+Antes de Halo 4, os primeiros capítulos da série dependiam fortemente de um modelo centralizado de banco de dados.
+
+Uma única instância grande do SQL Server operava como fonte canônica da verdade. Os serviços de aplicação interagiriam com esse banco de dados centralizado para ler e escrever todos os dados de jogabilidade, jogadores e partidas, dependendo das garantias embutidas do ACID para garantir a integridade dos dados.
+
+No entanto, a escala exigida por Halo 4 rapidamente revelou limitações sérias nesse modelo:
+
+Limites de Escalonamento Vertical: Embora o banco de dados centralizado pudesse ser escalado verticalmente (adicionando hardware mais potente), havia limites físicos e operacionais inerentes. Além de um certo limite, nenhuma quantidade de memória, potência da CPU ou otimização de armazenamento poderia compensar o volume crescente de leituras e gravações concorrentes.
+
+Ponto único de falha: Depender de uma única instância de banco de dados apresentou um risco operacional crítico. Qualquer tempo de inatividade, corrupção de dados ou saturação de recursos nesse caso pode derrubar serviços essenciais para toda a base de jogadores.
+
+Questões de Contenção e Bloqueios: Com milhões de usuários interagindo simultaneamente com o banco de dados, a disputa por bloqueios e índices tornou-se um gargalo.
+
+Complexidade Operacional da Particionação: O sistema centralizado original não foi projetado para cargas de trabalho particionadas. Introduzir retroativamente sharding ou particionamento em uma estrutura SQL monolítica exigiria grandes reescritas e procedimentos operacionais complexos, criando riscos de inconsistência e instabilidade de serviço.
+
+Descompasso com a Arquitetura Cloud-native: O backend do Halo 4 migrou para a infraestrutura em nuvem do Azure, especificamente usando o Azure Table Storage. Azure Table Storage é um sistema NoSQL que depende inerentemente de armazenamento particionado e oferece consistência eventual. O antigo modelo de consistência transacional em um único banco de dados não se alinhava com esse ambiente particionado e distribuído.
+
+Diante desses desafios, a equipe de engenharia reconheceu que continuar confiando em um banco de dados SQL monolítico limitaria a escalabilidade e exporia o sistema a níveis inaceitáveis de risco e tempo de inatividade. Uma transição para uma arquitetura distribuída era necessária.
+
+O Padrão Saga teve origem em um artigo de pesquisa publicado em 1987 por Hector Garcia-Molina e Kenneth Salem na Universidade de Princeton. A pesquisa abordou um problema crítico: como lidar com transações de longa duração em sistemas de banco de dados.
+
+Na época, as transações tradicionais eram projetadas para serem operações de curta duração, bloqueando recursos por um período mínimo para manter as garantias do ACID. No entanto, algumas operações, como gerar um extrato bancário complexo, processar grandes conjuntos de dados históricos ou conciliar fluxos de trabalho financeiros em múltiplas etapas, exigem manter bloqueios por períodos prolongados. Essas transações de longa duração criaram gargalos ao imobilizar recursos, reduzir a concorrência do sistema e aumentar o risco de falha.
+
+O Padrão Saga resolve essas questões das seguintes maneiras:
+
+- Uma única operação lógica é dividida em uma sequência de subtransações menores.
+
+- Cada subtransação é executada de forma independente e faz commit imediatamente com suas alterações.
+
+- Se todas as subtransações forem bem-sucedidas, a Saga como um todo é considerada bem-sucedida.
+
+- Se alguma subtransação falhar, as transações compensatórias são executadas em ordem inversa para desfazer as alterações das subtransações previamente concluídas.
+
+Veja o diagrama abaixo que mostra um exemplo desse padrão:
+
+<img width="1100" height="705" alt="unnamed" src="https://github.com/user-attachments/assets/10a98474-892c-4993-9b58-ef5b5154e23d" />
+
+Os principais pontos técnicos sobre as Sagas são os seguintes:
+
+- Subtransações devem ser independentes: A execução bem-sucedida de uma subtransação não deve depender diretamente do resultado de outra. Essa independência permite uma melhor concorrência e evita falhas em cascata.
+
+- Transações compensatórias são necessárias: Para cada subtransação, uma ação compensatória correspondente deve ser definida. Essas transações compensatórias "desfazem" semanticamente o efeito de suas operações associadas. No entanto, o sistema pode nem sempre conseguir retornar ao estado anterior exato; em vez disso, visa uma recuperação semanticamente consistente.
+
+- A atomicidade é enfraquecida: Diferente das transações tradicionais, onde atualizações parciais nunca são visíveis, em uma Saga, estados intermediários são visíveis para outras partes do sistema. Resultados parciais podem existir temporariamente até que a sequência completa seja concluída ou até que uma falha desencadeie o rollback por compensação.
+
+- A consistência é preservada por meio da lógica de negócios: em vez de depender de garantias transacionais em nível de banco de dados, as Sagas mantêm consistência em nível de aplicação garantindo que, após todas as subtransações e compensações, o sistema permaneça em um estado válido e coerente.
+
+- O gerenciamento de falhas está incorporado: as Sagas tratam falhas como parte esperada da operação do sistema. O padrão oferece uma forma estruturada de lidar com erros e manter a resiliência sem assumir confiabilidade perfeita.
+
+Modelos de Execução Saga: Os principais aspectos do modelo de execução do Saga são os seguintes:
+
+Execução de Banco de Dados Único: Quando o Saga Pattern foi introduzido pela primeira vez, ele foi projetado para operar dentro de um único sistema de banco de dados. Nesse ambiente, executar uma saga requer dois componentes principais:
+
+1 - Coordenador de Execução de Sagas (SEC)
+O Coordenador de Execução Saga é um processo que orquestra a execução de todas as subtransações na sequência correta. É responsável por:
+
+- Iniciando a saga
+- Executando cada subtransação uma após a outra
+- Monitorando o sucesso ou fracasso de cada subtransação
+- Acionando transações compensatórias caso algo dê errado
+
+A SEC garante que a saga progredia corretamente, sem necessidade de coordenação distribuída, pois tudo está acontecendo dentro do mesmo sistema de banco de dados.
+
+<img width="1100" height="785" alt="unnamed" src="https://github.com/user-attachments/assets/211293a8-b934-406e-b8fd-15bb5eedc11d" />
+
 ## [Microservices] Service mesh
 <img src="https://img.shields.io/badge/Istio-Service_mesh-blue?style=flat&logo=Istio&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Linkerd-Service_mesh-limegreen?style=flat&logo=Linkerd&logoColor=white"> <img src="https://img.shields.io/badge/Kuma-Service_mesh-black?style=flat&logo=Kuma&logoColor=white">
 
