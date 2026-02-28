@@ -1798,6 +1798,104 @@ A SEC garante que a saga progredia corretamente, sem necessidade de coordenaçã
 
 <img width="1100" height="785" alt="unnamed" src="https://github.com/user-attachments/assets/211293a8-b934-406e-b8fd-15bb5eedc11d" />
 
+2 - Saga Log
+O Diário da Saga funciona como um registro duradouro de tudo o que acontece durante a execução de uma saga. Todo evento importante, iniciando uma saga, iniciando uma subtransação, completando uma subtransação, iniciando uma transação compensatória, concluindo uma transação compensatória, encerrando uma saga, é escrito no log.
+
+O Saga Log garante que, mesmo que a SEC trave durante a execução, o sistema pode se recuperar ao reproduzir os eventos registrados no log. Isso proporciona durabilidade e recuperação sem depender do tradicional bloqueio de transações em toda a saga.
+
+Manuseio de Falhas
+Lidar com falhas em uma saga de banco de dados único depende de uma estratégia chamada recuperação reversa.
+
+Isso significa que, se qualquer subtransação falhar durante a execução da saga, o sistema deve reverter executando transações compensatórias para todas as subtransações que já foram concluídas com sucesso.
+
+Veja como o processo funciona:
+
+Detecção de Falha: A SEC detecta que uma subtransação falhou porque a operação do banco de dados retorna um erro ou viola uma regra de negócio.
+
+Registro do Aborto: A SEC grava um evento de abortar no Saga Log, marcando que o caminho de execução direta foi abandonado.
+
+Compensações iniciais: A SEC lê o Saga Log para determinar quais subtransações foram concluídas. Em seguida, começa a executar as transações compensatórias correspondentes na ordem inversa.
+
+Completando o Rollback: Cada transação compensatória é registrada no Saga Log à medida que começa e se conclui.
+
+Após todas as compensações necessárias serem aplicadas com sucesso, a saga é formalmente marcada como abortada no registro.
+
+Serviço de Estatísticas de Halo 4
+Aqui estão os componentes-chave de como Halo usou o Padrão Saga:
+
+Arquitetura de Serviços: O serviço de estatísticas de Halo 4 foi criado para lidar com grandes volumes de dados de jogadores gerados durante e após cada jogo. A arquitetura utilizava uma combinação de armazenamento baseado em nuvem e modelos de programação baseados em atores para gerenciar essa complexidade de forma eficaz.
+
+<img width="1100" height="672" alt="unnamed" src="https://github.com/user-attachments/assets/db4e2f59-e2c8-4ddf-bcae-4c17e6dd2569" />
+
+A arquitetura de serviço incluía os seguintes componentes principais:
+
+Azure Table Storage: Todos os dados persistentes do jogador eram armazenados no Azure Table Storage, um armazenamento de chave-valor NoSQL. Os dados de cada jogador eram atribuídos a uma partição separada, permitindo leituras e gravações altamente paralelas sem um único gargalo centralizado.
+
+Modelo de Ator de Orleans: A equipe adotou o framework Orleans da Microsoft, que é baseado no modelo de ator. Atores (chamados de "grãos" em Orleans) representavam diferentes unidades lógicas no sistema.
+
+Game Grains cuidava da agregação das estatísticas de uma sessão de jogo.
+
+Os Grãos dos Jogadores eram responsáveis por persistir as estatísticas de cada jogador. No sistema backend de Halo 4, um Player Grain é uma unidade lógica que representa os dados e o comportamento de um único jogador dentro da aplicação do lado do servidor.
+
+Azure Service Bus: O Azure Service Bus era usado como uma fila de mensagens e um log distribuído e duradouro. Quando um novo jogo é concluído, uma mensagem contendo a carga útil de estatísticas é publicada no Service Bus. Isso serviu como o início de uma saga.
+
+Serviços de Frontend Sem Estado: Esses serviços aceitavam estatísticas brutas dos clientes Xbox, as publicavam no Service Bus e acionavam os pipelines de processamento da saga.
+
+A separação em grãos de jogo e de jogadores, combinada com armazenamento distribuído em nuvem, forneceu uma base escalável capaz de processar milhares de jogos simultâneos e milhões de atualizações simultâneas de jogadores.
+
+Aplicação da Saga
+A equipe aplicou o Padrão Saga para gerenciar as atualizações complexas necessárias para as estatísticas dos jogadores em múltiplas partições.
+
+A sequência típica era:
+
+Agregação: Após o término de uma sessão de jogo, o Game Grain agregava estatísticas dos jogadores participantes.
+
+Iniciação da Saga: Uma mensagem foi registrada no Azure Service Bus indicando o início de uma saga para atualizar estatísticas daquele jogo.
+
+Subsolicitações para os Grãos do Jogador: Para cada jogador no jogo (até 32), o Grão do Jogo enviava solicitações individuais de atualização para seus Graãos de Jogador correspondentes. Cada Grão de Jogador então atualizava as estatísticas de seu jogador no Azure Table Storage.
+
+Registro do Progresso: Atualizações bem-sucedidas e quaisquer erros eram registrados pelo sistema de mensagens durável, garantindo que nenhum estado fosse perdido mesmo que um processo travasse.
+
+Conclusão ou Falha: Se todas as atualizações dos jogadores tivessem sucesso, a saga era considerada concluída. Se alguma atualização do jogador falhasse (por exemplo, devido a um problema temporário de armazenamento no Azure), a saga não seria revertida, mas passaria para uma fase de recuperação para frente.
+
+Por meio dessa estrutura, a equipe podia garantir que as atualizações fossem processadas independentemente por jogador, sem depender das transações tradicionais ACID em todas as partições dos jogadores.
+
+<img width="1100" height="715" alt="unnamed" src="https://github.com/user-attachments/assets/50e2384e-2aae-43a7-8b3a-8d6c93462093" />
+
+Estratégia de Recuperação Avançada
+Em vez de usar a recuperação retroativa tradicional (reverter subtransações completas), a equipe de Halo 4 implementou a recuperação avançada para suas sagas estatísticas.
+
+As principais razões para escolher a recuperação para frente são as seguintes:
+
+Experiência do Usuário: Jogadores que tiveram suas estatísticas atualizadas com sucesso não devem ver essas estatísticas desaparecerem de repente caso ocorra um retrocesso. Reverter dados visíveis e processados com sucesso criaria uma experiência confusa e ruim.
+
+Eficiência Operacional: Retentar apenas as atualizações falhadas do jogador foi mais eficiente do que desfazer escritas bem-sucedidas e reiniciar todo o processamento do jogo.
+
+Veja como funciona a recuperação para frente:
+
+Se um Player Grain não atualizasse suas estatísticas (por exemplo, devido à indisponibilidade da partição de armazenamento ou esgotamento de cotas), o sistema registrava a falha, mas não desfazia nenhuma atualização bem-sucedida já concluída para outros jogadores.
+
+A atualização falhada foi colocada na fila para uma tentativa novamente usando uma estratégia de recuo. Isso permitia tempo para resolver problemas temporários sem sobrecarregar o sistema de armazenamento com tentativas agressivas.
+
+Atualizações retentadas eram necessárias para serem idempotentes. Ou seja, repetir a operação de atualização não resultaria em estatísticas duplicadas ou corrupção. Isso foi alcançado confiando em operações de banco de dados que aplicavam com segurança mudanças incrementais ou sobrescreviam campos conforme necessário.
+
+Retentativas bem-sucedidas eventualmente traziam todos os recordes dos jogadores para um estado consistente, mesmo que levasse minutos ou horas após o término da sessão original do jogo.
+
+Ao usar recuperação direta e projetar para idempotência, o backend do Halo 4 conseguiu alcançar alta disponibilidade.
+
+Conclusão
+À medida que os sistemas crescem para suportar milhões de usuários, modelos tradicionais de banco de dados que dependem de transações centralizadas e fortes garantias ACID começam a falhar.
+
+A experiência da equipe de engenharia de Halo 4 destacou a necessidade urgente de uma nova abordagem: uma que pudesse lidar com uma escala enorme, tolerar falhas com elegância e ainda manter consistência entre os repositórios de dados distribuídos.
+
+O Padrão Saga ofereceu uma solução elegante e prática para esses desafios. Ao decompor operações de longa duração em sequências de subtransações e ações compensatórias, a equipe conseguiu construir um sistema que priorizava disponibilidade, resiliência e correção operacional sem depender de locks distribuídos caros ou protocolos rígidos de coordenação.
+
+As lições aprendidas com esse sistema se aplicam amplamente, não apenas à infraestrutura de jogos, mas a qualquer domínio onde operações distribuídas devem manter confiabilidade em larga escala.
+
+https://substack.com/redirect/b3fa5e85-c0b3-4efe-82f7-f20ddc7b208a?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
+https://substack.com/redirect/59161afc-4e6a-4103-9ec5-e07cde62cead?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
 ## [Microservices] Service mesh
 <img src="https://img.shields.io/badge/Istio-Service_mesh-blue?style=flat&logo=Istio&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Linkerd-Service_mesh-limegreen?style=flat&logo=Linkerd&logoColor=white"> <img src="https://img.shields.io/badge/Kuma-Service_mesh-black?style=flat&logo=Kuma&logoColor=white">
 
