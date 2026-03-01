@@ -1008,6 +1008,22 @@ Você pode dividir fisicamente os dados de leitura e gravação para maior isola
 
 Por exemplo, o banco de dados de escrita pode ser relacional, e o banco de dados de leitura pode ser um banco de dados de documentos.
 
+![unnamed](https://github.com/user-attachments/assets/4b534ea8-f80d-483c-ae68-ffa755796bf0)
+
+Veja como funciona:
+
+1. O cliente envia um comando para atualizar o estado do sistema. Um Gerenciador de Comandos valida e executa a lógica usando o Modelo de Domínio.
+
+2. As alterações são salvas no Banco de Dados de Escrita e também podem ser salvas em um Armazenamento de Eventos. Eventos são emitidos para atualizar o Modelo de Leitura de forma assíncrona.
+
+3. As projeções são armazenadas no Banco de Dados de Leitura. Esse banco de dados acaba sendo consistente com o Write Database.
+
+4. No lado da consulta, o cliente envia uma consulta para recuperar os dados.
+
+5. Um Gerenciador de Consultas busca dados do Banco de Dados de Leitura, que contém projeções pré-computadas.
+
+6. Os resultados são retornados ao cliente sem atingir o modelo de escrita ou o banco de dados de escrita.
+
 No contexto de comandos, o foco está em realizar mudanças no estado da aplicação. Essas operações geralmente envolvem regras de negócios que precisam ser validadas antes que os dados sejam modificados. Por outro lado, as consultas têm como objetivo apenas recuperar e exibir dados, sem causar impacto no estado do sistema. Essa separação pode resultar em um design mais simples e eficiente, pois permite que cada lado seja modelado e implementado de acordo com suas necessidades específicas.
 
 O CQRS é um dos padrões importantes ao consultar entre microsserviços. Podemos usar o padrão de design CQRS para evitar consultas complexas para se livrar de junções ineficientes. CQRS significa Segregação de Responsabilidade de Comando e Consulta. Basicamente, esse padrão separa as operações de leitura e atualização de um banco de dados.
