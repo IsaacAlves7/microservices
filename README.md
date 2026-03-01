@@ -1099,6 +1099,18 @@ O padrão **Saga** (Saga Pattern) foi originalmente proposto pelos cientistas da
 
 O padrão <a href="https://medium.com/swlh/microservices-architecture-what-is-saga-pattern-and-how-important-is-it-55f56cfedd6b">Saga</a> oferece uma maneira de garantir a consistência dos dados e a execução das transações em tais sistemas. O padrão Saga é frequentemente associado ao conceito de Long-Running Transactions (LRTs). SAGA pode ser descrito como uma sequência de transações que podem ser intercaladas com outras transações.
 
+Em aplicações empresariais, quase toda requisição é executada dentro de uma transação de banco de dados.
+
+Desenvolvedores frequentemente utilizam frameworks e bibliotecas com mecanismos declarativos para simplificar o gerenciamento de transações.
+
+O framework Spring, por exemplo, usa uma anotação especial para organizar que invocações de métodos sejam executadas automaticamente dentro de uma transação. Essa anotação simplifica a escrita da lógica de negócios transacional, facilitando o gerenciamento de transações em uma aplicação monolítica que acessa um único banco de dados.
+
+No entanto, embora o gerenciamento de transações seja relativamente simples em uma aplicação monolítica que acessa um único banco de dados, ele se torna mais complexo em cenários envolvendo múltiplos bancos de dados e corredores de mensagens.
+
+Por exemplo, em uma arquitetura de microserviços, as transações empresariais abrangem múltiplos serviços, cada um com seu banco de dados. Essa complexidade torna a abordagem tradicional de transação impraticável. Em vez disso, aplicações baseadas em microserviços devem adotar mecanismos alternativos para gerenciar as transações de forma eficaz.
+
+Vamos entender por que aplicações baseadas em microserviços exigem uma abordagem mais sofisticada para a gestão de transações, como o uso do padrão Saga. Também entenderemos as diferentes abordagens para implementar o padrão Saga em uma aplicação.
+
 > [!Warning]
 > **Problema**: Microserviços têm suas próprias vantagens e desvantagens. Uma dessas desvantagens é gerenciar transações distribuídas. Digamos que sua transação abrange 4 microserviços diferentes. Como garantir que sua transação seja confirmada com sucesso com todas as 4 tarefas ou fracasse se alguma das tarefas não for concluída (as concluídas forem revertidas)? O Spring Boot fornece a `@Transactional` de anotação para gerenciar transações. Mas isso funciona apenas dentro de um único método e dentro de um único projeto.
 
@@ -1895,6 +1907,8 @@ As lições aprendidas com esse sistema se aplicam amplamente, não apenas à in
 https://substack.com/redirect/b3fa5e85-c0b3-4efe-82f7-f20ddc7b208a?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 
 https://substack.com/redirect/59161afc-4e6a-4103-9ec5-e07cde62cead?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
+<img width="1503" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/1f12c0d0-b5b6-4680-a96e-b069e70e38a9" />
 
 ## [Microservices] Service mesh
 <img src="https://img.shields.io/badge/Istio-Service_mesh-blue?style=flat&logo=Istio&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Consul-Service_mesh-magenta?style=flat&logo=Consul&logoColor=white"> <img src="https://img.shields.io/badge/Linkerd-Service_mesh-limegreen?style=flat&logo=Linkerd&logoColor=white"> <img src="https://img.shields.io/badge/Kuma-Service_mesh-black?style=flat&logo=Kuma&logoColor=white">
