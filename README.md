@@ -562,8 +562,6 @@ Grandes sistemas são compostos por sistemas menores e, portanto, dependem das p
 
 <a href="https://youtu.be/Uu32ggF-DWg"><img src="https://github.com/user-attachments/assets/8a11f9f6-3095-46f5-bdf0-0541bcf5119a" height="77" align="right"></a>
 
-https://medium.com/tinder/how-we-built-the-tinder-api-gateway-831c6ca5ceca
-
 Um **API Gateway** é um componente essencial em arquiteturas modernas, especialmente em sistemas baseados em microserviços. Ele atua como um intermediário entre clientes e um conjunto de serviços backend, gerenciando todas as solicitações que entram no sistema. Sua principal função é receber, rotear, transformar e controlar as solicitações de API, além de retornar respostas apropriadas aos clientes.
 
 Você está cansado de gerenciar vários pontos de entrada para seus microsserviços? O padrão API Gateway está aqui para salvar o dia! Atuando como um único ponto de entrada para todas as solicitações do cliente, o API Gateway simplifica o acesso aos seus microsserviços, oferecendo comunicação perfeita entre clientes e serviços.
@@ -712,11 +710,11 @@ Veja a análise completa:
 - Os **adapters externos** (Stripe Adapter, Twilio Adapter, SendGrid Adapter) mostram **integrações com serviços externos**, aqui o padrão de integração é o **adapter pattern**, acoplado a serviços de pagamento, SMS e e-mail.
 - Essa topologia também sugere o uso de **Service Mesh** (como Istio ou Linkerd), já que há comunicação cruzada direta entre microsserviços (REST API interna).
 
-Conceitualmente, isso é uma **arquitetura de microsserviços com gateway unificado e comunicação síncrona via REST**, uma variação moderna do **Backend for Frontend (BFF)** quando há múltiplos front-ends (Passenger Web UI, Driver Web UI, Mobile App).
+Conceitualmente, isso é uma arquitetura de microsserviços com gateway unificado e comunicação síncrona via REST, uma variação moderna do **Backend for Frontend (BFF)** quando há múltiplos front-ends (Passenger Web UI, Driver Web UI, Mobile App).
 
 Se você fosse nomear essa arquitetura tecnicamente em um documento de design ou currículo, a forma mais correta seria:
 
-> **Arquitetura de Microsserviços com API Gateway Pattern e integração externa via Adapters (REST-based Service Mesh).**
+> Arquitetura de Microsserviços com API Gateway Pattern e integração externa via Adapters (REST-based Service Mesh).
 
 Em termos práticos, é uma arquitetura distribuída e escalável, com alta coesão entre domínios (DDD) e baixo acoplamento entre serviços.
 
