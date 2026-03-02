@@ -1993,17 +1993,17 @@ Receptores de mensagens usam WebSocket, que é um mecanismo de mensagens bidirec
 
 Uma mensagem do Slack passa por cinco servidores importantes:
 
-WebApp: defina a API que um cliente Slack poderia usar
+- WebApp: defina a API que um cliente Slack poderia usar
 
-Servidor de Administração (AS): encontre o Servidor de Canal correto usando o ID do canal
+- Servidor de Administração (AS): encontre o Servidor de Canal correto usando o ID do canal
 
-Servidor de Canal (CS): manter o histórico do canal de mensagens
+- Servidor de Canal (CS): manter o histórico do canal de mensagens
 
-Servidor Gateway (GS): implantado em cada região geográfica. Manter a assinatura do canal WebSocket
+- Servidor Gateway (GS): implantado em cada região geográfica. Manter a assinatura do canal WebSocket
 
-Envoy: proxy de serviço para aplicações nativas em nuvem
+- Envoy: proxy de serviço para aplicações nativas em nuvem
 
-Agora é com você: Os servidores de canal podem cair. Como eles usam hashing consistente, como poderiam se recuperar?
+> Agora é com você: Os servidores de canal podem cair. Como eles usam hashing consistente, como poderiam se recuperar?
 
 ## [Microservices] Service Discovery
 Embora a tendência do setor seja dividir seu aplicativo monolítico em microsserviços para segregar dados, código e interface, não é uma tarefa fácil de fazer. Especialmente se você não tiver nenhuma experiência no desenvolvimento de microsserviços e não estiver familiarizado com as práticas recomendadas e os padrões e princípios essenciais de design de microsserviços.
