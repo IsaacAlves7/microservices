@@ -2234,7 +2234,20 @@ Conseguir a comunicação correta entre os microserviços costuma ser um desafio
 
 - Desenvolvedores frequentemente escolhem um padrão de comunicação sem considerar cuidadosamente as necessidades específicas do problema. Isso pode levar a desempenho e escalabilidade subótimos.
 
-Exploramos vários padrões de comunicação para microserviços e discutimos seus pontos fortes, fracos e casos de uso ideais.
+A arquitetura orientada a eventos (EDA) é uma abordagem de design de software que enfatiza a produção, detecção, consumo e reação a eventos. Nessa arquitetura, eventos são mudanças de estado ou atualizações dentro de um sistema.
+
+A EDA é particularmente benéfica no desenvolvimento moderno de software porque pode desacoplar serviços, melhorar a escalabilidade e melhorar a capacidade de resposta.
+
+Ao permitir que os sistemas reajam a eventos de forma assíncrona, a EDA suporta processamento em tempo real e possibilita que os sistemas lidam com grandes volumes de dados de forma eficiente. Essa abordagem é útil em sistemas distribuídos e arquiteturas de microserviços, onde diferentes componentes devem operar de forma independente, porém coesa.
+
+A importância da EDA no cenário atual de software não pode ser subestimada. Oferece vantagens significativas, tais como:
+
+- Tolerância a falhas melhorada porque os sistemas podem continuar operando mesmo que alguns componentes falhem.
+
+- Melhor utilização dos recursos ao permitir que os serviços escalem de forma independente com base na demanda.
+- Suporta fluxos de trabalho dinâmicos e flexíveis, permitindo que as empresas se adaptem rapidamente às mudanças nos requisitos e às condições do mercado.
+
+NVamos explorar vários padrões usados na arquitetura orientada a eventos. Ao examinar esses padrões, o objetivo é reunir insights sobre como eles podem ser aplicados para construir sistemas robustos, escaláveis e responsivos. Exploramos vários padrões de comunicação para microserviços e discutimos seus pontos fortes, fracos e casos de uso ideais.
 
 Mas primeiro, vamos analisar os principais desafios associados à comunicação entre microserviços.
 
@@ -2249,6 +2262,8 @@ A arquitetura orientada a eventos facilita o manuseio de processos demorados, fu
 Você pode estar familiarizado com a arquitetura tradicional de solicitação-resposta (um cliente, normalmente um navegador da Web, envia uma solicitação de um recurso para um servidor e o servidor envia de volta uma resposta correspondente ao recurso), na qual os componentes se comunicam entre si fazendo solicitações explícitas e recebendo respostas. Os componentes são fracamente acoplados nesta arquitetura.
 
 Em um sistema orientado a eventos, os componentes se comunicam entre si produzindo e consumindo eventos. Isso permite sistemas mais flexíveis e escaláveis, pois os componentes não precisam esperar por solicitações ou respostas explícitas.
+
+<img width="1509" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/af03be52-6cb9-49c1-8807-9a62d56b4d5f" />
 
 ![unnamed](https://github.com/user-attachments/assets/361b5551-7169-4b3c-8c36-f3bfbb7bcc0d)
 
