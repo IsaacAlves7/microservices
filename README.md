@@ -2011,26 +2011,31 @@ O diagrama abaixo é uma arquitetura de microsserviços baseada em **Service Reg
 <img width="720" height="443" alt="image" src="https://github.com/user-attachments/assets/9832675c-c6f3-4ca4-ab8c-2179769ccd38" />
 
 1. **Service Instances (A, B, C)**: cada serviço é independente, com sua própria API REST. Esses são os microsserviços reais.
+
 2. **Registry Client**: cada instância de serviço se registra no **Service Registry** para que outras partes do sistema saibam onde encontrá-la.
+
 3. **Service Registry**: é o componente central que mantém o mapeamento de quais instâncias estão ativas e seus endereços (IP + porta). Pode ser algo como **Eureka, Consul ou Zookeeper**.
+
 4. **Load Balancer**: faz o balanceamento de requisições entre as instâncias disponíveis do serviço. Dependendo da implementação, pode ser **Server-Side** (o load balancer sabe das instâncias) ou **Client-Side** (o cliente consulta o registry e decide qual instância chamar).
+
 5. **Request Flow**: quando uma requisição chega, ela passa pelo load balancer, que consulta o Service Registry para descobrir quais instâncias estão ativas e encaminha a requisição de forma balanceada.
 
-**Resumo do tipo de arquitetura:**
+Resumo do tipo de arquitetura: Arquitetura de microsserviços com Service Discovery e Load Balancing
 
-* **Arquitetura de microsserviços com Service Discovery e Load Balancing**
-* **Características principais:**
-
+Características principais:
   * Desacoplamento total entre clientes e serviços.
   * Descoberta dinâmica de serviços (não precisa de endereços fixos).
   * Balanceamento de carga automático.
   * Alta escalabilidade e resiliência.
 
-<img width="720" height="1142" alt="image" src="https://github.com/user-attachments/assets/ca37099f-ecb1-4055-aed8-32b814f1db16" />
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/ca37099f-ecb1-4055-aed8-32b814f1db16" /></td>
+		<td><img src="https://github.com/user-attachments/assets/4544ca94-5d71-4307-a202-08ff86aa18ae" /></td>
+	</tr>
+</table>
 
 Em poucas palavras, o padrão de descoberta de serviço desempenha um papel fundamental na manutenção de uma arquitetura de microsserviços robusta e adaptável. Ao implementar esse padrão, você pode gerenciar e dimensionar facilmente seus serviços sem suar a camisa. Você está preparado para conquistar o labirinto de microsserviços com o Service Discovery?
-
-![FB_IMG_1723734690810](https://github.com/user-attachments/assets/4544ca94-5d71-4307-a202-08ff86aa18ae)
 
 ## [Microservices] Inter-Service Communication
 Comunicação entre serviços em aplicações monolíticas: Em uma arquitetura monolítica, todos os componentes e módulos do aplicativo são totalmente integrados em uma única base de código e são executados no mesmo processo ou na mesma máquina. Como todos os componentes fazem parte do mesmo aplicativo, normalmente não há necessidade de comunicação entre serviços ou chamadas remotas para funções internas de negócios. A comunicação entre os componentes é obtida por meio de chamadas de método no nível da linguagem ou chamadas de função simples na mesma base de código
