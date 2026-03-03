@@ -256,33 +256,37 @@ Vamos explorar os padrões de design de microserviços mais populares, junto com
 	</tr>
 </table>
 
-- **API Gateway pattern**: Esse padrão envolve ter um único ponto de entrada para todas as solicitações do cliente, que encaminha essas solicitações para o microsserviço apropriado. Isso simplifica a comunicação com os clientes e permite que o gateway lide com funções como autenticação, autorização e transformação de dados.
+- **API Gateway pattern**: Esse padrão envolve ter um único ponto de entrada para todas as solicitações do cliente, que encaminha essas solicitações para o microsserviço apropriado. Isso simplifica a comunicação com os clientes e permite que o gateway lide com funções como autenticação, autorização e transformação de dados. É o ponto de entrada para acessar qualquer microserviço e podemos implementar aqui questões transversais como Segurança, Limite de Taxa e Balanceamento de Carga. Podemos usar o Spring Cloud Zuul ou o Spring Cloud Gateway para implementar isso.
 
-- **Circuit Breaker pattern**: Este padrão é utilizado para lidar com falhas em uma arquitetura de microsserviços. Quando um microsserviço falha ou deixa de responder, o disjuntor dispara e redireciona as solicitações para um serviço de fallback.
+- **Circuit Breaker pattern**: Este padrão é utilizado para lidar com falhas em uma arquitetura de microsserviços. Quando um microsserviço falha ou deixa de responder, o disjuntor dispara e redireciona as solicitações para um serviço de fallback. Esse padrão é muito útil ao lidar com erros transitórios. Por exemplo, quando o serviço a chama o serviço b e o serviço b está indisponível (timeout), ele pode retornar um resultado de cache como resposta padrão ou um recurso de retenção para fazer uma solicitação a outro serviço auxiliar para obter o resultado e permitir que o serviço b recupere sem tentar fazer mais requisições para ele. Podemos usar Hystrix ou Resilient4J para implementar isso.
 
 - **Retry pattern**: Automaticamente tenta novamente as operações (requests) que falharam para prover as chances de sucesso.
+
+- **Service Discovery**: Permitir que os serviços se encontrem por meio de um nome em vez de um IP. Por que não propriedade intelectual? Porque o IP frequentemente muda em tempo de execução devido à frequência com que os containers são girados e destruídos. Podemos usar o serviço Spring Cloud Eureka ou Kubernetes para implementar isso.
 
 - **Service Registry pattern**: Este padrão é usado para rastrear todos os serviços em uma arquitetura de microsserviços. O registro atua como um diretório central para descoberta de serviço.
 
 - **Mesh Service pattern**: esse padrão envolve a adição de uma camada de infraestrutura entre microsserviços para lidar com preocupações transversais, como descoberta de serviço, balanceamento de carga e segurança.
 
-- **Event-Driven Architecture pattern**: esse padrão envolve o uso de eventos para comunicação entre microsserviços. Cada microsserviço pode publicar eventos e assinar eventos publicados por outros microsserviços.
+- **Event-Driven Architecture pattern**: esse padrão envolve o uso de eventos para comunicação entre microsserviços. Cada microsserviço pode publicar eventos e assinar eventos publicados por outros microsserviços. Esse padrão permite um acoplamento frouxo entre serviços, o que significa que os serviços não precisam se conhecer para se comunicar. O protocolo de comunicação geralmente ocorre por meio de eventos usando Mensagens Queue, como AMQP (RabbitMQ) ou Apache Kafka.
 
-- **Saga pattern**: Este padrão é usado para gerenciar transações que abrangem vários microsserviços. Envolve dividir a transação em etapas individuais menores e usar ações de compensação para desfazer as etapas concluídas se ocorrer um erro.
+- **Saga pattern**: Este padrão é usado para gerenciar transações que abrangem vários microsserviços. Envolve dividir a transação em etapas individuais menores e usar ações de compensação para desfazer as etapas concluídas se ocorrer um erro. Como sabemos, lidar com sistemas distribuídos é difícil, especialmente quando se trata de transações distribuídas; O commit de 2 fases era a melhor opção, mas devido à sua natureza de bloqueio pessimista, dificulta escalar, por isso os padrões Saga entram em cena. Existem maneiras de implementar o padrão Saga, que são Orquestração e Coreografia.
 
-- **Bulkhead pattern**: Este padrão é utilizado para isolar falhas em uma arquitetura de microsserviços. Cada microsserviço é colocado em um contêiner separado, portanto, se um microsserviço falhar, ele não afetará outros microsserviços.
+- **Bulkhead pattern**: Este padrão é utilizado para isolar falhas em uma arquitetura de microsserviços. Cada microsserviço é colocado em um contêiner separado, portanto, se um microsserviço falhar, ele não afetará outros microsserviços. Esse padrão ajuda a lidar com a tolerância a falhas relacionada ao pool de threads, dividindo o pool de threads com base no número de serviços que precisavam ser chamados. Por exemplo, definimos um pool de 50 threads no serviço A e o serviço A fará requisições para os serviços B e C. Assim, o serviço A deve dividir o pool de 50 threads em 2 (25 para o serviço B, outros 25 para o serviço C), assim, se o serviço C não estiver disponível ou demorar mais para processar a solicitação, isso não afete a chamada do serviço B porque ele tem seu próprio pool de threads para realizar o trabalho. Podemos usar o Resilient4J para implementar isso.
 
-- **Sidecar pattern**: esse padrão envolve a implantação de um contêiner separado ao lado de cada microsserviço para lidar com preocupações transversais, como registro, monitoramento e segurança.
+- **Sidecar pattern**: esse padrão envolve a implantação de um contêiner separado ao lado de cada microsserviço para lidar com preocupações transversais, como registro, monitoramento e segurança. Provavelmente um dos padrões mais legais de conhecer. Por quê? porque é uma forma de conectar serviços de negócios transversais como um sidecar ao serviço empresarial real. Normalmente, isso é feito implantando um serviço de sidecar no mesmo pod do serviço empresarial propriamente dito. Caso de uso: comunicação segura, entre serviço e serviço, implementação de logging ou métrica. Podemos usar o proxy do Envoy como sidecar.
 
-- **CQRS pattern**: Esse padrão envolve a separação dos modelos de leitura e gravação em uma arquitetura de microsserviços. O modelo de leitura é otimizado para consultar dados, enquanto o modelo de gravação é otimizado para atualizar dados.
+- **CQRS pattern**: Esse padrão envolve a separação dos modelos de leitura e gravação em uma arquitetura de microsserviços. O modelo de leitura é otimizado para consultar dados, enquanto o modelo de gravação é otimizado para atualizar dados. CQRS: poderíamos separar Command(write) e Query(read), o que significa que poderíamos projetar uma tabela de banco de dados otimizando para escrita e leitura de forma diferente para escalabilidade.
 
-- **Strangler pattern**: esse padrão envolve a substituição gradual de um aplicativo monolítico por microsserviços, adicionando gradualmente novos microsserviços e removendo a funcionalidade do monólito.
+- **Strangler pattern**: esse padrão envolve a substituição gradual de um aplicativo monolítico por microsserviços, adicionando gradualmente novos microsserviços e removendo a funcionalidade do monólito. Esta é uma forma de decompor uma aplicação monólita em microsserviços, extraindo gradualmente cada recurso do aplicativo monolítico em microsserviços individuais e permitindo que a aplicação monolítica chame esses novos microsserviços. Ao criar novos recursos, comece criando um novo microserviço em vez de criar esse novo recurso dentro do aplicativo monolito. A extração também pode incluir a criação de um novo banco de dados para esses novos serviços.
 
 - **Shared Database pattern**: esse padrão é praticamente uma base de dados compartilhada, ela é muito comum no processo pós migração de arquiteturas monolíticas para microsserviços. Onde os microsserviços vão sendo criados e vão ficando independentes, mas a base de dados ainda continua sendo compartilhada nesse serviço.
 
 - **Database Per Service pattern**: esse padrão é chamado de banco de dados por serviço, onde cada serviço geralmente possui seu próprio banco de dados, o que ajuda a evitar acoplamento entre serviços e permite que cada serviço escolha o banco de dados mais adequado às suas necessidades.
 
-- **Test Automation patten**: Automatizar testes, incluindo testes de unidade, testes de integração e testes de aceitação, para garantir a qualidade e a confiabilidade dos microsserviços.
+- **Test Automation pattern**: Automatizar testes, incluindo testes de unidade, testes de integração e testes de aceitação, para garantir a qualidade e a confiabilidade dos microsserviços.
+
+- **BFF pattern**: Também conhecido como Backend para Frontend. Implementar microserviços para cada plataforma permite mais personalização/otimização com base em cada plataforma. Por exemplo, um aplicativo móvel pode não precisar de fotos ou vídeos de grande porte como aplicativos web, mas lembre-se de que o serviço pode ser redundante.
 
 <img src="https://github.com/user-attachments/assets/5d535c27-fda8-46eb-b138-29b027d651b6" align="right" height="577">
 
@@ -397,26 +401,6 @@ Aqui estão os 10 padrões de microserviços que os engenheiros de software deve
 ![FB_IMG_1733228987280](https://github.com/user-attachments/assets/caf7b934-fde2-489c-affe-ce7e16241678)
 
 ![FB_IMG_1718629521831](https://github.com/user-attachments/assets/23486dd3-edb0-4b98-845b-3b6ac62c43db)
-
-- API Gateway: É o ponto de entrada para acessar qualquer microserviço e podemos implementar aqui questões transversais como Segurança, Limite de Taxa e Balanceamento de Carga. Podemos usar o Spring Cloud Zuul ou o Spring Cloud Gateway para implementar isso.
-
-- Service Discovery: Permitir que os serviços se encontrem por meio de um nome em vez de um IP. Por que não propriedade intelectual? Porque o IP frequentemente muda em tempo de execução devido à frequência com que os containers são girados e destruídos. Podemos usar o serviço Spring Cloud Eureka ou Kubernetes para implementar isso.
-
-- Circuit breaker: Esse padrão é muito útil ao lidar com erros transitórios. Por exemplo, quando o serviço a chama o serviço b e o serviço b está indisponível (timeout), ele pode retornar um resultado de cache como resposta padrão ou um recurso de retenção para fazer uma solicitação a outro serviço auxiliar para obter o resultado e permitir que o serviço b recupere sem tentar fazer mais requisições para ele. Podemos usar Hystrix ou Resilient4J para implementar isso.
-
-- Bulkhead: Esse padrão ajuda a lidar com a tolerância a falhas relacionada ao pool de threads, dividindo o pool de threads com base no número de serviços que precisavam ser chamados. Por exemplo, definimos um pool de 50 threads no serviço A e o serviço A fará requisições para os serviços B e C. Assim, o serviço A deve dividir o pool de 50 threads em 2 (25 para o serviço B, outros 25 para o serviço C), assim, se o serviço C não estiver disponível ou demorar mais para processar a solicitação, isso não afete a chamada do serviço B porque ele tem seu próprio pool de threads para realizar o trabalho. Podemos usar o Resilient4J para implementar isso.
-
-- CQRS: poderíamos separar Command(write) e Query(read), o que significa que poderíamos projetar uma tabela de banco de dados otimizando para escrita e leitura de forma diferente para escalabilidade.
-
-- Event Driven Pattern: Esse padrão permite um acoplamento frouxo entre serviços, o que significa que os serviços não precisam se conhecer para se comunicar. O protocolo de comunicação geralmente ocorre por meio de eventos usando Mensagens Queue, como AMQP (RabbitMQ) ou Apache Kafka.
-
-- Saga: Como sabemos, lidar com sistemas distribuídos é difícil, especialmente quando se trata de transações distribuídas; O commit de 2 fases era a melhor opção, mas devido à sua natureza de bloqueio pessimista, dificulta escalar, por isso os padrões Saga entram em cena. Existem maneiras de implementar o padrão Saga, que são Orquestração e Coreografia.
-
-- Strangler Pattern: Esta é uma forma de decompor uma aplicação monólita em microsserviços, extraindo gradualmente cada recurso do aplicativo monolítico em microsserviços individuais e permitindo que a aplicação monolítica chame esses novos microsserviços. Ao criar novos recursos, comece criando um novo microserviço em vez de criar esse novo recurso dentro do aplicativo monolito. A extração também pode incluir a criação de um novo banco de dados para esses novos serviços.
-
-- Sidecar: Provavelmente um dos padrões mais legais de conhecer. Por quê? porque é uma forma de conectar serviços de negócios transversais como um sidecar ao serviço empresarial real. Normalmente, isso é feito implantando um serviço de sidecar no mesmo pod do serviço empresarial propriamente dito. Caso de uso: comunicação segura, entre serviço e serviço, implementação de logging ou métrica. Podemos usar o proxy do Envoy como sidecar.
-
-- BFF: Também conhecido como Backend para Frontend. Implementar microserviços para cada plataforma permite mais personalização/otimização com base em cada plataforma. Por exemplo, um aplicativo móvel pode não precisar de fotos ou vídeos de grande porte como aplicativos web, mas lembre-se de que o serviço pode ser redundante.
 
 Em um mundo onde produtos digitais precisam escalar globalmente, responder instantaneamente e lidar com milhares de usuários simultâneos — a comunicação tradicional síncrona de solicitação e resposta atinge seus limites.
 
