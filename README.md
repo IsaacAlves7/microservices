@@ -2924,6 +2924,7 @@ Portanto, o design orientado por domínio baseia-se nos seguintes objetivos:
 	<tr>
 		<td><img src="https://github.com/user-attachments/assets/dff34406-3889-446f-818f-2353d4be9589"></td>
 		<td><img src="https://github.com/user-attachments/assets/40d50d38-bef7-4b85-8aab-8eba9d22891b"></td>
+		<td><img src="https://github.com/user-attachments/assets/c2d239ef-edf2-4fe8-b7c8-7d306363024d"></td>
 	</tr>
 </table>
 
