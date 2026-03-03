@@ -249,9 +249,12 @@ Os padrões de design fornecem soluções comprovadas para problemas comuns enco
 
 Vamos explorar os padrões de design de microserviços mais populares, junto com seus benefícios e desafios de adoção. Os microservices podem ser trabalhados com patterns (padrões) em seu desenvolvimento, tais como:
 
-<img width="2250" height="2812" alt="unnamed" src="https://github.com/user-attachments/assets/03469298-aa54-476f-89ad-d6345d3907c1" />
-
-<img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85">
+<table>
+	<tr>
+		<td><img width="2250" height="2812" alt="unnamed" src="https://github.com/user-attachments/assets/03469298-aa54-476f-89ad-d6345d3907c1" /></td>
+		<td><img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85"></td>
+	</tr>
+</table>
 
 - **API Gateway pattern**: Esse padrão envolve ter um único ponto de entrada para todas as solicitações do cliente, que encaminha essas solicitações para o microsserviço apropriado. Isso simplifica a comunicação com os clientes e permite que o gateway lide com funções como autenticação, autorização e transformação de dados.
 
