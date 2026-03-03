@@ -588,16 +588,6 @@ O diagrama abaixo mostra os detalhes:
 	</tr>
 </table>
 
-<table>
-	<tr>
-		<td><img src="https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c"></td>
-		<td><img src="https://github.com/user-attachments/assets/9f70ea59-cd9f-4c93-af85-1738b9009a83"></td>
-		<td><img src="https://github.com/user-attachments/assets/a153616b-7058-40f7-8514-f7422708c78c"></td>
-		<td><img src="https://github.com/user-attachments/assets/ebf0d996-77fa-426a-9095-2692d92050a2"></td>
-		<td><img src="https://github.com/user-attachments/assets/4b929edf-c4a7-4393-92d7-108b8556d1f5"></td>
-	</tr>
-</table>
-
 - Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
 - Passo 2 - O gateway da API analisa e valida os atributos na requisição HTTP.
@@ -613,6 +603,16 @@ O diagrama abaixo mostra os detalhes:
 - Passo 8 - O gateway da API transforma a solicitação no protocolo apropriado e a envia para microserviços de backend.
 
 - Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
+
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c"></td>
+		<td><img src="https://github.com/user-attachments/assets/9f70ea59-cd9f-4c93-af85-1738b9009a83"></td>
+		<td><img src="https://github.com/user-attachments/assets/a153616b-7058-40f7-8514-f7422708c78c"></td>
+		<td><img src="https://github.com/user-attachments/assets/ebf0d996-77fa-426a-9095-2692d92050a2"></td>
+		<td><img src="https://github.com/user-attachments/assets/4b929edf-c4a7-4393-92d7-108b8556d1f5"></td>
+	</tr>
+</table>
 
 Esse padrão deve ser usado se o aplicativo cliente tiver que invocar vários microsserviços de back-end diferentes para executar sua lógica. Vamos olhar para a imagem:
 
