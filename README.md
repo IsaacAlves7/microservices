@@ -2493,6 +2493,55 @@ Somado à escala das operações do McDonald's, o sistema precisava de uma arqui
 
 Vamos analisar a jornada do McDonald no desenvolvimento de uma plataforma unificada que permite arquiteturas em tempo real orientadas a eventos.
 
+Objetivos de Design da Plataforma: A plataforma unificada orientada a eventos da McDonald's foi construída com princípios fundamentais específicos para apoiar suas operações globais e serviços voltados ao cliente.
+
+Cada objetivo de projeto foi cuidadosamente considerado para garantir a robustez e eficiência da plataforma. Vamos analisar os objetivos com um pouco mais de detalhes.
+
+<img width="1600" height="1142" alt="unnamed" src="https://github.com/user-attachments/assets/43f6099f-5247-404c-876b-8f1ce1651560" />
+
+Escalabilidade: A plataforma precisava da capacidade de escalonar automaticamente para acomodar a demanda. Para esse fim, eles o projetaram para lidar com volumes crescentes de eventos por meio de sharding baseado em domínio em múltiplos clusters MSK. Essa abordagem permite escalabilidade horizontal e utilização eficiente dos recursos à medida que o volume de transações aumenta.
+
+Alta Disponibilidade: A plataforma precisava ser capaz de suportar falhas em componentes. A resiliência do sistema é alcançada por meio de componentes redundantes e mecanismos de failover. A arquitetura inclui um armazenamento de eventos em standby que mantém a continuidade operacional quando o serviço principal MSK apresenta problemas.
+
+Desempenho: O objetivo era entregar eventos em tempo real, com a capacidade de lidar com cargas de trabalho altamente concorrentes. A entrega de eventos em tempo real é facilitada por meio de caminhos de processamento otimizados e mecanismos de cache de esquemas. O sistema mantém baixa latência enquanto lida com cenários de alta taxa em diferentes regiões geográficas.
+
+Segurança: Os dados precisavam seguir as diretrizes de segurança dos dados.
+
+A plataforma implementa medidas abrangentes de segurança, incluindo:
+
+- Camadas de autenticação para integrações com parceiros externos
+- Gateways de eventos seguros
+- Adesão a protocolos rigorosos de segurança de dados
+
+Confiabilidade: A plataforma deve ser confiável com controles para evitar perder qualquer evento. A prevenção de perdas de eventos é alcançada por meio de:
+
+- Gerenciamento de tópicos sem correspondência
+- Mecanismos robustos de tratamento de erros
+- Garantias de entrega confiável
+- Procedimentos automatizados de recuperação
+
+Consistência: A plataforma deve manter consistência em torno de padrões importantes relacionados ao manejo de erros, resiliência, evolução de esquemas e monitoramento. A padronização é mantida usando:
+
+- SDKs personalizados para diferentes linguagens de programação
+- Padrões unificados de implementação
+- Registro centralizado de esquemas
+- Gestão consistente de contratos de eventos
+
+Simplicidade: A plataforma deve reduzir a complexidade operacional para que as equipes possam construir sobre a plataforma com facilidade.
+
+A complexidade operacional é minimizada com:
+
+- Gerenciamento automatizado de cluster
+- Ferramentas de desenvolvimento simplificadas
+- Interfaces administrativas simplificadas
+- Padrões claros de implementação
+
+Componentes Chave da Arquitetura: O diagrama abaixo mostra a arquitetura de alto nível da arquitetura orientada a eventos do McDonald's.
+
+<img width="1600" height="1017" alt="unnamed" src="https://github.com/user-attachments/assets/23be0416-73a1-4841-a929-dd5033393c86" />
+
+Os principais componentes da arquitetura são os seguintes:
+
 ## [Microservices] Outbox Pattern
 <a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
