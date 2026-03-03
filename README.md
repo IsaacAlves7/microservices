@@ -2125,6 +2125,20 @@ Um **event-bus** é um mecanismo de comunicação baseado em eventos que funcion
 
 A função essencial do <a href="https://medium.com/@denhox/sharing-data-between-microservices-fe7fb9471208">event-bus</a> é organizar essa comunicação assíncrona. Ele recebe eventos — que podem representar mudanças de estado, ações do usuário, comunicação entre microsserviços ou notificações internas — e encaminha tudo para os assinantes corretos. Em sistemas distribuídos, isso significa que um backend pode emitir um evento de “pedido criado”, por exemplo, e vários serviços podem reagir de formas diferentes: um calcula frete, outro atualiza estoque, outro envia e-mail. Nada disso exige que esses serviços se conheçam diretamente, porque o event-bus faz o papel de conector invisível entre todos eles.
 
+Um *Event-bus*, ou barramento de eventos, é um padrão de arquitetura de software usado para facilitar a comunicação assíncrona entre diferentes partes de um sistema distribuído. Ele permite que os componentes do sistema comuniquem-se entre si sem ter conhecimento direto uns dos outros.
+
+Basicamente, um Event-bus atua como um intermediário entre os vários componentes de um sistema, permitindo que eles publiquem eventos (mensagens, notificações, atualizações etc.) e se inscrevam para receber eventos específicos que são relevantes para eles.
+
+Existem dois tipos principais de Event-bus:
+
+- **Event-bus baseado em mensagens**: Neste tipo, os componentes enviam e recebem mensagens assíncronas através de um barramento centralizado. Cada componente pode ser um produtor (enviando eventos) ou um consumidor (recebendo eventos). Exemplos populares incluem Apache Kafka, RabbitMQ e ActiveMQ.
+
+- **Event-bus baseado em publish/subscribe** (publicar/inscrever-se): Aqui, os componentes publicam eventos em "tópicos" específicos e outros componentes se inscrevem nos tópicos relevantes para receber esses eventos. Quando um evento é publicado em um tópico, todos os assinantes desse tópico recebem o evento. Exemplos incluem o uso de sistemas de mensagens como MQTT ou tecnologias como Redis Pub/Sub.
+
+O Event-bus é amplamente utilizado em arquiteturas de microsserviços, sistemas distribuídos e ambientes orientados a eventos, pois oferece flexibilidade, escalabilidade e desacopla os componentes do sistema, permitindo que eles evoluam independentemente.
+
+Ao adotar um Event-bus, é essencial planejar cuidadosamente os eventos que serão enviados e recebidos, garantir a confiabilidade na entrega de mensagens e considerar a escalabilidade e o desempenho do sistema como um todo.
+
 Esse padrão é muito usado em arquiteturas orientadas a eventos, tanto em front-ends modernos quanto em plataformas de mensageria robustas. No contexto de aplicações JavaScript, por exemplo, um event-bus interno organiza a comunicação entre componentes sem que eles precisem se referenciar diretamente. Já no universo de microservices, o event-bus costuma ser implementado por ferramentas como RabbitMQ, Kafka, NATS ou SNS/SQS na AWS, que lidam com volume alto, tolerância a falhas, filas persistentes e distribuição confiável.
 
 O event-bus não serve apenas para transportar mensagens; ele também cria uma forma mais saudável de estruturar a arquitetura, reduzindo acoplamento, aumentando testabilidade e facilitando evolução do sistema. Quando tudo gira em torno de eventos, o software passa a ser mais rastreável, auditar o comportamento fica simples, e é possível introduzir novas funcionalidades observando apenas os eventos existentes, sem tocar no código dos serviços que já funcionam. Em essência, o event-bus é o coração silencioso de sistemas modernos baseados em reatividade e comunicação assíncrona, garantindo fluidez, escalabilidade e clareza no fluxo de informações.
@@ -2432,20 +2446,6 @@ As diferenças sutis, se houverem, se for necessário fazer uma distinção téc
 - Event-Based pode ser uma descrição mais ampla que inclui qualquer sistema que use eventos como parte de sua lógica, sem necessariamente seguir todos os princípios de uma arquitetura Event-Driven, como desacoplamento rigoroso e comunicação assíncrona.
 
 - Event-Driven implica um conjunto mais específico de princípios e práticas que promovem a reatividade, a escalabilidade e o desacoplamento através do uso de eventos.
-
-Um **Event-bus**, ou barramento de eventos, é um padrão de arquitetura de software usado para facilitar a comunicação assíncrona entre diferentes partes de um sistema distribuído. Ele permite que os componentes do sistema comuniquem-se entre si sem ter conhecimento direto uns dos outros.
-
-Basicamente, um Event-bus atua como um intermediário entre os vários componentes de um sistema, permitindo que eles publiquem eventos (mensagens, notificações, atualizações etc.) e se inscrevam para receber eventos específicos que são relevantes para eles.
-
-Existem dois tipos principais de Event-bus:
-
-- Event-bus baseado em mensagens: Neste tipo, os componentes enviam e recebem mensagens assíncronas através de um barramento centralizado. Cada componente pode ser um produtor (enviando eventos) ou um consumidor (recebendo eventos). Exemplos populares incluem Apache Kafka, RabbitMQ e ActiveMQ.
-
-- Event-bus baseado em publish/subscribe (publicar/inscrever-se): Aqui, os componentes publicam eventos em "tópicos" específicos e outros componentes se inscrevem nos tópicos relevantes para receber esses eventos. Quando um evento é publicado em um tópico, todos os assinantes desse tópico recebem o evento. Exemplos incluem o uso de sistemas de mensagens como MQTT ou tecnologias como Redis Pub/Sub.
-
-O Event-bus é amplamente utilizado em arquiteturas de microsserviços, sistemas distribuídos e ambientes orientados a eventos, pois oferece flexibilidade, escalabilidade e desacopla os componentes do sistema, permitindo que eles evoluam independentemente.
-
-Ao adotar um Event-bus, é essencial planejar cuidadosamente os eventos que serão enviados e recebidos, garantir a confiabilidade na entrega de mensagens e considerar a escalabilidade e o desempenho do sistema como um todo.
 
 https://medium.com/@vinciabhinav7/common-problems-in-message-queues-with-solutions-f0703c0bd5af
 
