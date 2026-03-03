@@ -2263,9 +2263,12 @@ Você pode estar familiarizado com a arquitetura tradicional de solicitação-re
 
 Em um sistema orientado a eventos, os componentes se comunicam entre si produzindo e consumindo eventos. Isso permite sistemas mais flexíveis e escaláveis, pois os componentes não precisam esperar por solicitações ou respostas explícitas.
 
-<img width="1509" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/af03be52-6cb9-49c1-8807-9a62d56b4d5f" />
-
-![unnamed](https://github.com/user-attachments/assets/361b5551-7169-4b3c-8c36-f3bfbb7bcc0d)
+<table>
+	<tr>
+		<td><img width="1509" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/af03be52-6cb9-49c1-8807-9a62d56b4d5f" /></td>
+		<td><img src="https://github.com/user-attachments/assets/361b5551-7169-4b3c-8c36-f3bfbb7bcc0d"></td>
+	</tr>
+</table>
 
 Um **evento** (event) pode ser definido como uma mudança significativa do seu estado. Nessa arquitetura, os sistemas são construídos em torno da ideia de eventos. Os componentes do sistema podem produzir, consumir ou reagir a eventos. Quando um evento ocorre, os componentes interessados são notificados para tomar ações apropriadas. Essa arquitetura é comumente usada em sistemas de streaming em tempo real, como aplicativos de monitoramento e processamento de dados em tempo real.
 
