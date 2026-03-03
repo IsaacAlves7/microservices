@@ -2530,6 +2530,12 @@ Componentes Chave da Arquitetura: O diagrama abaixo mostra a arquitetura de alto
 
 Os principais componentes da arquitetura são os seguintes:
 
+Event Broker: O componente central da plataforma é o AWS Managed Streaming for Kafka (MSK), que lida com o seguinte:
+
+- Gestão da comunicação entre produtores e consumidores.
+- Organização e gestão de temas.
+- Distribuição de eventos pela plataforma.
+
 ## [Microservices] Outbox Pattern
 <a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
