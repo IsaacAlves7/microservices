@@ -2536,6 +2536,32 @@ Event Broker: O componente central da plataforma é o AWS Managed Streaming for 
 - Organização e gestão de temas.
 - Distribuição de eventos pela plataforma.
 
+![unnamed](https://github.com/user-attachments/assets/1aea4486-ad92-4f64-97d4-1a3003e6de57)
+
+Trade-offs de Engenharia: Consistência Eventual (Eventual Consistency) na Prática
+
+Imagine um aplicativo de carona que mostra a localização do motorista com alguns segundos de atraso. Agora, imagine se o app inteiro se recusasse a mostrar qualquer coisa até que todos os serviços de backend concordassem com a localização atual perfeita. Sem movimento, sem atualizações, apenas uma roda girando.
+
+É isso que aconteceria se a consistência forte fosse sempre preferida em um sistema distribuído.
+
+Aplicações modernas (feeds sociais, mercados, plataformas logísticas) não rodam mais em um único banco de dados ou backend monolítico. Eles rodam em sistemas distribuídos orientados por eventos. Os serviços publicam e reagem aos eventos. Os dados fluem de forma assíncrona, e os componentes são atualizados de forma independente. Esse desacoplamento desbloqueia flexibilidade, escalabilidade e resiliência. No entanto, isso também significa que a consistência não é mais imediata ou garantida.
+
+É aí que a consistência eventual se torna importante.
+
+Alguns exemplos são os seguintes:
+
+Um sistema de pagamento pode marcar uma transação como pendente até que múltiplos serviços downstream confirmem isso.
+
+Um serviço de feed pode renderizar postagens enquanto um trabalho em segundo plano as desduplica ou reordena depois.
+
+Um sistema de armazém pode vender temporariamente um produto em excesso e depois emitir uma correção à medida que as atualizações de estoque sincronizam entre as regiões.
+
+Esses não são bugs, mas trade-offs.
+
+A consistência eventual permite que cada componente faça seu trabalho de forma independente, depois se reconcilie. Ele prioriza a disponibilidade e a resposta em vez de acordo imediato.
+
+Este artigo explora o que significa construir com consistência eventual em um mundo movido por eventos. Ele explica como lidar com eventos fora de ordem e como projetar sistemas que possam lidar com atrasos.
+
 ## [Microservices] Outbox Pattern
 <a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
