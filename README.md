@@ -2218,7 +2218,7 @@ Conclusão, eu queria transmitir esse ponto aos desenvolvedores que, como eu há
 ## [Microservices] EDA - Event-Driven Architecture
 <a href="http://tryrabbitmq.com/"><img src="https://img.shields.io/badge/RabbitMQ-16.17.0-orange?style=flat&logo=RabbitMQ&logoColor=white"></a> <a href="https://medium.com/innoviletech/rabbitmq-producer-and-consumer-solution-with-docker-in-net-core-9a825d3c2448"><img src="https://img.shields.io/badge/RabbitMQ-16.17.0-orange?style=flat&logo=Medium&logoColor=white"></a> <a href="https://medium.com/innoviletech/rabbitmq-producer-and-consumer-solution-with-docker-in-net-core-9a825d3c2448"><img src="https://img.shields.io/badge/Apache_Kafka-16.17.0-black?style=flat&logo=Apache-Kafka&logoColor=white"></a> <a href="https://medium.com/innoviletech/rabbitmq-producer-and-consumer-solution-with-docker-in-net-core-9a825d3c2448"><img src="https://img.shields.io/badge/Apache_Kafka-16.17.0-black?style=flat&logo=Apache-Kafka&logoColor=white"></a> <a href="https://medium.com/innoviletech/rabbitmq-producer-and-consumer-solution-with-docker-in-net-core-9a825d3c2448"><img src="https://img.shields.io/badge/Apache_Kafka-16.17.0-black?style=flat&logo=Apache-Kafka&logoColor=white"></a>
 
-<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/99011c9e-9092-45d4-9487-e3bdb7346352" align="right" height="277">
+<img src="https://github.com/user-attachments/assets/64a28ff6-d9c5-464e-8522-ce2b557389af" align="right" height="77">
 
 A **EDA - Event-driven architecture** (arquitetura de orientação a eventos) é um paradigma de design de software em que os componentes de um sistema são projetados para responder a eventos e mensagens, em vez de se comunicarem diretamente uns com os outros através de chamadas de função ou métodos. 
 
@@ -2247,7 +2247,9 @@ A importância da EDA no cenário atual de software não pode ser subestimada. O
 - Melhor utilização dos recursos ao permitir que os serviços escalem de forma independente com base na demanda.
 - Suporta fluxos de trabalho dinâmicos e flexíveis, permitindo que as empresas se adaptem rapidamente às mudanças nos requisitos e às condições do mercado.
 
-NVamos explorar vários padrões usados na arquitetura orientada a eventos. Ao examinar esses padrões, o objetivo é reunir insights sobre como eles podem ser aplicados para construir sistemas robustos, escaláveis e responsivos. Exploramos vários padrões de comunicação para microserviços e discutimos seus pontos fortes, fracos e casos de uso ideais.
+Vamos explorar vários padrões usados na arquitetura orientada a eventos. Ao examinar esses padrões, o objetivo é reunir insights sobre como eles podem ser aplicados para construir sistemas robustos, escaláveis e responsivos. Exploramos vários padrões de comunicação para microserviços e discutimos seus pontos fortes, fracos e casos de uso ideais.
+
+<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/99011c9e-9092-45d4-9487-e3bdb7346352">
 
 Mas primeiro, vamos analisar os principais desafios associados à comunicação entre microserviços.
 
