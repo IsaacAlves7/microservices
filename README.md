@@ -2472,6 +2472,27 @@ Essas melhorias fortalecerão ainda mais as capacidades da plataforma, mantendo 
 > [!Warning]
 > Aviso legal: Os detalhes deste post foram derivados do Blog Técnico do McDonald's. Todo o crédito pelos detalhes técnicos vai para a equipe de engenharia do McDonald's. Os links para os artigos originais estão presentes na seção de referências ao final do post. Tentamos analisar os detalhes e dar nossa opinião sobre eles. Se você encontrar alguma imprecisão ou omissão, por favor, deixe um comentário e faremos o possível para corrigi-las.
 
+Ao longo dos anos, o McDonald's passou por uma transformação digital significativa para aprimorar a experiência dos clientes, fortalecer sua marca e otimizar operações como um todo.
+
+No cerne dessa transformação está uma infraestrutura tecnológica robusta que unifica processos em diversos canais e pontos de contato em suas operações globais.
+
+A necessidade de processamento unificado de eventos surgiu do extenso ecossistema digital do McDonald's, onde os eventos são utilizados em toda a pilha tecnológica. Havia três tipos principais de processamento:
+
+- Operações assíncronas
+- Processamento transacional
+- Tratamento analítico de dados
+
+Os eventos foram usados em vários casos de uso, como acompanhamento do progresso dos pedidos móveis e envio de comunicações de marketing aos clientes (promoções e promoções).
+
+Somado à escala das operações do McDonald's, o sistema precisava de uma arquitetura capaz de suportar:
+
+- Requisitos globais de implantação
+- Processamento de eventos em tempo real
+- Integração entre canais
+- Processamento de transações de alto volume
+
+Vamos analisar a jornada do McDonald no desenvolvimento de uma plataforma unificada que permite arquiteturas em tempo real orientadas a eventos.
+
 ## [Microservices] Outbox Pattern
 <a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
