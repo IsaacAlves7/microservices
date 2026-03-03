@@ -2449,6 +2449,29 @@ As diferenças sutis, se houverem, se for necessário fazer uma distinção téc
 
 https://medium.com/@vinciabhinav7/common-problems-in-message-queues-with-solutions-f0703c0bd5af
 
+A arquitetura orientada por eventos do McDonald demonstra uma implementação bem-sucedida de uma plataforma global de processamento de eventos em grande escala. O sistema lida de forma eficaz com diversos casos de uso, desde rastreamento de pedidos móveis até comunicações de marketing, mantendo alta confiabilidade e desempenho.
+
+Os principais fatores de sucesso incluem a implementação robusta do AWS MSK, gerenciamento eficaz de esquemas e mecanismos abrangentes de tratamento de erros. A abordagem de sharding baseada em domínio da arquitetura e as capacidades de auto-escalonamento têm se mostrado cruciais para lidar com volumes crescentes de eventos.
+
+Algumas boas práticas estabelecidas por meio desta implementação incluem:
+
+- Um uso padronizado de SDK em diferentes linguagens de programação.
+- Gerenciamento centralizado de esquemas.
+- Manejo robusto de erros com tópicos sem saída.
+- Otimização de desempenho por meio do cache de esquemas.
+
+Olhando para o futuro, a plataforma do McDonald's está posicionada para evoluir com melhorias planejadas incluindo:
+
+- Suporte formal para especificação de eventos.
+- Transição para MSK serverless.
+- Implementação do autoescalonamento de partições.
+- Ferramentas e experiência aprimoradas para desenvolvedores.
+
+Essas melhorias fortalecerão ainda mais as capacidades da plataforma, mantendo seus princípios centrais de design de escalabilidade, confiabilidade e simplicidade.
+
+> [!Warning]
+> Aviso legal: Os detalhes deste post foram derivados do Blog Técnico do McDonald's. Todo o crédito pelos detalhes técnicos vai para a equipe de engenharia do McDonald's. Os links para os artigos originais estão presentes na seção de referências ao final do post. Tentamos analisar os detalhes e dar nossa opinião sobre eles. Se você encontrar alguma imprecisão ou omissão, por favor, deixe um comentário e faremos o possível para corrigi-las.
+
 ## [Microservices] Outbox Pattern
 <a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
 
