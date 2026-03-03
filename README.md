@@ -394,13 +394,14 @@ Se houver um erro em qualquer módulo/funcionalidade/serviço, isso pode afetar 
 
 Aqui estão os 10 padrões de microserviços que os engenheiros de software devem conhecer:
 
-![633988640_1671001741014720_1873344397966094120_n](https://github.com/user-attachments/assets/453bef11-af5a-451a-9a02-19effeb2c8dd)
-
-![Screenshot_20241022-230512_Instagram](https://github.com/user-attachments/assets/8b432d31-3848-4996-a1a5-92921fec1404)
-
-![FB_IMG_1733228987280](https://github.com/user-attachments/assets/caf7b934-fde2-489c-affe-ce7e16241678)
-
-![FB_IMG_1718629521831](https://github.com/user-attachments/assets/23486dd3-edb0-4b98-845b-3b6ac62c43db)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/453bef11-af5a-451a-9a02-19effeb2c8dd"></td>
+		<td><img src="https://github.com/user-attachments/assets/8b432d31-3848-4996-a1a5-92921fec1404"></td>
+		<td><img src="https://github.com/user-attachments/assets/caf7b934-fde2-489c-affe-ce7e16241678"></td>
+		<td><img src="https://github.com/user-attachments/assets/23486dd3-edb0-4b98-845b-3b6ac62c43db"></td>
+	</tr>
+</table>
 
 Em um mundo onde produtos digitais precisam escalar globalmente, responder instantaneamente e lidar com milhares de usuários simultâneos — a comunicação tradicional síncrona de solicitação e resposta atinge seus limites.
 
