@@ -2980,6 +2980,30 @@ Portanto, o design orientado por domínio baseia-se nos seguintes objetivos:
 
 https://substack.com/redirect/2ca6dd83-9508-4fc6-ad54-21c78b264b45?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 
+Design Orientado por Domínio Defensores do design orientado por domínio que impulsionam o design de softwares por meio da modelagem de domínio.
+
+Linguagem unificada é um dos conceitos-chave do design orientado por domínio. Um modelo de domínio é uma ponte entre os domínios de negócios.
+
+Business Entities
+O uso de modelos pode ajudar a expressar conceitos e conhecimentos de negócios e a orientar o desenvolvimento futuro de softwares, como bancos de dados, APIs, etc.
+
+Model Boundaries
+Limites frouxos entre conjuntos de modelos de domínio são usados para modelar correlações de negócios.
+
+Aggregation
+Um Agregado é um agrupamento de objetos relacionados (entidades e objetos de valor) que são tratados como uma única unidade para fins de alterações de dados.
+
+Entities vs. Value Objects
+de Valor Além de raízes agregadas e entidades, existem alguns modelos que parecem descartáveis, eles não possuem seu próprio ID para identificá-los, mas são mais parte de alguma entidade que expressa uma coleção de vários campos.
+
+Operational Modeling
+Operacional No design orientado por domínio, para manipular esses modelos, há vários objetos que atuam como "operadores".
+
+Camadas da arquitetura
+Para organizar melhor os diversos objetos em um projeto, precisamos simplificar a complexidade de projetos complexos ao sobrepê-los como uma rede de computadores.
+
+Construa o modelo de domínio Muitos métodos foram inventados para extrair modelos de domínio a partir do conhecimento de negócios.
+
 <img src="https://github.com/user-attachments/assets/038eb886-2db7-456a-a67c-3707b7020c31" align="right" height="177">
 
 > [!Important]
