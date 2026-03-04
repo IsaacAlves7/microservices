@@ -2448,16 +2448,18 @@ Essa abordagem tem diversas vantagens. Ela garante uma trilha auditável de tudo
 
 Por outro lado, Event Sourcing também traz complexidades. Como os eventos são imutáveis, qualquer mudança de lógica de negócio pode demandar a reinterpretação ou migração de eventos antigos, o que exige cuidado com versionamento de eventos. Além disso, reconstruir o estado de entidades pode se tornar custoso com muitos eventos, exigindo uso de snapshots intermediários. Apesar disso, em sistemas onde a rastreabilidade, auditabilidade e reatividade são prioridades, o Event Sourcing oferece um modelo poderoso e alinhado com a natureza temporal dos dados. Ele muda a forma de pensar o estado: não como algo fixo e mutável, mas como uma consequência acumulada de tudo que já aconteceu.
 
-Como incorporamos o Event Sourcing nos sistemas? Event sourcing muda o paradigma de programação de estados persistentes para eventos persistentes. O armazenamento de eventos é a fonte da verdade. Vamos ver três exemplos.
+Como incorporamos o Event Sourcing nos sistemas? Event sourcing muda o paradigma de programação de estados persistentes para eventos persistentes. O armazenamento de eventos é a fonte da verdade.
 
 O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD tradicional e o design de um sistema de Event Sourcing. Usamos um serviço de pedidos como exemplo: 
 
 <table>
 	<tr>
-		<td><img src="https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220"></td>
-		<td><img src="https://github.com/user-attachments/assets/d49ea8b1-3fe6-4b7a-8550-072037e07622"></td>
+		<td><img src="https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220" height="377"></td>
+		<td><img src="https://github.com/user-attachments/assets/d49ea8b1-3fe6-4b7a-8550-072037e07622" height="377"></td>
 	</tr>
 </table>
+
+Vamos ver três exemplos:
 
 1. New York Times - O site do jornal armazena todos os artigos, imagens e assinaturas desde 1851 em uma loja de eventos. Os dados brutos são então desnormalizados em diferentes visões e alimentados em diferentes nós do ElasticSearch para buscas em sites.
 
