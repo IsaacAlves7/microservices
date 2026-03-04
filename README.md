@@ -2448,9 +2448,22 @@ Essa abordagem tem diversas vantagens. Ela garante uma trilha auditável de tudo
 
 Por outro lado, Event Sourcing também traz complexidades. Como os eventos são imutáveis, qualquer mudança de lógica de negócio pode demandar a reinterpretação ou migração de eventos antigos, o que exige cuidado com versionamento de eventos. Além disso, reconstruir o estado de entidades pode se tornar custoso com muitos eventos, exigindo uso de snapshots intermediários. Apesar disso, em sistemas onde a rastreabilidade, auditabilidade e reatividade são prioridades, o Event Sourcing oferece um modelo poderoso e alinhado com a natureza temporal dos dados. Ele muda a forma de pensar o estado: não como algo fixo e mutável, mas como uma consequência acumulada de tudo que já aconteceu.
 
-O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD tradicional e o design de um sistema de Event Sourcing. Usamos um serviço de pedidos como exemplo:
+Como incorporamos o Event Sourcing nos sistemas? Event sourcing muda o paradigma de programação de estados persistentes para eventos persistentes. O armazenamento de eventos é a fonte da verdade. Vamos ver três exemplos.
 
-![unnamed](https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220)
+O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD tradicional e o design de um sistema de Event Sourcing. Usamos um serviço de pedidos como exemplo: 
+
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220"></td>
+		<td><img src="https://github.com/user-attachments/assets/d49ea8b1-3fe6-4b7a-8550-072037e07622"></td>
+	</tr>
+</table>
+
+1. New York Times - O site do jornal armazena todos os artigos, imagens e assinaturas desde 1851 em uma loja de eventos. Os dados brutos são então desnormalizados em diferentes visões e alimentados em diferentes nós do ElasticSearch para buscas em sites.
+
+2. CDC (Captura de Dados de Alteração) - Um conector CDC extrai dados das tabelas e os transforma em eventos. Esses eventos são empurrados para Kafka e outros sumidoiros consomem eventos de Kafka.
+
+3. Conector de Microsserviço - Também podemos usar o paradigma de event sourcing para transmitir eventos entre microserviços. Por exemplo, o serviço de carrinho de compras gera vários eventos para adicionar ou remover itens do carrinho. O corretor Kafka atua como a loja de eventos, e outros serviços, incluindo o serviço de fraude, o serviço de faturamento e o serviço de e-mail, consomem eventos da loja de eventos. Como os eventos são a fonte da verdade, cada serviço pode determinar o modelo de domínio por conta própria.
 
 O paradigma de Event Sourcing é usado para projetar um sistema com determinismo. Isso altera a filosofia dos projetos de sistemas tradicionais.
 
