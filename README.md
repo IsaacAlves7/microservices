@@ -2454,8 +2454,8 @@ O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD trad
 
 <table>
 	<tr>
-		<td><img src="https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220" height="377"></td>
-		<td><img src="https://github.com/user-attachments/assets/d49ea8b1-3fe6-4b7a-8550-072037e07622" height="377"></td>
+		<td><img src="https://github.com/user-attachments/assets/98eeaa26-a1cc-4671-84e6-02ee7df7b220" height="577"></td>
+		<td><img src="https://github.com/user-attachments/assets/d49ea8b1-3fe6-4b7a-8550-072037e07622" height="577"></td>
 	</tr>
 </table>
 
