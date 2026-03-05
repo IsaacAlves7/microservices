@@ -605,6 +605,134 @@ O diagrama abaixo mostra os detalhes:
 
 - Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
 
+	
+Forwarded this email? Subscribe here for more
+EP105: The 12 Factor App
+ByteByteGo
+Mar 30
+
+ 
+
+
+
+
+READ IN APP
+ 
+This week’s system design refresher:
+
+ACID Properties in Databases With Examples (Youtube video)
+
+Have you heard of the 12-Factor App?
+
+What does API gateway do?
+
+How does Redis architecture evolve?
+
+Cloud Cost Reduction Techniques
+
+SPONSOR US
+
+How-to Guide: Effective Goals and Reporting for Software Teams (Sponsored)
+
+Líderes de engenharia precisam saber — e ser capazes de mostrar — que suas equipes:
+
+Entregar excelência operacional
+
+Impulsione o impacto nos negócios
+
+A melhor maneira de alcançar esses resultados é estabelecendo metas claras e baseadas em dados e trabalhando para alcançá-las. Neste guia gratuito, guiamos você sobre como melhorar ativamente os resultados da sua equipe aproveitando métricas, dados de programas, visibilidade de alocação de recursos e automação de fluxos de trabalho. Você também aprenderá a personalizar o público e a entregar atualizações com confiança — preparando você para o sucesso contínuo em seu cargo e na sua carreira.
+
+Baixe seu guia agora
+
+Propriedades do ACID em bancos de dados com exemplos
+
+Você já ouviu falar do aplicativo de 12 fatores?
+O "12 Factor App" oferece um conjunto de melhores práticas para construir aplicações de software modernas. Seguir esses 12 princípios pode ajudar desenvolvedores e equipes a construir aplicações confiáveis, escaláveis e gerenciáveis.
+
+No alternative text description for this image
+Aqui está uma breve visão geral de cada princípio:
+
+Base de código:
+Tenha um lugar para guardar todo o seu código e gerencie usando controle de versões, como o Git.
+
+Dependências:
+Liste tudo o que seu app precisa para funcionar corretamente e certifique-se de que seja fácil de instalar.
+
+Configuração:
+Mantenha configurações importantes como credenciais de banco de dados separadas do seu código, para que você possa alterá-las sem precisar reescrever o código.
+
+Serviços de Apoio:
+Use outros serviços (como bancos de dados ou processadores de pagamento) como componentes separados aos quais seu app se conecta.
+
+Build, Release, Run:
+Faça uma distinção clara entre preparar seu app, lançá-lo e executá-lo em produção.
+
+Processos:
+Projete seu aplicativo para que cada parte não dependa de um computador ou memória específica. É como fazer blocos de LEGO que se encaixam.
+
+Vinculação de Portas:
+Permita que seu app seja acessível por uma porta de rede e certifique-se de que ele não armazene informações críticas em um único computador.
+
+Concorrência:
+Faça seu app aguentar mais trabalho adicionando mais cópias da mesma coisa, como contratar mais funcionários para um restaurante movimentado.
+
+Descartável:
+Seu app deve iniciar rapidamente e desligar de forma elegante, como desligar um interruptor de luz em vez de puxar o cabo de energia.
+
+Paridade Dev/Prod:
+Certifique-se de que o que você usa para desenvolver seu app seja muito semelhante ao que você usa em produção, para evitar surpresas.
+
+Registros:
+Mantenha um registro do que acontece no seu app para que você possa entender e corrigir problemas, como um diário para o seu software.
+
+Processos administrativos:
+Execute tarefas especiais separadamente do seu app, como fazer manutenção em uma oficina em vez de no chão de fábrica.
+
+A palavra é sua: onde você acha que esses princípios podem ter maior impacto na melhoria das práticas de desenvolvimento de software?
+
+Artigos mais recentes
+Se você não é assinante pago, aqui está o que perdeu este mês.
+
+
+Um Curso Intensivo sobre Endereçamento IPv4
+
+Uma Breve História da Escalabilidade da Netflix
+
+15 Projetos de Código Aberto que Mudaram o Mundo
+
+Os 3 Principais Erros no Currículo que Custam o Emprego
+
+Como Funcionam as Recomendações de Vídeo - Parte 1
+
+Para receber todos os artigos completos e apoiar a ByteByteGo, considere assinar:
+
+Upgrade para pago
+
+O que o API gateway faz?
+O diagrama abaixo mostra os detalhes.
+
+No alt text provided for this image
+Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
+
+Passo 2 - O gateway da API analisa e valida os atributos na requisição HTTP.
+
+Passo 3 - O gateway API realiza verificações de lista de permissões/listas de recusas.
+
+Passo 4 - O gateway da API se comunica com um provedor de identidade para autenticação e autorização.
+
+Passo 5 - As regras de limite de taxa são aplicadas ao pedido. Se o valor estiver acima do limite, o pedido é rejeitado.
+
+Passos 6 e 7 - Agora que a solicitação passou pelas verificações básicas, o gateway da API encontra o serviço relevante para encaminhar por meio de correspondência de caminhos.
+
+Passo 8 - O gateway da API transforma a solicitação no protocolo apropriado e a envia para microserviços de backend.
+
+Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
+
+Deixando a palavra para você:
+
+- Qual é a diferença entre um balanceador de carga e um gateway de API?
+- Precisamos usar diferentes gateways de API para PC, celular e navegador separadamente?
+
 <table>
 	<tr>
 		<td><img src="https://github.com/user-attachments/assets/86d63816-3755-4a13-845d-24218313551c"></td>
