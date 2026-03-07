@@ -495,10 +495,14 @@ Evolução da Arquitetura da API da Netflix: A arquitetura da API da Netflix pas
 ![FB_IMG_1722531344115](https://github.com/user-attachments/assets/d2ea7a2a-93a2-4fc0-a032-e6f13c302c0b)
 ![FB_IMG_1722461479416](https://github.com/user-attachments/assets/e5e8b6fe-9a02-483e-b210-8750cffba180)
 ![FB_IMG_1722096754127](https://github.com/user-attachments/assets/fd5e6c9b-f1fe-4519-9e80-a07810d8ea8e)
-![FB_IMG_1721753552315](https://github.com/user-attachments/assets/ae5f9263-a440-4cc5-9e1a-159ac125c398)
-![FB_IMG_1721753534122](https://github.com/user-attachments/assets/d72c5509-4909-4fa7-84c4-110914b82030)
 
-<img width="1600" height="1582" alt="gr" src="https://github.com/user-attachments/assets/25573be9-70c9-4757-9674-69365dec5f1f" />
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/ae5f9263-a440-4cc5-9e1a-159ac125c398"></td>
+		<td><img src="https://github.com/user-attachments/assets/d72c5509-4909-4fa7-84c4-110914b82030"></td>
+		<td><img src="https://github.com/user-attachments/assets/25573be9-70c9-4757-9674-69365dec5f1f"></td>
+	</tr>
+</table>
 
 ## [Microservices] Sistemas reativos
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
