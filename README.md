@@ -252,8 +252,8 @@ Vamos explorar os padrões de design de microserviços mais populares, junto com
 
 <table>
 	<tr>
-		<td><img width="2250" height="2812" alt="unnamed" src="https://github.com/user-attachments/assets/03469298-aa54-476f-89ad-d6345d3907c1" /></td>
-		<td><img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85"></td>
+		<td><img src="https://github.com/user-attachments/assets/03469298-aa54-476f-89ad-d6345d3907c1" height="677"/></td>
+		<td><img src="https://github.com/user-attachments/assets/506e2fcd-3f04-4d9a-a13a-fa306801ab85" height="677"></td>
 	</tr>
 </table>
 
