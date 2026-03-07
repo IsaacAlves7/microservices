@@ -2734,8 +2734,6 @@ Se você quiser mais exemplos, dê uma olhada em Como compartilhar dados entre m
 Conclusão, eu queria transmitir esse ponto aos desenvolvedores que, como eu há alguns anos, estão presos no sentido literal de "não compartilhe dados", mas devem perceber que isso só se aplica a não compartilhar a fonte da verdade. Manter uma cópia dos dados de um serviço no domínio de outro serviço é perfeitamente aceitável e abrange o espírito de consistência eventual.
 
 ## [Microservices] Outbox Pattern
-<a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img height="177" align="right" src="https://github.com/user-attachments/assets/ea001cdf-436e-41ce-a04c-cb74872359bc" /></a>
-
 Simplesmente, quando sua API publica mensagens de evento, ela não as envia diretamente. Em vez disso, as mensagens são mantidas em uma tabela de banco de dados. Depois disso, um trabalho publica eventos no sistema do agente de mensagens em intervalos de tempo predefinidos.
 
 Basicamente, o padrão de caixa de saída (**Outbox Pattern**) fornece a publicação de eventos de forma confiável. A ideia dessa abordagem é ter uma tabela "Caixa de saída" no banco de dados do microsserviço.
@@ -2744,7 +2742,7 @@ Nesse método, os eventos de domínio não são gravados diretamente em um barra
 
 No entanto, o ponto crítico aqui é que a transação executada antes do evento e o evento gravado na tabela da caixa de saída fazem parte da mesma transação.
 
-<img width="700" height="361" alt="image" src="https://github.com/user-attachments/assets/19fdca78-5dcd-4192-9365-93005db42742" />
+<a href="https://medium.com/@praveengaddam319/the-outbox-pattern-explained-how-spring-boot-microservices-avoid-data-inconsistenc-b868dcb48a18"><img width="700" height="361" alt="image" src="https://github.com/user-attachments/assets/19fdca78-5dcd-4192-9365-93005db42742" /></a>
 
 Por exemplo, quando um novo produto é adicionado ao sistema, o processo de adicionar o produto e gravar o evento ProductCreated na tabela da caixa de saída é feito na mesma transação, garantindo que o evento seja salvo no banco de dados.
 
