@@ -505,11 +505,34 @@ No entanto, sistemas baseados em regras também apresentam desafios, principalme
 
 Evolução da Arquitetura da API da Netflix: A arquitetura da API da Netflix passou por 4 estágios principais:
 
-- Monolith
-- Direct access
-- Gateway aggregation layer
-- Federated gateway
+- **Monolith** (monólito) é um estilo de arquitetura de software em que toda a aplicação é construída e executada como um único sistema unificado. Nesse modelo, todas as funcionalidades — como lógica de negócio, acesso a banco de dados, APIs e interface — ficam dentro do mesmo projeto ou processo executável. Isso significa que todos os módulos da aplicação são fortemente integrados e geralmente são implantados juntos. Esse tipo de arquitetura foi dominante durante muitos anos no desenvolvimento de software corporativo porque é mais simples de projetar inicialmente, facilita a depuração e reduz a complexidade operacional, já que existe apenas um serviço para executar, monitorar e atualizar. Porém, conforme o sistema cresce, o monólito pode se tornar difícil de manter, pois qualquer alteração exige recompilar e implantar toda a aplicação. Além disso, escalar apenas uma parte do sistema se torna complicado, já que normalmente é necessário escalar o sistema inteiro, mesmo que apenas um componente esteja sendo muito utilizado.
 
+- **Direct access** é um padrão arquitetural em que clientes — como aplicações web, aplicativos móveis ou outros serviços — acessam diretamente diferentes serviços ou bancos de dados sem passar por uma camada intermediária centralizada. Nesse modelo, cada cliente conhece os endpoints dos serviços de que precisa e se comunica diretamente com eles. A vantagem dessa abordagem é que ela elimina camadas intermediárias, reduzindo latência e simplificando a comunicação em sistemas menores. No entanto, em sistemas maiores essa abordagem pode gerar forte acoplamento entre clientes e serviços internos, pois qualquer mudança em um serviço pode exigir alterações em múltiplos clientes. Além disso, questões como autenticação, agregação de dados, transformação de respostas e controle de tráfego ficam distribuídas entre vários pontos da arquitetura, o que pode aumentar a complexidade do sistema à medida que ele cresce.
+
+- **Gateway aggregation layer** é uma arquitetura que introduz um componente intermediário chamado gateway ou API gateway entre os clientes e os serviços internos do sistema. Esse gateway atua como uma camada de entrada única para as requisições externas. Em vez de o cliente acessar vários serviços diretamente, ele envia a requisição ao gateway, que por sua vez consulta diferentes microserviços, agrega as respostas e retorna um único resultado ao cliente. Essa abordagem é muito útil em arquiteturas de microserviços, onde uma única funcionalidade da aplicação pode depender de vários serviços distintos. O gateway pode centralizar preocupações transversais como autenticação, controle de acesso, rate limiting, transformação de dados e cache. Além disso, ele simplifica o lado do cliente, pois o cliente não precisa conhecer a estrutura interna dos microserviços. Contudo, essa camada também pode se tornar um ponto crítico da arquitetura, já que concentra grande parte do tráfego e precisa ser altamente escalável e resiliente.
+
+- **Federated gateway** é uma evolução do conceito de gateway usada principalmente em arquiteturas baseadas em APIs distribuídas, especialmente quando diferentes equipes desenvolvem serviços independentes que expõem partes de um esquema de dados maior. Nesse modelo, o gateway não apenas agrega respostas de serviços distintos, mas também compõe dinamicamente um esquema unificado a partir de múltiplas APIs ou subserviços. Cada serviço é responsável por uma parte do domínio de dados, e o gateway federado combina essas partes para apresentar uma interface única para os clientes. Esse padrão é muito associado a arquiteturas baseadas em GraphQL federado, onde cada serviço define um subconjunto do esquema global e o gateway resolve consultas distribuídas automaticamente. A vantagem dessa abordagem é permitir que equipes desenvolvam e evoluam serviços de forma independente sem perder a visão de uma API unificada. Em sistemas grandes, isso melhora escalabilidade organizacional e modularidade da arquitetura, ao mesmo tempo em que mantém uma interface consistente para os consumidores da API.
+
+Masterizando a Consistência de Dados entre Microserviços: Arquitetura de microserviços é um padrão de design de software onde uma aplicação é construída como uma coleção de pequenos serviços independentes, cada um responsável por uma função específica.
+
+Esses serviços se comunicam entre si usando APIs (Interfaces de Programação de Aplicações) e operam de forma independente, permitindo maior flexibilidade, escalabilidade e facilidade de manutenção. Pense em um aplicativo de entrega de comida com os seguintes serviços:
+
+- O serviço de pedidos gerencia os pedidos dos clientes.
+- O serviço de pagamento cuida das transações.
+- O serviço do restaurante atualiza a disponibilidade do cardápio.
+- O serviço de entrega atribui e acompanha as entregas.
+
+Cada serviço opera de forma independente, permitindo que as equipes os atualizem ou escalem separadamente.
+
+No entanto, devido a essa separação, um grande desafio com os microserviços é manter a consistência dos dados. Em um sistema monolítico, todas as funcionalidades compartilham um único banco de dados, resultando em atualizações consistentes. Por outro lado, a arquitetura de microserviços defende que cada serviço deve gerenciar seu banco de dados. Embora essa seja uma boa prática, pode levar a alguns cenários como:
+
+- Dados Duplicados ou Perdidos
+- Atrasos na rede
+- Questões de Concorrência
+
+Compreender esses cenários é fundamental para construir aplicações robustas e escaláveis usando microsserviços. Neste artigo, vamos entender como a inconsistência de dados pode surgir em uma arquitetura de microserviços e as diversas estratégias para lidar com ela.
+
+![unnamed](https://github.com/user-attachments/assets/e641e3e5-3f01-4b13-9a39-098f69b82ec3)
 ![FB_IMG_1722531344115](https://github.com/user-attachments/assets/d2ea7a2a-93a2-4fc0-a032-e6f13c302c0b)
 ![FB_IMG_1722461479416](https://github.com/user-attachments/assets/e5e8b6fe-9a02-483e-b210-8750cffba180)
 ![FB_IMG_1722096754127](https://github.com/user-attachments/assets/fd5e6c9b-f1fe-4519-9e80-a07810d8ea8e)
