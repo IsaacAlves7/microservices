@@ -3500,6 +3500,23 @@ Assim, quando você coloca tudo isso junto, percebe que AOP não é um acessóri
  </tr>
 </table>
 
+Acoplamento e Coesão: Os Dois Princípios para uma Arquitetura Eficaz - Todo grande sistema que sai do controle começa da mesma forma: pequeno, funcional e aparentemente simples. No entanto, à medida que o sistema evolui, as coisas saem do controle.
+
+Uma funcionalidade é adicionada aqui, uma função auxiliar é comprimida ali, e uma dependência "temporária" para alguma tarefa urgente que nunca é removida. Meses depois, a depuração exige passar por cinco camadas de indireção, e tocar em um módulo pode quebrar todo o sistema.
+
+Nos bastidores desse lento colapso, duas forças invisíveis frequentemente brincam de cabo de guerra: acoplamento e coesão.
+
+A maioria dos desenvolvedores ouve esses termos pela primeira vez em livros didáticos ou postagens de blog, frequentemente agrupados em uma lista de verificação de "bom design".
+
+- Alta coesão: bom.
+- Acoplamento solto: também é bom.
+
+Mas além dos conceitos, o significado prático muitas vezes se perde. Como é o acasalamento? Quando a coesão se quebra em equipes reais? E por que alguns projetos parecem fáceis de mudar, enquanto outros oferecem desafios a cada pull request?
+
+Acoplamento e coesão não são diretrizes abstratas. São realidades práticas de engenharia que definem o quão fácil o código pode evoluir, quão confiante as equipes podem implantar e quão doloroso se torna incorporar um novo colega ou corrigir um bug sob pressão.
+
+Neste artigo, tentaremos entender o acoplamento e a coesão de forma mais realista e como eles podem se manifestar em diferentes estilos e padrões arquitetônicos.
+
 **DDD - Segregação de Responsabilidade de Consulta de Comando (CQRS)** os comandos são complexos, as consultas são simples, anteriormente, examinamos as Entidades DDD, que têm **estado**, e **Eventos**, onde o estado muda. Para reduzir a complexidade, podemos ser específicos sobre o que tem estado e encapsular onde ele muda. Os eventos são códigos de alto nível, situados no meio da Onion Architecture. Veremos como os comandos de nível inferior vinculam a interface do usuário ou a API a eventos para permitir que os usuários alterem o estado.
 
 <table>
