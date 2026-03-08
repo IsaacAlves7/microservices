@@ -358,6 +358,24 @@ E sempre o time caiu e a gente vai subir tudo isso com o Dakar pulso a ideia que
 
 A arquitetura de microsserviços é a bala de prata? O diagrama abaixo mostra por que os jogos em tempo real e os aplicativos de negociação de baixa latência não devem usar a arquitetura de microsserviço.
 
+Do Monólito aos Microserviços: Padrões de Transição Chave - Arquitetura monolítica é uma abordagem de desenvolvimento de software na qual toda a aplicação é construída como uma única base de código unificada. Muitas vezes, é a maneira mais simples de desenvolver e implantar software.
+
+Para equipes ou projetos pequenos, monólitos oferecem simplicidade, desenvolvimento rápido e fácil implantação. No entanto, à medida que a aplicação cresce, essa simplicidade se torna uma faca de dois gumes, introduzindo vários desafios como:
+
+Gargalos de Escalabilidade: Toda a aplicação é escalada como uma única unidade em um monólito. Se apenas uma parte da aplicação apresentar alta demanda (por exemplo, um módulo de relatório), toda a aplicação deve escalar, desperdiçando recursos em componentes menos exigentes.
+
+- Problemas de Manutenção: À medida que o código cresce, os monólitos se tornam mais difíceis de manter. As dependências entre diferentes partes da aplicação aumentam e cada alteração tem um raio de impacto maior.
+
+- Complexidade de Implantação: Em um sistema monolítico, uma pequena mudança em um módulo exige a reimplantação de toda a aplicação, mesmo que o restante do sistema permaneça inalterado.
+
+- Escolhas Limitadas de Tecnologia: Todas as partes de um monólito normalmente devem usar a mesma pilha tecnológica. Se a aplicação for escrita em Java, por exemplo, adicionar uma nova funcionalidade em Python ou usar uma biblioteca especializada torna-se impraticável.
+
+- Desafios de Resiliência: Uma falha em uma parte de um monólito pode derrubar toda a aplicação.
+
+A arquitetura de microserviços aborda os desafios dos monólitos dividindo a aplicação em serviços menores e independentes. Cada serviço é responsável por uma funcionalidade específica e pode ser desenvolvido, implantado e escalonado de forma independente.
+
+No entanto, a transição de uma arquitetura monolítica para microserviços é um processo complexo. Neste artigo, vamos analisar alguns padrões comprovados que podem ajudar a tornar a transição mais fácil.
+
 <table>
 	<tr>
 		<td><img height="577" src="https://github.com/user-attachments/assets/c14d1c83-b66c-447a-a993-015bfa4f2a50" /></td>
