@@ -656,21 +656,30 @@ O diagrama abaixo mostra os detalhes:
 
 Funções-chave de um API Gateway:
 
-Roteamento de Requisições: Direciona as requisições de API recebidas para o serviço backend apropriado.
+- Roteamento de Requisições: Direciona as requisições de API recebidas para o serviço backend apropriado.
+- Balanceamento de carga: Distribui requisições entre vários servidores para garantir que nenhum servidor único seja sobrecarregado.
+- Segurança: Implementa medidas de segurança como autenticação, autorização e criptografia de dados.
+- Limitação de Taxa e Limitação: Controla o número de solicitações que um cliente pode fazer dentro de um determinado período.
+- Composição de APIs: Combina múltiplas requisições de API backend em uma única requisição frontend para otimizar o desempenho.
+- Cache em cache: Armazena respostas temporariamente para reduzir a necessidade de processamento repetido.
 
-Balanceamento de carga: Distribui requisições entre vários servidores para garantir que nenhum servidor único seja sobrecarregado.
+Top 3 Casos de Uso de Gateways de API:
 
-Segurança: Implementa medidas de segurança como autenticação, autorização e criptografia de dados.
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/de28806a-11bd-4bb2-a3fc-d9bf7eded407" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/ca9774c1-33f6-4528-8cf1-ed785a84afdc" height="677"></td>
+	</tr>
+</table>
 
-Limitação de Taxa e Limitação: Controla o número de solicitações que um cliente pode fazer dentro de um determinado período.
+O gateway API fica entre os clientes e os serviços, fornecendo comunicações API entre eles.
 
-Composição de APIs: Combina múltiplas requisições de API backend em uma única requisição frontend para otimizar o desempenho.
+1. O gateway API ajuda a construir um ecossistema. Os usuários podem usar um gateway de API para acessar um conjunto mais amplo de ferramentas. Os parceiros do ecossistema colaboram entre si para proporcionar melhores integrações aos usuários.
 
-Cache em cache: Armazena respostas temporariamente para reduzir a necessidade de processamento repetido.
+2. Gateway API constrói marketplace. API O marketplace API hospeda funcionalidades fundamentais para todos. Os desenvolvedores e empresas podem facilmente desenvolver ou inovar nesse ecossistema e vender APIs no marketplace.
 
-Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
+3. Gateway de API oferece compatibilidade com múltiplas plataformas. Ao lidar com múltiplas plataformas, um gateway de API pode ajudar a trabalhar em várias arquiteturas complexas.
 
-<img width="3535" height="3900" alt="0074-api-gateway-101" src="https://github.com/user-attachments/assets/ca9774c1-33f6-4528-8cf1-ed785a84afdc" />
  
 This week’s system design refresher:
 
