@@ -630,9 +630,9 @@ O diagrama abaixo mostra os detalhes:
 
 <table>
 	<tr>
-		<td><img src="https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278"></td>
-		<td><img src="https://github.com/user-attachments/assets/87fefd9b-435b-48c8-a89d-eac83e7bd959"></td>
-		<td><img src="https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d"></td>
+		<td><img src="https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/87fefd9b-435b-48c8-a89d-eac83e7bd959" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d" height="677"></td>
 	</tr>
 </table>
 
