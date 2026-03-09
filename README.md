@@ -65,7 +65,32 @@ Então, qual é a solução?
 
 Se houver duas versões do aplicativo, ou seja, web e mobile, os desenvolvedores de ambas as equipes devem estar presentes nessa equipe. O principal benefício desse tipo de equipe é que fica fácil resolver bugs, desenvolver novos recursos e implantá-los no ambiente de produção.
 
-![e](https://github.com/user-attachments/assets/ca7b964a-d5fe-4104-8437-ff376e160ba8)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/ca7b964a-d5fe-4104-8437-ff376e160ba8" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/11f0b1e8-b461-4f82-8aac-217e046a12b5" height="677"></td>
+	</tr>
+</table>
+
+1. API Gateway: O gateway fornece um ponto de entrada unificado para aplicações clientes. Ele cuida do roteamento, filtragem e balanceamento de carga.
+
+2. Registro de Serviços O registro de serviços contém os detalhes de todos os serviços. O gateway descobre o serviço usando o registro. Por exemplo, Cônsul, Eureka, Tratador de Zoológico, etc.
+
+3. Camada de Serviço Cada microsserviço serve a uma função de negócio específica e pode rodar em múltiplas instâncias. Esses serviços podem ser construídos usando frameworks como Spring Boot, NestJS, etc.
+
+4. Servidor de Autorização Usado para proteger os microserviços e gerenciar controle de identidade e acesso. Ferramentas como Keycloak, Azure AD e Okta podem ajudar aqui.
+
+5. Bancos de dados de armazenamento de dados como PostgreSQL e MySQL podem armazenar dados de aplicação gerados pelos serviços.
+
+6. Cache distribuído Cache é uma ótima abordagem para aumentar o desempenho da aplicação. As opções incluem soluções de cache como Redis, Couchbase, Memcached, etc.
+
+7. Comunicação Assíncrona de Microserviços Usa plataformas como Kafka e RabbitMQ para suportar comunicação assíncrona entre microsserviços.
+
+8. Microserviços de Visualização de Métricas podem ser configurados para publicar métricas no Prometheus e ferramentas como o Grafana podem ajudar a visualizar essas métricas.
+
+9. Agregação e Visualização de Logs Gerados pelos serviços são agregados usando Logstash, armazenados no Elasticsearch e visualizados com Kibana.
+
+> Falando a sua palavra: o que mais você adicionaria à sua arquitetura de microserviços de produção?
 
 Use as ferramentas e estruturas certas: A essa altura, você provavelmente já projetou seus microsserviços para implantá-los de forma independente, agora você deve perceber o valor ideal desses microsserviços. E para fazer isso, você precisa automatizar o gerenciamento de compilação e implantação usando um bom conjunto de ferramentas de DevOps.
 
