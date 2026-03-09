@@ -2589,6 +2589,154 @@ Event Broker: O componente central da plataforma é o AWS Managed Streaming for 
 - Organização e gestão de temas.
 - Distribuição de eventos pela plataforma.
 
+Registro de Esquemas
+Um registro de esquemas é um componente crítico que mantém a qualidade dos dados ao armazenar todos os esquemas de eventos.
+
+Isso possibilita a validação de esquemas tanto para produtores quanto para consumidores. Também permite que os consumidores determinem qual esquema seguir para o processamento de mensagens.
+
+Loja de Eventos de Reserva
+Esse componente ajuda a evitar a perda de mensagens caso o MSK não esteja disponível.
+
+Ele realiza as seguintes funções:
+
+Funciona como um mecanismo de recuo quando Kafka está indisponível.
+
+Armazena temporariamente eventos que não puderam ser publicados para Kafka.
+
+Funciona com a função AWS Lambda para tentar republicar eventos no Kafka assim que eles estão disponíveis.
+
+SDKs personalizados
+A equipe de engenharia do McDonald's criou bibliotecas específicas de linguagem para produtores e consumidores.
+
+Aqui estão os recursos suportados por esses SDKs:
+
+Interfaces padronizadas tanto para produtores quanto para consumidores.
+
+Capacidades integradas de validação de esquemas.
+
+Mecanismos automatizados de tratamento de erros e retentativas.
+
+Abstração de operações complexas de plataforma.
+
+Portal de Eventos
+A arquitetura baseada em eventos do McDonald's é necessária para suportar eventos gerados internamente e eventos produzidos por aplicações parceiras externas.
+
+O gateway de eventos serve como interface para integrações externas por meio de:
+
+Fornecimento de endpoints HTTP para parceiros externos.
+
+Converter requisições HTTP para eventos Kafka.
+
+Implementando camadas de autenticação e autorização.
+
+Serviços Públicos de Apoio
+São ferramentas administrativas que oferecem capacidades como:
+
+Gestão de tópicos sem saída
+
+Tratamento de erros para eventos que falham
+
+Interfaces administrativas para monitoramento de eventos
+
+Capacidades de gerenciamento de cluster
+
+Fluxo de Processamento de Eventos
+O sistema de processamento de eventos do McDonald's segue um fluxo sofisticado que garante a integridade dos dados e o processamento eficiente.
+
+O diagrama abaixo mostra o fluxo geral de processamento.
+
+<img width="1600" height="1014" alt="unnamed" src="https://github.com/user-attachments/assets/7c578a29-2cd6-4130-80f0-f811e48dee86" />
+
+Vamos analisar isso com mais detalhes, dividindo o fluxo em dois grandes temas – criação de eventos e recepção de eventos.
+
+Criação e Compartilhamento de Eventos
+O primeiro passo é criar um blueprint (esquema) para cada tipo de evento e armazená-lo em uma biblioteca central, também conhecida como registro de esquemas.
+
+Aplicativos que querem criar eventos usam uma ferramenta especial (producer SDK) para isso.
+
+Quando um app inicia, ele salva uma cópia do blueprint do evento para acesso rápido.
+
+A ferramenta verifica se o evento corresponde ao blueprint antes de enviá-lo.
+
+Se tudo parecer bem, o evento é enviado para o fórum principal, que é o tema principal.
+
+Se houver algum problema com o evento ou um erro corrigível, ele é enviado para uma área separada (tópico dead-letter) para aquele app.
+
+Se o sistema de mensagens (MSK) estiver fora do ar, o evento é salvo em um banco de dados de backup (DynamoDB).
+
+Recepção do Evento
+Aplicativos que querem receber eventos usam o SDK de consumidor. Este SDK também verifica se os eventos recebidos correspondem aos seus projetos.
+
+Quando um evento é recebido com sucesso, a aplicação o marca como "lido" e segue para o próximo.
+
+Eventos na área problemática (tópico sem saída) podem ser corrigidos depois e enviados de volta para o fórum principal.
+
+Eventos de empresas parceiras ("Outer Events") chegam pelo portal de eventos, como mencionado anteriormente.
+
+Técnicas para Desafios-Chave
+A equipe de engenharia do McDonald's também utilizou algumas técnicas interessantes para resolver desafios comuns associados à instalação.
+
+Vamos analisar alguns importantes:
+
+Governança de Dados
+Garantir a precisão dos dados é crucial quando diferentes sistemas compartilham informações. Se os dados forem confiáveis, isso torna o projeto e a construção desses sistemas muito mais simples.
+
+MSK e Schema Registry ajudam a manter a integridade dos dados ao impor "contratos de dados" entre sistemas.
+
+Um esquema é como um blueprint que define quais informações devem estar presentes em cada mensagem e em qual formato. Ele especifica os campos de dados obrigatórios e opcionais e seus tipos (por exemplo, texto, número, data). Cada mensagem é verificada em tempo real contra esse projeto. Se uma mensagem não corresponder ao esquema, ela é enviada para uma área separada para ser corrigida.
+
+Veja como os esquemas funcionam:
+
+Quando um sistema inicia, ele salva uma lista de esquemas conhecidos para consulta rápida.
+
+Esquemas podem ser atualizados para incluir mais campos ou alterar tipos de dados.
+
+Quando um sistema envia uma mensagem, ele inclui um número de versão para indicar qual esquema foi usado.
+
+O sistema receptor usa esse número de versão para processar a mensagem com o esquema correto.
+
+Essa abordagem lida com mensagens com diferentes esquemas sem interrupção e permite atualizações e rollbacks fáceis.
+
+Veja o diagrama abaixo para referência:
+
+<img width="1600" height="1014" alt="unnamed" src="https://github.com/user-attachments/assets/c5e8dbe8-e247-4202-b0cc-1b090c6f3d45" />
+
+O uso de um registro de esquema para validar contratos de dados garante que o fluxo de informações entre os sistemas seja preciso e consistente. Isso economiza tempo e esforço no design e operação dos sistemas que dependem desses dados, especialmente para fins analíticos.
+
+Cluster Autoscaling
+MSK é um sistema de mensagens que ajuda diferentes partes de uma aplicação a se comunicarem entre si. Ele usa corretores para armazenar e gerenciar as mensagens.
+
+À medida que a quantidade de dados cresce, o MSK aumenta automaticamente o espaço de armazenamento para cada corretor. No entanto, eles precisavam de uma forma de adicionar mais corretores ao sistema quando os existentes ficassem sobrecarregados.
+
+Para resolver esse problema, eles criaram uma função Autoscaler. Veja o diagrama abaixo:
+
+<img width="1600" height="1026" alt="unnamed" src="https://github.com/user-attachments/assets/a83ac31f-a2a1-455a-8bc2-f21d3f3a1c95" />
+
+Pense nessa função como um cão de guarda que monitora o quanto cada corretor está trabalhando. Quando a carga de trabalho de um corretor (medida pela utilização da CPU) ultrapassa um certo nível, a função Autoscaler entra em ação e faz duas coisas:
+
+Ele adiciona um novo corretor ao sistema MSK para ajudar a lidar com o aumento da carga de trabalho.
+
+Ela aciona uma função lambda para redistribuir os dados de forma uniforme entre todos os corretores, incluindo o novo.
+
+Dessa forma, o sistema MSK pode se adaptar automaticamente para lidar com mais dados e tráfego, sem a necessidade de adicionar corretores ou mover dados manualmente.
+
+Sharding baseado em domínio
+Para garantir que o sistema de mensagens possa lidar com muitos dados e minimizar o risco de falhas, eles dividem os eventos em grupos separados de acordo com seu domínio.
+
+<img width="1600" height="1027" alt="unnamed" src="https://github.com/user-attachments/assets/cec5580b-4b5a-4be8-8084-65943f51390c" />
+
+Cada grupo possui seu próprio cluster dedicado MSK. Isso é como ter salas de correspondência separadas para diferentes departamentos em uma grande empresa. O domínio de um evento determina a qual cluster e tema ele pertence. Por exemplo, eventos relacionados a perfis de usuário podem ir para um cluster, enquanto eventos relacionados a pedidos de produtos podem ir para outro.
+
+Aplicações que precisam receber eventos podem optar por obtê-los de qualquer um desses tópicos baseados em domínio. Isso melhora a flexibilidade e ajuda a distribuir a carga de trabalho pelo sistema.
+
+Para garantir que a plataforma esteja sempre disponível e possa atender usuários globalmente, ela está configurada para funcionar em várias regiões. Em cada região, há uma configuração de alta disponibilidade. Isso significa que, se uma parte do sistema falhar, outra parte pode assumir o controle de forma contínua, garantindo um serviço ininterrupto.
+
+https://substack.com/redirect/6feb1d31-979e-43cc-b9dd-6ee03e82e8b7?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
+https://substack.com/redirect/430843ca-3d06-4351-aa62-493fe363ce5c?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
+https://substack.com/redirect/6c5abbc9-724e-4383-9ffa-6f75cfb14a21?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
 ![unnamed](https://github.com/user-attachments/assets/1aea4486-ad92-4f64-97d4-1a3003e6de57)
 
 Trade-offs de Engenharia: Consistência Eventual (Eventual Consistency) na Prática
