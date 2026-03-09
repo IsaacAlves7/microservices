@@ -598,6 +598,8 @@ Grandes sistemas são compostos por sistemas menores e, portanto, dependem das p
 
 Um **API Gateway** é um componente essencial em arquiteturas modernas, especialmente em sistemas baseados em microserviços. Ele atua como um intermediário entre clientes e um conjunto de serviços backend, gerenciando todas as solicitações que entram no sistema. Sua principal função é receber, rotear, transformar e controlar as solicitações de API, além de retornar respostas apropriadas aos clientes.
 
+Um gateway de API é um servidor que atua como um front-end de API, recebendo requisições de API, aplicando políticas de limitação e segurança, passando requisições para o serviço de back-end e, em seguida, retornando o resultado apropriado ao cliente.
+
 Você está cansado de gerenciar vários pontos de entrada para seus microsserviços? O padrão API Gateway está aqui para salvar o dia! Atuando como um único ponto de entrada para todas as solicitações do cliente, o API Gateway simplifica o acesso aos seus microsserviços, oferecendo comunicação perfeita entre clientes e serviços.
 
 Gateways de API são componentes essenciais em arquiteturas de software modernas, especialmente em sistemas baseados em microsserviços. Padrão de API gateway: seu balcão único para microsserviços.
@@ -650,18 +652,25 @@ O diagrama abaixo mostra os detalhes:
 
 - Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
 
-	
-Forwarded this email? Subscribe here for more
-EP105: The 12 Factor App
-ByteByteGo
-Mar 30
+É essencialmente um intermediário entre o cliente e o servidor, gerenciando e otimizando o tráfego da API.
 
- 
+Funções-chave de um API Gateway:
 
+Roteamento de Requisições: Direciona as requisições de API recebidas para o serviço backend apropriado.
 
+Balanceamento de carga: Distribui requisições entre vários servidores para garantir que nenhum servidor único seja sobrecarregado.
 
+Segurança: Implementa medidas de segurança como autenticação, autorização e criptografia de dados.
 
-READ IN APP
+Limitação de Taxa e Limitação: Controla o número de solicitações que um cliente pode fazer dentro de um determinado período.
+
+Composição de APIs: Combina múltiplas requisições de API backend em uma única requisição frontend para otimizar o desempenho.
+
+Cache em cache: Armazena respostas temporariamente para reduzir a necessidade de processamento repetido.
+
+Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
+
+<img width="3535" height="3900" alt="0074-api-gateway-101" src="https://github.com/user-attachments/assets/ca9774c1-33f6-4528-8cf1-ed785a84afdc" />
  
 This week’s system design refresher:
 
