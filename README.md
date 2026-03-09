@@ -681,32 +681,6 @@ O gateway API fica entre os clientes e os serviços, fornecendo comunicações A
 3. Gateway de API oferece compatibilidade com múltiplas plataformas. Ao lidar com múltiplas plataformas, um gateway de API pode ajudar a trabalhar em várias arquiteturas complexas.
 
  
-This week’s system design refresher:
-
-ACID Properties in Databases With Examples (Youtube video)
-
-Have you heard of the 12-Factor App?
-
-What does API gateway do?
-
-How does Redis architecture evolve?
-
-Cloud Cost Reduction Techniques
-
-SPONSOR US
-
-How-to Guide: Effective Goals and Reporting for Software Teams (Sponsored)
-
-Líderes de engenharia precisam saber — e ser capazes de mostrar — que suas equipes:
-
-Entregar excelência operacional
-
-Impulsione o impacto nos negócios
-
-A melhor maneira de alcançar esses resultados é estabelecendo metas claras e baseadas em dados e trabalhando para alcançá-las. Neste guia gratuito, guiamos você sobre como melhorar ativamente os resultados da sua equipe aproveitando métricas, dados de programas, visibilidade de alocação de recursos e automação de fluxos de trabalho. Você também aprenderá a personalizar o público e a entregar atualizações com confiança — preparando você para o sucesso contínuo em seu cargo e na sua carreira.
-
-Baixe seu guia agora
-
 Propriedades do ACID em bancos de dados com exemplos
 
 Você já ouviu falar do aplicativo de 12 fatores?
@@ -753,28 +727,12 @@ Execute tarefas especiais separadamente do seu app, como fazer manutenção em u
 
 A palavra é sua: onde você acha que esses princípios podem ter maior impacto na melhoria das práticas de desenvolvimento de software?
 
-Artigos mais recentes
-Se você não é assinante pago, aqui está o que perdeu este mês.
-
-
-Um Curso Intensivo sobre Endereçamento IPv4
-
-Uma Breve História da Escalabilidade da Netflix
-
 15 Projetos de Código Aberto que Mudaram o Mundo
 
 Os 3 Principais Erros no Currículo que Custam o Emprego
 
-Como Funcionam as Recomendações de Vídeo - Parte 1
+O que o API gateway faz? O diagrama abaixo mostra os detalhes.
 
-Para receber todos os artigos completos e apoiar a ByteByteGo, considere assinar:
-
-Upgrade para pago
-
-O que o API gateway faz?
-O diagrama abaixo mostra os detalhes.
-
-No alt text provided for this image
 Passo 1 - O cliente envia uma requisição HTTP para o gateway da API.
 
 Passo 2 - O gateway da API analisa e valida os atributos na requisição HTTP.
