@@ -1161,8 +1161,6 @@ Ela divide uma aplicação em duas partes distintas:
 
 O padrão CQRS foi introduzido pela primeira vez por Greg Young, desenvolvedor e arquiteto de software, em 2010. Ele descreveu isso como uma forma de separar a responsabilidade de lidar com comandos (operações de escrita) do tratamento de consultas (operações de leitura) em um sistema.
 
-<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e">
-
 As origens do CQRS podem ser rastreadas até o princípio de Separação Comando-Consulta (CQS), introduzido por Bertrand Meyer. O CQS afirma que todo método deve ser um comando que executa uma ação ou uma consulta que retorna dados, mas não ambos. O CQRS leva o princípio CQS além, aplicando-o em nível arquitetônico, separando as responsabilidades de comando e consulta em diferentes modelos, serviços ou até bancos de dados.
 
 Desde sua introdução, o CQRS ganhou popularidade na comunidade de desenvolvimento de software, especialmente no contexto de arquiteturas de design orientado a domínio (DDD) e orientado a eventos.
@@ -1175,7 +1173,12 @@ Você pode dividir fisicamente os dados de leitura e gravação para maior isola
 
 Por exemplo, o banco de dados de escrita pode ser relacional, e o banco de dados de leitura pode ser um banco de dados de documentos.
 
-![unnamed](https://github.com/user-attachments/assets/4b534ea8-f80d-483c-ae68-ffa755796bf0)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/4b534ea8-f80d-483c-ae68-ffa755796bf0" height="677"></td>
+	</tr>
+</table>
 
 Veja como funciona:
 
