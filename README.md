@@ -1145,7 +1145,7 @@ A lição aqui não é que toda empresa precisa construir um gateway personaliza
 ## [Microservices] CQRS - Command-query responsability segregation
 <img src="https://img.shields.io/badge/Spring_Boot-3.10.7-gold?style=flat&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-16.17.0-gold?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-16.17.0-gold?style=flat&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/PostgreSQL-16.17.0-gold?style=flat&logo=PostgreSQL&logoColor=white"> <img src="https://img.shields.io/badge/Apache_Cassandra-16.1-gold?style=flat&logo=Apache-Cassandra&logoColor=white"> <img src="https://img.shields.io/badge/MongoDB-16.17.0-gold?style=flat&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Docker-16.17.0-gold?style=flat&logo=Docker&logoColor=white">
 
-<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e" height="277" align="right">
+<img src="https://github.com/user-attachments/assets/1c3f7c82-5297-48a1-af83-cdb84a41559b" align="right" height="77">
 
 O **CQRS (Command-Query Responsibility Segregation)** é um padrão arquitetural que separa as operações de escrita **comandos** (`command`) das operações de leitura **consultas** (`query`) em um sistema, atribuindo responsabilidades distintas para cada uma delas. Em vez de usar o mesmo modelo de dados e lógica para lidar tanto com as atualizações quanto com as consultas, o <a href="https://medium.com/@edin.sahbaz/a-demo-on-clean-architecture-with-cqrs-and-repository-pattern-in-net-web-api-986838191e74?source=email-afeafff77325-1697176799007-digest.reader--986838191e74----6-98------------------21db751b_aa12_4c21_9185_c81d1d5c1508-1">CQRS</a> propõe que esses dois aspectos sejam tratados de maneira independente, o que permite otimizações específicas para cada cenário. 
 
@@ -1161,17 +1161,15 @@ Ela divide uma aplicação em duas partes distintas:
 
 O padrão CQRS foi introduzido pela primeira vez por Greg Young, desenvolvedor e arquiteto de software, em 2010. Ele descreveu isso como uma forma de separar a responsabilidade de lidar com comandos (operações de escrita) do tratamento de consultas (operações de leitura) em um sistema.
 
+<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e">
+
 As origens do CQRS podem ser rastreadas até o princípio de Separação Comando-Consulta (CQS), introduzido por Bertrand Meyer. O CQS afirma que todo método deve ser um comando que executa uma ação ou uma consulta que retorna dados, mas não ambos. O CQRS leva o princípio CQS além, aplicando-o em nível arquitetônico, separando as responsabilidades de comando e consulta em diferentes modelos, serviços ou até bancos de dados.
 
 Desde sua introdução, o CQRS ganhou popularidade na comunidade de desenvolvimento de software, especialmente no contexto de arquiteturas de design orientado a domínio (DDD) e orientado a eventos.
 
 Ele tem sido aplicado com sucesso em diversos domínios, como comércio eletrônico, sistemas financeiros e aplicações colaborativas, onde desempenho, escalabilidade e complexidade são preocupações críticas.
 
-Neste post, vamos aprender sobre o CQRS em detalhes completos. Vamos cobrir os vários aspectos do padrão, junto com uma matriz de decisão sobre quando usá-lo.
-
-
-
-Modelos separados de consulta e atualização facilitam o design e a implementação. embora o código CQRS não possa ser gerado automaticamente a partir de um esquema de banco de dados usando técnicas de andaime, como ferramentas O/RM (embora você possa adicionar seu código personalizado sobre o código gerado).
+Vamos aprender sobre o CQRS em detalhes completos. Vamos cobrir os vários aspectos do padrão, junto com uma matriz de decisão sobre quando usá-lo. Modelos separados de consulta e atualização facilitam o design e a implementação. embora o código CQRS não possa ser gerado automaticamente a partir de um esquema de banco de dados usando técnicas de andaime, como ferramentas O/RM (embora você possa adicionar seu código personalizado sobre o código gerado).
 
 Você pode dividir fisicamente os dados de leitura e gravação para maior isolamento. Nesse caso, o banco de dados de leitura pode utilizar seu próprio esquema de dados otimizado para consultas. Ele pode, por exemplo, armazenar uma visualização materializada dos dados para evitar junções complexas ou mapeamentos O/RM. Pode até empregar um tipo diferente de armazenamento de dados. 
 
