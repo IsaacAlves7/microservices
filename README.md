@@ -37,6 +37,32 @@ Todos sabemos que o design de microsserviços tem um impacto direto na resiliên
 
 Então, discutiremos as práticas recomendadas básicas de microsserviços que você deve considerar se quiser obter um ecossistema de microsserviços eficiente e desprovido de complexidades arquitetônicas extremas. 
 
+![unnamed](https://github.com/user-attachments/assets/6c66a2b4-b795-42af-b15c-9528b3d541e4)
+
+Orientado por Modelo de Domínio
+Ao projetar a estrutura de caminhos de uma API RESTful, podemos nos referir ao modelo de domínio.
+
+Escolha Métodos
+HTTP Adequados Definir alguns Métodos HTTP básicos pode simplificar o design da API. Por exemplo, o PATCH pode ser um problema para as equipes.
+
+Implemente a Idempotência Adequadamente
+Projetar a idempotência antecipadamente pode melhorar a robustez de uma API. O método GET é idempotente, mas o POST precisa ser projetado corretamente para ser idempotente.
+
+Escolha Códigos
+de Status HTTP Adequados Defina um número limitado de códigos de status HTTP para usar e simplificar o desenvolvimento de aplicações.
+
+Versionamento
+Projetar o número de versão da API com antecedência pode simplificar o trabalho de atualização.
+
+Caminhos Semânticos
+Usar caminhos semânticos facilita a compreensão das APIs, permitindo que os usuários encontrem as APIs corretas na documentação.
+
+Processamento
+em lote Use batch/bulk como palavra-chave e coloque no final do caminho.
+
+Linguagem de Consulta
+Projetar um conjunto de regras de consulta torna a API mais flexível. Por exemplo, paginação, ordenação, filtragem etc.
+
 **Adotar o princípio da responsabilidade única**: O Princípio da Responsabilidade Única (SOLID) é o conceito de que qualquer objeto único em POO deve ser feito para uma função específica. Basicamente, faz parte dos princípios de programação apresentados por Robert Martin. Assim como no código, uma classe deve ter apenas um motivo para mudar, tornando o software mais sustentável, escalável e fácil de entender. Para adotar o SRP no desenvolvimento de software, você deve garantir que cada classe ou módulo tenha uma responsabilidade bem definida e que não esteja tentando fazer muitas coisas. Você também deve manter seus módulos desacoplados e usar interfaces claras e concisas para se comunicar entre eles. Para resumir isso, temos uma citação interessante:
 
 > "Reúna as coisas que mudam pelo mesmo motivo e separe as coisas que mudam por motivos diferentes." — O'Reilly
