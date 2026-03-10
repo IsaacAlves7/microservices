@@ -2839,7 +2839,7 @@ Vamos ver três exemplos:
 
 O paradigma de Event Sourcing é usado para projetar um sistema com determinismo. Isso altera a filosofia dos projetos de sistemas tradicionais.
 
-Como isso funciona? Em vez de registrar os estados dos pedidos no banco de dados, o design de Event Sourcing persiste os eventos que levam às mudanças de estado no repositório de eventos. O repositório de eventos é um log de somente acréscimo. Os eventos devem ser sequenciados com números incrementais para garantir sua ordem. Os estados dos pedidos podem ser reconstruídos a partir dos eventos e mantidos na OrderView. Se a OrderView estiver indisponível, podemos sempre contar com o repositório de eventos, que é a fonte da verdade, para recuperar os estados dos pedidos.
+Como isso funciona? Em vez de registrar os estados da ordem no banco de dados, o design de event sourcing mantém os eventos que levam às mudanças de estado no armazenamento de eventos. O armazenamento de eventos é um log apenas de anexos. Os eventos devem ser sequenciados com números incrementais para garantir sua ordenação. Os estados da ordem podem ser reconstruídos a partir dos eventos e mantidos no OrderView. Se o OrderView estiver fora do ar, sempre podemos confiar no armazenamento de eventos, que é a fonte de verdade, para recuperar os estados da ordem.
 
 Vejamos os passos detalhados:
 
@@ -2853,6 +2853,21 @@ Com Event Sourcing:
 - Passos 1 e 2: Bob quer comprar um produto. Um evento `NewOrderEvent` é criado, sequenciado e armazenado no repositório de eventos com `eventID=321`.
 - Etapas 3 e 4: Bob deseja alterar a quantidade de 5 para 6. Um evento `ModifyOrderEvent` é criado, sequenciado e persistido no repositório de eventos com `eventID=322`.
 - Etapa 5: A visualização do pedido é reconstruída a partir dos eventos do pedido, mostrando o estado mais recente de um pedido.
+
+Vamos analisar os passos detalhados.
+
+Sourcing Não Evento:
+
+- Passos 1 e 2: Bob quer comprar um produto. A ordem é criada e inserida no banco de dados.
+- Passos 3 e 4: Bob quer mudar a quantidade de 5 para 6. A ordem é modificada com um novo estado.
+
+Sourcing de Eventos:
+
+- Passos 1 e 2: Bob quer comprar um produto. Um NewOrderEvent é criado, sequenciado e armazenado no armazenamento de eventos com eventID=321.
+- Passos 3 e 4: Bob quer mudar a quantidade de 5 para 6. Um ModifyOrderEvent é criado, sequenciado e mantido no armazenamento de eventos com eventID=322.
+- Passo 5: A visualização de ordem é reconstruída a partir dos eventos de ordem, mostrando o estado mais recente de um pedido.
+
+> A palavra é sua: qual tipo de sistema é adequado para design de event sourcing? Você já usou esse paradigma em seu trabalho?
 
 A maioria dos aplicativos opera com dados, e o método comum é o programa manter os dados em seu estado atual, atualizando-os quando os usuários interagem com eles. Na arquitetura clássica de criar, ler, atualizar e excluir (CRUD), por exemplo, uma operação típica de dados é receber dados do armazenamento, fazer algumas alterações neles e então atualizar o estado atual dos dados com os novos valores — muitas vezes utilizando transações que travam os dados.
 
