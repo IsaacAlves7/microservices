@@ -2782,6 +2782,27 @@ A consistência eventual permite que cada componente faça seu trabalho de forma
 
 Este artigo explora o que significa construir com consistência eventual em um mundo movido por eventos. Ele explica como lidar com eventos fora de ordem e como projetar sistemas que possam lidar com atrasos.
 
+Como a Netflix Construiu um Contador Distribuído
+O contador distribuído da Netflix é uma aula magistral para design de sistemas de aprendizagem.
+
+Um Contador Distribuído é um sistema onde a responsabilidade de contar eventos é distribuída entre múltiplos servidores ou nós em uma rede. A Netflix precisa monitorar e medir múltiplas interações dos usuários para tomar decisões em tempo real e otimizar sua infraestrutura.
+
+![unnamed](https://github.com/user-attachments/assets/f6c1e6ca-992d-4ee6-a56a-924bbff7a0c1)
+
+Por essa razão, eles construíram uma Contra-Abstração Distribuída.
+
+A Abstração Contrária Distribuída da Netflix opera em quatro camadas principais, garantindo alto desempenho, escalabilidade e consistência eventual.
+
+1. Usuários da Camada da API do Clienteinteragem com o sistema enviando requisições AddCount, GetCount ou ClearCount. O Netflix Data Gateway processa e roteia essas solicitações de forma eficiente.
+
+2. Os eventos de Registro de Eventos e Armazenamento de Séries Temporais são armazenados na Abstração de Séries Temporais da Netflix para maior escalabilidade. Cada evento é marcado com um ID de Evento para garantir a idempotência. Para evitar contenção no banco de dados, eventos são agrupados em partições temporais conhecidas como buckets. Os dados são armazenados em Cassandra.
+
+3. Filas de Rollup Pipeline ou Agregação coletam alterações de eventos e as processam em lotes. A agregação ocorre em janelas de tempo imutáveis, garantindo cálculos de rollup precisos. Os dados são armazenados na Cassandra Rollup Store para eventual consistência.
+
+4. Otimização de Leitura (Cache e Gerenciamento de Consultas) Valores agregados de contadores são armazenados em cache no EVCache para leituras ultrarrápidas. Se um valor de cache estiver desatualizado, uma atualização de rollup em segundo plano o atualiza. Esse modelo permite que a Netflix processe 75K requisições por segundo com latência de um dígito de milissegundos.
+
+https://substack.com/redirect/c3d81adc-a838-47db-ab46-3ccce8bab077?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
+
 ## [Microservices] Event Sourcing
 <a href=""><img src="https://img.shields.io/badge/dev.to-REST-0A0A0A?style=flat&logo=dev.to&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Medium-REST-000000?style=flat&logo=Medium&logoColor=white"></a> <img src="https://img.shields.io/badge/GitBook-REST-000000?style=flat&logo=GitBook&logoColor=white"> <a href="https://github.com/IsaacAlves7/js/blob/vanilla/README.md#js-axios"><img src="https://img.shields.io/badge/Axios-REST-purple?style=flat&logo=Axios&logoColor=white"></a> <img src="https://img.shields.io/badge/GraphQL-REST-magenta?style=flat&logo=GraphQL&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-REST-85EA2D?style=flat&logo=Swagger&logoColor=white"> 
 
