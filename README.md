@@ -2843,6 +2843,8 @@ Como isso funciona? Em vez de registrar os estados da ordem no banco de dados, o
 
 Vejamos os passos detalhados:
 
+![unnamed](https://github.com/user-attachments/assets/7173f896-9460-4d97-a2da-c25056974939)
+
 Sem Event Sourcing:
 
 - Passos 1 e 2: Bob quer comprar um produto. O pedido é criado e inserido no banco de dados.
