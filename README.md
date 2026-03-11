@@ -1235,11 +1235,25 @@ Vamos aprender sobre o CQRS em detalhes completos. Vamos cobrir os vários aspec
 
 Você pode dividir fisicamente os dados de leitura e gravação para maior isolamento. Nesse caso, o banco de dados de leitura pode utilizar seu próprio esquema de dados otimizado para consultas. Ele pode, por exemplo, armazenar uma visualização materializada dos dados para evitar junções complexas ou mapeamentos O/RM. Pode até empregar um tipo diferente de armazenamento de dados. 
 
+A escalabilidade de um sistema depende fortemente da camada de dados.
+
+Não importa o quanto de esforço seja feito para escalar a API ou a camada de aplicação, ela é limitada pela escalabilidade da camada de dados. Além disso, escalar a camada de dados costuma ser a tarefa mais difícil durante o design da aplicação.
+
+Escalar horizontalmente a camada de dados de uma aplicação, também conhecido como "escalonamento", envolve distribuir os dados e a carga entre múltiplos servidores ou nós.
+
+Essa abordagem é particularmente eficaz para lidar com grandes volumes de dados e altas cargas de tráfego, mas também adiciona múltiplas ordens de complexidade. Como os dados são distribuídos, muitas questões relacionadas a transações e consistência que não aparecem em bancos de dados monolíticos tornam-se bastante comuns.
+
+Existem várias técnicas disponíveis para escalar horizontalmente a camada de dados, cada uma com prós e contras, com nuances específicas que valem a pena considerar.
+
+Vamos explorar as principais técnicas para escalar horizontalmente a camada de dados junto com exemplos. Além disso, vamos entender as vantagens e desvantagens de cada técnica para ter uma ideia melhor de quando usar uma abordagem específica em relação a outra.
+
+<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e">
+
 Por exemplo, o banco de dados de escrita pode ser relacional, e o banco de dados de leitura pode ser um banco de dados de documentos.
 
 <table>
 	<tr>
-		<td><img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/1b5678fa-59ea-4ccb-be31-1a345b128dbb" height="677"></td>
 		<td><img src="https://github.com/user-attachments/assets/4b534ea8-f80d-483c-ae68-ffa755796bf0" height="677"></td>
 	</tr>
 </table>
