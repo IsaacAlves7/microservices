@@ -742,31 +742,18 @@ O diagrama abaixo mostra os detalhes:
 
 - Passo 2 - O gateway da API analisa e valida os atributos na requisição HTTP.
 
-- Passo 3 - O gateway API realiza verificações de lista de permissões/listas de recusas.
+- Passo 3 - O gateway API realiza verificações de lista de permissões/negações/listas de recusas.
 
 - Passo 4 - O gateway da API se comunica com um provedor de identidade para autenticação e autorização.
 
 - Passo 5 - As regras de limite de taxa são aplicadas ao pedido. Se o valor estiver acima do limite, o pedido é rejeitado.
 
-- Passos 6 e 7 - Agora que a solicitação passou pelas verificações básicas, o gateway da API encontra o serviço relevante para encaminhar por meio de correspondência de caminhos.
+- Passos 6 e 7 - Agora que a solicitação passou pelas verificações básicas, o gateway da API encontra o serviço relevante para encaminhar por meio de correspondência de caminhos. O gateway da API encaminha a requisição para o serviço backend relevante por meio de correspondência de caminhos.
 
 - Passo 8 - O gateway da API transforma a solicitação no protocolo apropriado e a envia para microserviços de backend.
 
 - Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
 
-Passo 1: O cliente envia uma requisição HTTP para o gateway da API.
-
-Passo 2: O gateway API analisa e valida os atributos na requisição HTTP.
-
-Passo 3: O gateway da API verifica listas de permite/negação.
-
-Passo 4: O gateway API autentica e autoriza por meio de um provedor de identidade.
-
-Passo 5: Regras de limitação de taxa são aplicadas. Solicitações acima do limite são rejeitadas.
-
-Etapas 6 e 7: O gateway da API encaminha a requisição para o serviço backend relevante por meio de correspondência de caminhos.
-
-Passo 8: O gateway da API transforma a solicitação no protocolo apropriado e a encaminha para microserviços de backend.
 
 Passo 9: O gateway API lida com quaisquer erros que possam surgir durante o processamento de requisições para uma degradação gradual do serviço.
 
