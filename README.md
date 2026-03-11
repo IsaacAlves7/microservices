@@ -11,11 +11,37 @@ Em engenharia de software, uma arquitetura de **microsserviços** (microservices
 
 Os microserviços representam uma mudança de paradigma na arquitetura de software, dividindo as aplicações em pequenos serviços implantáveis de forma independente. Essa abordagem oferece flexibilidade incomparável na escalabilidade e manutenção dos componentes do sistema, permitindo que as organizações desenvolvam e evoluam diferentes partes de suas aplicações de forma independente.
 
-Com base em nossa discussão anterior sobre arquiteturas de 3 níveis, que podem ser implementadas usando abordagens monolíticas ou microserviços, este artigo explora os conceitos e insights essenciais dos microsserviços. Nosso objetivo é fornecer uma compreensão abrangente desse paradigma contemporâneo de design de sistemas, equipando você com conhecimentos cruciais para a arquitetura moderna de software e preparando para se destacar nas próximas entrevistas.
+Com base em nossa discussão anterior sobre arquiteturas de 3 níveis, que podem ser implementadas usando abordagens monolíticas ou microserviços, exploramos os conceitos e insights essenciais dos microsserviços. Nosso objetivo é fornecer uma compreensão abrangente desse paradigma contemporâneo de design de sistemas, equipando você com conhecimentos cruciais para a arquitetura moderna de software e preparando para se destacar nas próximas entrevistas.
+
+Os microsserviços surgiram como uma alternativa mais popular a SOA devido aos seus benefícios. Os microsserviços são mais compostos, permitindo que as equipes reutilizem a funcionalidade oferecida pelos pequenos pontos centrais de serviço. Os microsserviços são mais robustos e permitem um escalonamento vertical e horizontal mais dinâmico. Portanto, eles são um padrão de arquitetura orientado a serviços em que os aplicativos são construídos como uma coleção de várias unidades de serviço independentes menores. 
 
 **Um microsserviço** é um serviço web responsável por parte da lógica de domínio. Vários microsserviços são combinados para criar um aplicativo, e cada um representa uma funcionalidade para o domínio. Os microsserviços interagem uns com os outros por meio de APIs, como REST ou gRPC ou GraphQL, mas não têm conhecimento da atividade interna de outros serviços. Essa interação harmoniosa entre microsserviços é a arquitetura de microsserviços. Ele faz com que o software seja composto de múltiplos serviços de ligação solta que são independentes uns dos outros e implantados separadamente.
 
-Os microsserviços surgiram como uma alternativa mais popular a SOA devido aos seus benefícios. Os microsserviços são mais compostos, permitindo que as equipes reutilizem a funcionalidade oferecida pelos pequenos pontos centrais de serviço. Os microsserviços são mais robustos e permitem um escalonamento vertical e horizontal mais dinâmico. Portanto, eles são um padrão de arquitetura orientado a serviços em que os aplicativos são construídos como uma coleção de várias unidades de serviço independentes menores. 
+Podemos citar Martin Fowler e Adrian Cockcroft sobre aspectos-chave dos microserviços:
+
+> "O estilo arquitetônico de microserviços é uma abordagem para desenvolver uma única aplicação como um conjunto de pequenos serviços, cada um rodando em seu próprio processo e comunicando-se com mecanismos leves, frequentemente uma API de recursos HTTP. Esses serviços são construídos em torno das capacidades do negócio e podem ser implantados de forma independente por máquinas totalmente automatizadas. Há um mínimo necessário de gerenciamento centralizado desses serviços, que podem ser escritos em diferentes linguagens de programação e usar diferentes tecnologias de armazenamento de dados." - De Martin Fowler
+
+> "Microservices são arquiteturas orientadas a serviços frouxamente acopladas com contextos limitados." - De Adrian Cockcroft
+
+Principais Aspectos dos Microserviços: A partir das definições perspicazes de Martin Fowler e Adrian Cockcroft, podemos resumir estes aspectos-chave de uma arquitetura de microsserviços:
+
+Decompor a aplicação monolítica em pequenos serviços independentes. Isso permite que diferentes equipes de produto desenvolvam, testem e implantem serviços alinhados a capacidades específicas do negócio. Útil para grandes organizações desmontarem sistemas monolíticos e melhorarem a produtividade.
+
+Serviços frouxamente acoplados que se comunicam via APIs. Componentes frontend/backend se comunicam via REST, enquanto as comunicações entre serviços usam RPC para solicitações/respostas eficientes.
+
+Cuidadosamente projetados em torno de contextos delimitados. Cada serviço possui limites claros de módulo e lógica de domínio encapsulada para evitar acoplamento estreito entre os serviços.
+
+Possibilita práticas eficazes de DevOps. É uma parte importante da metodologia de desenvolvimento de microserviços. Equipes pequenas e full-stack possuem totalmente serviços específicos de ponta a ponta. Conteinerização, automação e orquestração de contêineres são usadas para implantar microserviços de forma eficaz.
+
+Escalável horizontalmente por design, resistente a falhas. Os serviços podem escalar de forma independente conforme necessário. Construído pensando na tolerância a falhas.
+
+Governança descentralizada e flexibilidade. As equipes podem escolher a tecnologia que fizer sentido para seu serviço.
+
+Requer monitoramento e instrumentação extensos devido a:
+
+- Crescimento dos serviços - À medida que os monólitos se decompõem em muitos serviços independentes, o número de componentes a serem monitorados cresce rapidamente.
+
+- Abstração de infraestrutura via containers/orquestradores - Plataformas de runtime como Kubernetes lidam com a infraestrutura. Portanto, o monitoramento deve acontecer no nível do código da aplicação usando sidecars para agregar logs, métricas e rastreamentos.
 
 Arquitetura orientada a serviços (SOA) e estilos de arquitetura de microserviços são marcos importantes na evolução da arquitetura de software. O diagrama abaixo mostra a progressão dos principais estilos arquitetônicos.
 
