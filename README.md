@@ -2896,10 +2896,28 @@ A consistência eventual permite que cada componente faça seu trabalho de forma
 
 Este artigo explora o que significa construir com consistência eventual em um mundo movido por eventos. Ele explica como lidar com eventos fora de ordem e como projetar sistemas que possam lidar com atrasos.
 
-Como a Netflix Construiu um Contador Distribuído
-O contador distribuído da Netflix é uma aula magistral para design de sistemas de aprendizagem.
+Como a Netflix Construiu um Contador Distribuído? Como a Netflix Construiu um Contador Distribuído para Bilhões de Interações de Usuários?
 
-Um Contador Distribuído é um sistema onde a responsabilidade de contar eventos é distribuída entre múltiplos servidores ou nós em uma rede. A Netflix precisa monitorar e medir múltiplas interações dos usuários para tomar decisões em tempo real e otimizar sua infraestrutura.
+Um **Contador Distribuído** (Distributed Counter) é um sistema onde a responsabilidade de contar eventos é distribuída entre múltiplos servidores ou nós em uma rede. A Netflix precisa monitorar e medir múltiplas interações dos usuários para tomar decisões em tempo real e otimizar sua infraestrutura. O contador distribuído da Netflix é uma aula magistral para design de sistemas de aprendizagem.
+
+> [!Warning]
+> Aviso: Os detalhes deste post foram retirados do Netflix Tech Blog. Todo o crédito pelos detalhes técnicos vai para a equipe de engenharia da Netflix. Os links para os artigos originais estão presentes na seção de referências ao final do post. Tentamos analisar os detalhes e dar nossa opinião sobre eles. Se você encontrar alguma imprecisão ou omissão, por favor, deixe um comentário e faremos o possível para corrigi-las.
+
+A Netflix opera em uma escala incrível, com milhões de usuários interagindo com sua plataforma a cada segundo.
+
+Para proporcionar uma ótima experiência ao usuário, a Netflix precisa acompanhar e medir essas interações — por exemplo, contando quantos usuários estão assistindo a um novo programa ou clicando em recursos específicos. Esses números ajudam a Netflix a tomar decisões em tempo real sobre como melhorar a experiência do usuário, otimizar sua infraestrutura e realizar experimentos como testes A/B.
+
+No entanto, contar em uma escala tão grande não é simples. Imagine tentar contar milhões de eventos acontecendo simultaneamente no mundo todo, garantindo que os resultados sejam rápidos, precisos e econômicos.
+
+É aí que entra a Contra-Abstração Distribuída.
+
+Esse sistema foi projetado para lidar com a contagem de uma forma que atenda aos exigentes requisitos da Netflix:
+
+- Baixa latência: As contagens precisam ser atualizadas e estar disponíveis em milissegundos.
+- Alta Produtividade: O sistema deve lidar com milhares de atualizações por segundo sem gargalos.
+- Eficiência de Custos: Gerenciar um sistema em grande escala não deve ser uma grande estima.
+
+Vamos analisar como a Netflix construiu uma Contra-Abstração Distribuída e os desafios que enfrentou:
 
 ![unnamed](https://github.com/user-attachments/assets/f6c1e6ca-992d-4ee6-a56a-924bbff7a0c1)
 
@@ -2914,6 +2932,376 @@ A Abstração Contrária Distribuída da Netflix opera em quatro camadas princip
 3. Filas de Rollup Pipeline ou Agregação coletam alterações de eventos e as processam em lotes. A agregação ocorre em janelas de tempo imutáveis, garantindo cálculos de rollup precisos. Os dados são armazenados na Cassandra Rollup Store para eventual consistência.
 
 4. Otimização de Leitura (Cache e Gerenciamento de Consultas) Valores agregados de contadores são armazenados em cache no EVCache para leituras ultrarrápidas. Se um valor de cache estiver desatualizado, uma atualização de rollup em segundo plano o atualiza. Esse modelo permite que a Netflix processe 75K requisições por segundo com latência de um dígito de milissegundos.
+
+Por que a necessidade de um contador distribuído?
+A Netflix precisa contar milhões de eventos a cada segundo em sua plataforma global. Esses eventos podem ser qualquer coisa: o número de vezes que um recurso é usado, com que frequência um programa é clicado, ou até métricas detalhadas de experimentos como testes A/B
+
+O desafio é que essas necessidades de contagem não são tamanho único.
+
+Algumas situações exigem resultados rápidos e aproximados, enquanto outras exigem contagens precisas e duradouras. É aí que o Distributed Counter Abstraction da Netflix se destaca, oferecendo flexibilidade para atender a essas necessidades diversas.
+
+Existem duas grandes categorias de contagem:
+
+Contagem de Melhor Esforço: Esse tipo de contagem é usado quando a velocidade é mais importante que a precisão. As contagens não precisam ser perfeitamente precisas, e não ficam armazenadas por muito tempo. Funciona bem para cenários como testes A/B, onde contagens aproximadas são suficientes para comparar o desempenho de dois grupos.
+
+Contagem Eventualmente Consistente: Este tipo é usado quando precisão e durabilidade são críticas. Embora possa levar um pouco mais de tempo para obter a contagem final, isso garante que os resultados sejam corretos e preservados. Isso é ideal para métricas que precisam ser registradas com precisão ao longo do tempo, como faturamento, conformidade regulatória ou relatórios críticos de uso.
+
+Analisaremos ambas as categorias com mais detalhes em uma seção futura.
+
+No entanto, ambas as categorias compartilham alguns requisitos-chave que são os seguintes:
+
+Alta Disponibilidade: O sistema deve estar sempre funcionando, mesmo durante falhas ou alta demanda. A Netflix não pode se dar ao luxo de perder tempo na contagem, já que essas métricas frequentemente influenciam decisões críticas.
+
+Alta Taxa de Rendimento: O sistema deve lidar com milhões de operações de contagem por segundo. Isso significa que precisa processar eficientemente um enorme volume de dados recebidos, sem gargalos.
+
+Escalabilidade: A Netflix opera globalmente, então o sistema de contagem deve escalar horizontalmente em várias regiões e lidar com picos de uso, como durante o lançamento de um novo programa.
+
+A tabela abaixo mostra esses requisitos com mais detalhes:
+
+![unnamed](https://github.com/user-attachments/assets/d45ba71c-9b40-4e7d-97b6-0dc39c948ecd)
+
+O Design da API de Contraabstração
+A abstração Contador Distribuído foi projetada como um sistema altamente configurável e amigável para o usuário.
+
+A abstração fornece uma API simples, porém poderosa, permitindo que os clientes interajam consistentemente com contadores. As principais operações da API são as seguintes:
+
+1 - Adicionar Contagem/Adicionar E Conseguir Contagem
+O objetivo desse ponto final é incrementar ou decrementar um contador em um valor especificado.
+
+O cliente especifica o namespace (por exemplo, "user_metrics"), o nome do contador (por exemplo, "views_counter") e o delta (um valor positivo ou negativo para ajustar a contagem). A API retorna a contagem atualizada imediatamente após aplicar o delta.
+
+Veja o exemplo abaixo:
+
+```json
+{
+  "namespace": "user_metrics",
+  "counter_name": "views_counter",
+  "delta": 5,
+  "idempotency_token": {
+    "token": "unique_event_id",
+    "generation_time": "2025-01-28T14:48:00Z"
+  }
+}
+```
+
+Aqui, o token de idempotência garante que requisições repetidas (devido a tentativas) não resultem em contagem dupla.
+
+2 - GetCount
+Esse endpoint ajuda a recuperar o valor atual de um contador.
+
+O cliente especifica o namespace e o nome do contador, e o sistema busca o valor. Aqui está um exemplo de solicitação de API:
+
+```json
+{
+  "namespace": "user_metrics",
+  "counter_name": "views_counter"
+}
+```
+
+Essa operação é otimizada para velocidade, retornando contagens um pouco desgastadas em algumas configurações para manter o desempenho.
+
+3 - Contagem Limpa
+Esse ponto final ajuda a resetar o valor de um contador para zero.
+
+Semelhante a outras requisições, o cliente fornece o namespace e o nome do contador. Essa operação também suporta tokens de idempotência para garantir tentativas seguras.
+
+Técnicas de contagem
+A abstração do Contador Distribuído suporta vários tipos de contadores para atender aos diversos requisitos de contagem da Netflix. Cada abordagem equilibra os trade-offs entre velocidade, precisão, durabilidade e custo de infraestrutura.
+
+Aqui está uma análise detalhada das principais estratégias de contagem:
+
+Melhor Esforço Regional
+Esta é uma abordagem leve de contagem, otimizada para velocidade e baixo custo de infraestrutura. Ele fornece contagens rápidas, mas aproximadas.
+
+Ele é construído sobre o EVCache, a solução de cache distribuído da Netflix baseada em Memcached. As contagens são armazenadas como pares-chave-valor em um cache com latência mínima e alta taxa de transferência. TTL (Time-To-Live) garante que os contadores não ocupem o cache indefinidamente.
+
+O contador de melhor esforço é ideal para experimentos de curta duração, como testes A/B, onde contagens precisas não são críticas. As vantagens desse tipo de contador são as seguintes:
+
+Extremamente rápido, com latência de milissegundos.
+
+Econômico devido aos clusters multi-tenant compartilhados.
+
+No entanto, também existem desvantagens nessa abordagem:
+
+Sem replicação entre regiões para contadores.
+
+Falta idempotência, tornando as tentativas inseguras.
+
+Não posso garantir consistência entre nós.
+
+Eventualmente Contador Global Consistente
+Para cenários onde precisão e durabilidade são cruciais, existem várias abordagens disponíveis sob o modelo eventualmente consistente. Esses fatores garantem que os contadores convergam para valores precisos ao longo do tempo, embora alguns atrasos sejam aceitáveis.
+
+1 - Fileira única por contador
+É uma abordagem direta onde cada contador é representado por uma única linha em um datastore replicado globalmente.
+
+Veja a tabela abaixo, por exemplo:
+
+<img width="1100" height="723" alt="unnamed" src="https://github.com/user-attachments/assets/61a2a123-fbec-4ab5-8d8c-8823b43a705c" />
+
+Apesar de sua simplicidade, essa abordagem apresenta algumas desvantagens, tais como:
+
+Vulnerável à perda de dados se uma instância falhar antes de esvaziar suas contagens.
+
+É difícil sincronizar resets de contadores entre instâncias.
+
+Falta idempotência, o que complica as tentativas.
+
+2 - Agregação por Instância
+Essa abordagem agrega contagens na memória em instâncias individuais e, periodicamente, escreve os valores agregados em um repositório durável. Esse processo é conhecido como flushing. Introduzir jitter suficiente no processo de flush ajuda a reduzir a contenção.
+
+Veja o diagrama abaixo para referência:
+
+<img width="1100" height="729" alt="unnamed" src="https://github.com/user-attachments/assets/6b3d5cc2-dfee-4c50-81af-6fb8b1b90181" />
+
+A principal vantagem dessa abordagem é que reduz a contenção ao limitar as atualizações para a loja durevole. No entanto, também apresenta alguns desafios, como:
+
+Vulnerável à perda de dados se uma instância falhar antes de esvaziar suas contagens.
+
+É difícil sincronizar resets de contadores entre instâncias.
+
+Falta idempotência.
+
+3 - Caudas Duráveis
+Essa abordagem registra eventos contrários a um sistema de fila durável como o Apache Kafka. Os eventos são processados em lotes para agregação. Veja como funciona:
+
+Eventos contadores são gravados em partições Kafka específicas com base em um hash da chave contadora.
+
+Os consumidores leem partições, agregam eventos e armazenam os resultados em um armazenamento durado.
+
+Veja o diagrama abaixo:
+
+<img width="1100" height="755" alt="unnamed" src="https://github.com/user-attachments/assets/9f08876b-e72a-4a5d-981e-130417c8e137" />
+
+Essa abordagem é confiável e tolerante a falhas devido aos troncos duráveis. Além disso, a idempotência é mais fácil de implementar, prevenindo contagem excessiva durante as tentativas.
+
+No entanto, pode causar atrasos se os consumidores ficarem atrasados. Rebalancear partições como contadores ou aumentos de throughput pode ser complexo.
+
+4 - Registro de Eventos de Incrementos
+Essa abordagem registra cada incremento individual (ou decremento) como um evento com metadados como tempo de evento e event_id. O event_id pode incluir a fonte de onde a operação se originou.
+
+Veja o diagrama abaixo:
+
+<img width="1100" height="723" alt="unnamed" src="https://github.com/user-attachments/assets/d6d26bfa-3234-4269-be78-dfe7572f59d6" />
+
+A combinação de event_time e event_id também pode servir como chave de idempotência para a escrita.
+
+No entanto, essa abordagem também apresenta várias desdesvantagens:
+
+Alto custo de armazenamento devido à necessidade de manter cada incremento.
+
+Desempenho de leitura degradado, pois exige escanear todos os eventos em busca de um contador.
+
+Partições amplas em bancos de dados como o Cassandra podem desacelerar consultas.
+
+Abordagem Híbrida da Netflix
+As necessidades de contagem da Netflix são vastas e diversas, exigindo uma solução que equilibre velocidade, precisão, durabilidade e escalabilidade.
+
+Para atender a essas demandas, a Netflix desenvolveu uma abordagem híbrida que combina os pontos fortes das várias técnicas de contagem que discutimos até agora. Essa abordagem utiliza registro de eventos, agregação em segundo plano e cache para criar um sistema que seja escalável e eficiente, mantendo também a consistência eventual.
+
+Vamos entender a abordagem com mais detalhes:
+
+1 - Registrar eventos na abstração de séries temporais
+No cerne da solução da Netflix está o TimeSeries Abstraction, um serviço de alto desempenho projetado para gerenciar dados temporais.
+
+A Netflix utiliza esse sistema para registrar cada evento contador como um registro individual, permitindo rastreamento preciso e escalabilidade.
+
+Cada evento contador é registrado com metadados, incluindo:
+
+- `event_time`: O momento em que o evento aconteceu.
+
+- `event_id`: Um identificador único para o evento para garantir idempotência.
+
+- `event_item_key`: Especifica o contador a ser atualizado.
+
+Os eventos são organizados em baldes de tempo (por exemplo, por minuto ou hora) para evitar partições amplas no banco de dados. IDs de eventos únicos impedem a contagem duplicada, mesmo que ocorram tentativas repetidas.
+
+2 - Processos de agregação para contadores de alta cardinalidade
+Para evitar a ineficiência de buscar e recalcular contagens de eventos brutos em cada leitura, a Netflix emprega um processo de agregação em segundo plano. Esse sistema consolida continuamente os eventos em contagens resumidas, reduzindo armazenamento e sobrecarga de leitura.
+
+A agregação ocorre dentro de janelas de tempo definidas para garantir a consistência dos dados. Uma janela imutável é usada, ou seja, apenas eventos finalizados (não sujeitos a atualizações adicionais) são agregados.
+
+O Último Timestamp de Rolagem acompanha a última vez que um contador foi agregado. Ele garante que o sistema processe apenas novos eventos desde o rollup anterior.
+
+Veja como funciona o processo de agregação:
+
+O processo de agrupamento coleta todos os eventos de um contador dentro da janela de agregação. Ele resume a contagem total e atualiza a loja de rollup.
+
+Contagens agregadas são armazenadas em um sistema durável como o Cassandra para persistência. Agregações futuras se baseiam nesse ponto de verificação, reduzindo os custos de computação.
+
+Os rollups são acionados durante escritas e leituras. Para gravações, ela é acionada quando um evento leve notifica o sistema sobre as alterações. Durante as leituras, quando um usuário busca um contador, os rollups são acionados se a contagem estiver obsoleta.
+
+Veja o diagrama abaixo para o processo do caminho de escrita:
+
+<img width="1100" height="729" alt="unnamed" src="https://github.com/user-attachments/assets/e7ae5e4c-aa02-452b-b79c-0bf11a058c4f" />
+
+Em seguida, temos o diagrama abaixo que mostra o processo read ou getCount:
+
+<img width="1100" height="730" alt="unnamed" src="https://github.com/user-attachments/assets/6492b12a-18df-47fb-a78f-9d66903432fc" />
+
+A agregação reduz a necessidade de processar repetidamente eventos brutos, melhorando o desempenho da leitura. Ao usar janelas imutáveis, a Netflix garante que as contagens sejam precisas dentro de um prazo razoável.
+
+3 - Cache para leituras otimizadas
+Embora o processo de agregação garanta que as contagens sejam eventualmente consistentes, o cache é usado para melhorar ainda mais o desempenho dos contadores acessados com frequência. A Netflix integra o EVCache (uma solução de cache distribuída) para armazenar contagens acumuladas.
+
+O cache contém a última contagem agregada e o carimbo de tempo correspondente do último rollup. Quando um contador é lido, o valor em cache é retornado imediatamente, fornecendo uma resposta quase em tempo real. Um rollup em segundo plano é acionado para garantir que o cache permaneça atualizado.
+
+Contagens em cache permitem que os usuários recuperem valores em milissegundos, mesmo que estejam um pouco desatualizados. Além disso, o cache minimiza consultas diretas ao datastore subjacente, economizando custos de infraestrutura.
+
+Principais benefícios da abordagem híbrida
+A abordagem híbrida traz vários benefícios, tais como:
+
+Combinando Precisão e Desempenho: Ele registra cada evento para uma contagem precisa quando necessário. Agrega eventos em segundo plano para manter alto desempenho de leitura.
+
+Escala com Alta Cardinalidade: Lida com milhões de contadores de forma eficiente usando bucketing de tempo e evento. Isso garante uma distribuição equilibrada da carga de trabalho entre os sistemas de armazenamento e processamento.
+
+Garante confiabilidade: Utiliza tokens de idempotência para lidar com retentativas com segurança. Além disso, ele emprega armazenamento persistente (por exemplo, Cassandra) e caches para tolerância a falhas.
+
+Equilibra Trade-Offs: Sacrifica um pouco de imediatismo para a consistência eventual nas contagens globais. Também introduz pequenos atrasos na agregação para manter a precisão dentro de janelas imutáveis.
+
+Escalonando o Pipeline de Rollup
+Para gerenciar milhões de contadores ao redor do mundo mantendo alto desempenho, a Netflix utiliza um Pipeline de Rollup. Este é um sistema sofisticado que processa eventos de contagem de forma eficiente, os agrega em segundo plano e escala para lidar com cargas de trabalho massivas.
+
+<img width="1100" height="582" alt="unnamed" src="https://github.com/user-attachments/assets/cd01a6b7-c354-476c-858c-c7778e6bb199" />
+
+Existem três partes principais desse pipeline de rollup:
+
+1 - Eventos e Filas de Rolagem
+Quando um contador é atualizado (via uma operação AddCount, ClearCount ou GetCount), o sistema gera um evento de rollup leve.
+
+Esse evento notifica o Rollup Pipeline que o contador requer agregação. O evento de rollup em si não inclui os dados brutos, mas apenas identifica o contador que precisa ser processado.
+
+Veja como funcionam as filas de rolo:
+
+Cada instância do Servidor de Rollup mantém filas em memória que recebem eventos de rollup. Essas filas permitem o processamento paralelo de tarefas de agregação, possibilitando que o sistema gerencie cargas de trabalho de alta produtividade.
+
+Uma função de hash rápida e não criptográfica (por exemplo, XXHash) garante que contadores relacionados sejam roteados consistentemente para a mesma fila. Isso minimiza o trabalho duplicado e melhora a eficiência.
+
+Múltiplos eventos para o mesmo marcador são consolidados em um Conjunto, então cada marcador é rolado apenas uma vez dentro de uma janela de rollup.
+
+A Netflix optou por filas de enrolamento em memória para simplificar o provisionamento e reduzir custos. Esse design é mais fácil de implementar em comparação com um sistema de fila totalmente durável.
+
+No entanto, também existem alguns riscos potenciais.
+
+Se um servidor de rollup travar antes de processar todos os eventos, esses eventos são perdidos. Isso é mitigado para contadores acessados com frequência, pois operações subsequentes desencadeiam novos rollups.
+
+Durante implantações ou escalabilidades, pode haver breves sobreposições onde servidores antigos e novos estão ativos. No entanto, isso é gerenciado com segurança porque agregações ocorrem dentro de janelas imutáveis.
+
+Quando as cargas de trabalho aumentam, a Netflix escala o Pipeline de Rollup aumentando o número de filas de rollup e reimplantando os servidores de rollup com configurações atualizadas.
+
+O processo é contínuo, com servidores antigos desligando graciosamente após esvaziar seus eventos. Durante as implantações, tanto os servidores de rollup antigos quanto os novos podem lidar brevemente com os mesmos contadores. Isso evita o tempo de inatividade, mas introduz uma leve variabilidade nas contagens, que é eventualmente resolvida à medida que as contagens convergem.
+
+2 - Agrupamento Dinâmico e Contrapressão
+Para otimizar o desempenho, o Rollup Pipeline processa contadores em lotes, em vez de individualmente.
+
+O tamanho de cada lote se ajusta dinamicamente com base na carga do sistema e na cardinalidade do contador. Isso impede que o sistema sobrecarregue o armazenamento de dados subjacente (por exemplo, Cassandra). Dentro de um lote, o pipeline consulta a Abstração de Séries Temporais em paralelo para agregar eventos de múltiplos contadores simultaneamente.
+
+Veja o diagrama abaixo:
+
+<img width="1100" height="730" alt="unnamed" src="https://github.com/user-attachments/assets/df91a12b-f901-4ceb-9e5a-2ad7ffc6fe37" />
+
+O sistema monitora o desempenho de cada lote e usa essas informações para controlar a taxa de processamento. Após processar um lote, o pipeline pausa antes de iniciar o próximo, dependendo da rapidez com que o lote anterior é concluído. Esse mecanismo adaptativo garante que o sistema não sobrecarregue o backend de armazenamento durante o alto tráfego.
+
+3 - Lidar com a Convergência para contadores de baixa e alta cardinalidade
+Contadores de baixa cardinalidade são frequentemente acessados, mas têm menos instâncias únicas. O gasoduto mantém eles em circulação contínua para garantir que permaneçam atualizados.
+
+Por outro lado, contadores de alta cardinalidade possuem muitas instâncias únicas (como métricas por usuário) e podem não ser acessados com frequência. Para evitar uso excessivo de memória, o pipeline usa o último carimbo de tempo de gravação para determinar quando um contador precisa ser reenfileirado. Isso garante que a agregação continue até que todas as atualizações sejam processadas.
+
+Veja o diagrama abaixo:
+
+<img width="1100" height="729" alt="unnamed" src="https://github.com/user-attachments/assets/ca77b64b-a9f1-4edd-93ae-ef3ce955f643" />
+
+Configuração Centralizada do Plano de Controle
+No coração da Abstração Contrária Distribuída da Netflix está seu plano de controle, um sistema centralizado que gerencia a configuração, a implantação e a complexidade operacional nas camadas de abstração.
+
+Veja o diagrama abaixo:
+
+<img width="1100" height="770" alt="unnamed" src="https://github.com/user-attachments/assets/52f8afe0-ea69-4fcd-94aa-ed49d41a1f68" />
+
+O plano de controle permite que a Netflix ajuste todos os aspectos do serviço de contagem, garantindo que ele atenda às necessidades de diversos casos de uso sem necessidade de intervenção manual ou reengenharia.
+
+1 - Função do Plano de Controle
+O Plano de Controle serve como um centro de gerenciamento para todas as configurações relacionadas à Abstração de Contadores Distribuídos. É responsável por:
+
+Configurando os mecanismos de persistência para contadores.
+
+Ajustar configurações para casos de uso específicos, como contadores de alta ou baixa cardinalidade.
+
+Implementando estratégias para retenção de dados, cache e durabilidade.
+
+Essa gestão centralizada garante que as equipes da Netflix possam focar em seus casos de uso sem se preocupar com as complexidades subjacentes da contagem distribuída.
+
+2 - Configuração de Mecanismos Persistentes
+O Plano de Controle permite a configuração de camadas de persistência para armazenar dados de contadores.
+
+A Netflix usa uma combinação de EVCache (para cache) e Cassandra (para armazenamento durável). O plano de controle coordena a interação deles.
+
+EVCache é usado para acesso rápido e de baixa latência aos contadores. O plano de controle especifica parâmetros como tamanho do cache e políticas de expiração.
+
+```json
+{
+  "id": "CACHE",
+  "physical_storage": {
+    "type": "EVCACHE",
+    "cluster": "evcache_dgw_counter_tier1"
+  }
+}
+```
+
+O Cassandra é usado como o principal armazenamento de dados para armazenamento durável e de longo prazo de contadores e seus rollups.
+
+Os parâmetros configuráveis para isso incluem:
+
+- Configurações de espaço de chaves, como o número de partições.
+- Particionamento de tempo para contadores (por exemplo, dividir dados em baldes de tempo gerenciáveis).
+- Políticas de retenção para evitar o uso excessivo de armazenamento.
+
+Veja a configuração de exemplo abaixo:
+
+```json
+{
+  "id": "COUNTER_ROLLUP",
+  "physical_storage": {
+    "type": "CASSANDRA",
+    "cluster": "cass_dgw_counter_uc1",
+    "dataset": "my_dataset"
+  }
+}
+```
+
+3 - Suporte a Diferentes Estratégias de Cardinalidade
+Os contadores podem variar muito em cardinalidade, ou seja, no número de contadores únicos sendo gerenciados.
+
+Contadores de baixa cardinalidade são métricas globais como "total de visualizações" para um programa. Tais contadores são frequentemente acessados e exigem processamento contínuo de rolamento. Isso requer intervalos de tempo menores para agregação e TTLs mais curtos para valores em cache para garantir a novidade.
+
+Contadores de alta cardinalidade incluem métricas por usuário como "visualizações por usuário". Esses contadores são acessados com menos frequência, mas exigem o manuseio eficiente de um grande número de chaves únicas. Eles envolvem buckets de tempo maiores para reduzir a sobrecarga do banco de dados e particionamento eficiente para distribuir a carga entre os nós de armazenamento.
+
+4 - Apólices de Retenção e Ciclo de Vida
+As políticas de retenção garantem que os dados contadores não cresçam descontroladamente, reduzindo custos enquanto mantêm a relevância histórica.
+
+Por exemplo, eventos contadores brutos são armazenados temporariamente (como 7 dias) antes de serem deletados ou arquivados. Os rollups agregados são mantidos por mais tempo, pois ocupam menos espaço e são úteis para métricas de longo prazo.
+
+Além disso, o plano de controle garante que os contadores expirem após sua vida útil pretendida, evitando que consumam recursos desnecessários.
+
+5 - Suporte Multi-Inquilino
+O Plano de Controle da Netflix foi projetado para suportar um ambiente multi-inquilino onde diferentes equipes ou aplicações podem operar seus contadores de forma independente:
+
+Cada namespace é isolado, permitindo que as configurações variem conforme o caso de uso.
+
+Por exemplo, o espaço de nomes user_metrics pode priorizar cache de baixa latência para dashboards em tempo real. Além disso, o namespace billing_metrics pode focar na durabilidade e precisão para relatórios financeiros.
+
+Conclusão
+A contagem distribuída é um problema complexo, mas a abordagem da Netflix demonstra como um design e engenharia cuidadosos podem superar esses desafios.
+
+Ao combinar abstrações poderosas como TimeSeries e Data Gateway Control Plane com técnicas inovadoras como rollup pipelines e batching dinâmico, a Netflix oferece um sistema de contagem rápido, confiável e econômico.
+
+O sistema processa 75.000 requisições contadoras por segundo globalmente, mantendo uma latência de um dígito de milissegundo para endpoints da API. Esse desempenho incrível é alcançado por meio de escolhas cuidadosas de design, incluindo lotamento dinâmico, cache com EVCache e processos eficientes de agregação.
+
+<img width="720" height="367" alt="unnamed" src="https://github.com/user-attachments/assets/dc91483a-43cc-474a-923d-101a4a173594" />
+
+Os princípios por trás da Distributed Counter Abstraction da Netflix vão muito além da plataforma. Qualquer sistema em grande escala que exija métricas em tempo real, rastreamento distribuído de eventos ou consistência global pode se beneficiar de uma arquitetura semelhante
+
+https://substack.com/redirect/33e9e8be-31a5-4b8d-93a7-da8ff4f78019?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 
 https://substack.com/redirect/c3d81adc-a838-47db-ab46-3ccce8bab077?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 
