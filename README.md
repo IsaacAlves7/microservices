@@ -1235,7 +1235,9 @@ Vamos aprender sobre o CQRS em detalhes completos. Vamos cobrir os vários aspec
 
 Você pode dividir fisicamente os dados de leitura e gravação para maior isolamento. Nesse caso, o banco de dados de leitura pode utilizar seu próprio esquema de dados otimizado para consultas. Ele pode, por exemplo, armazenar uma visualização materializada dos dados para evitar junções complexas ou mapeamentos O/RM. Pode até empregar um tipo diferente de armazenamento de dados. 
 
-A escalabilidade de um sistema depende fortemente da camada de dados.
+<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e">
+
+A escalabilidade de um sistema depende fortemente da camada de dados. 
 
 Não importa o quanto de esforço seja feito para escalar a API ou a camada de aplicação, ela é limitada pela escalabilidade da camada de dados. Além disso, escalar a camada de dados costuma ser a tarefa mais difícil durante o design da aplicação.
 
@@ -1246,8 +1248,6 @@ Essa abordagem é particularmente eficaz para lidar com grandes volumes de dados
 Existem várias técnicas disponíveis para escalar horizontalmente a camada de dados, cada uma com prós e contras, com nuances específicas que valem a pena considerar.
 
 Vamos explorar as principais técnicas para escalar horizontalmente a camada de dados junto com exemplos. Além disso, vamos entender as vantagens e desvantagens de cada técnica para ter uma ideia melhor de quando usar uma abordagem específica em relação a outra.
-
-<img src="https://github.com/user-attachments/assets/ae249146-7dec-47c3-86a1-beb52b42c23e">
 
 Por exemplo, o banco de dados de escrita pode ser relacional, e o banco de dados de leitura pode ser um banco de dados de documentos.
 
