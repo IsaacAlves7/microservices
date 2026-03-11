@@ -3324,7 +3324,14 @@ Por outro lado, Event Sourcing também traz complexidades. Como os eventos são 
 
 Como incorporamos o Event Sourcing nos sistemas? Event sourcing muda o paradigma de programação de estados persistentes para eventos persistentes. O armazenamento de eventos é a fonte da verdade.
 
-![Screenshot_20240623-205859_Instagram](https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502"></td>
+		<td><img src="https://github.com/user-attachments/assets/fbadbcf9-fba9-402f-9b05-500107879104"></td>
+	</tr>
+</table>
+
+Embora exista uma certa complexidade, também há grandes benefícios e um leque tecnologico.
 
 O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD tradicional e o design de um sistema de Event Sourcing. Usamos um serviço de pedidos como exemplo: 
 
