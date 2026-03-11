@@ -3312,7 +3312,7 @@ https://substack.com/redirect/c3d81adc-a838-47db-ab46-3ccce8bab077?j=eyJ1IjoiMmR
 
 Você já pensou em implementar event sourcing? Pode ser aplicado de forma eficaz em aplicações do mundo real? Como ele se integra com outros padrões e abordagens, como Design Orientado por Domínio (DDD) ou Arquitetura Orientada a Eventos (EDA)? Se você tem curiosidade sobre essas perguntas, continue lendo; Vou compartilhar minhas percepções depois de mergulhar nesse padrão (incluindo código! Meu Deus!). 
 
-Reconstruindo o estado anterior com eventos sequenciais e imutáveis: Com esse padrão de arquitetura as mudanças de "ESTADO" de uma aplicação são armazenadas como uma sequência de eventos IMUTÁVEIS.Em vez de armazenar apenas o estado final dos dados, todas as alterações (eventos) que ocorreram para chegar a esse estado são armazenadas. Isso permite que você reconstrua qualquer estado anterior do sistema simplesmente reaplicando a sequência de eventos.
+Reconstruindo o estado anterior com eventos sequenciais e imutáveis: Com esse padrão de arquitetura as mudanças de "ESTADO" de uma aplicação são armazenadas como uma sequência de eventos IMUTÁVEIS. Em vez de armazenar apenas o estado final dos dados, todas as alterações (eventos) que ocorreram para chegar a esse estado são armazenadas. Isso permite que você reconstrua qualquer estado anterior do sistema simplesmente reaplicando a sequência de eventos.
 
 Um exemplo prático: A **Conta Bancária**, como pessoa pragmática, acho mais fácil entender conceitos teóricos usando exemplos do mundo real. Neste artigo, explicarei minha exploração do event sourcing usando um subdomínio de Conta Bancária em uma empresa financeira imaginária, um banco.
 
