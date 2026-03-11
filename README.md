@@ -803,6 +803,8 @@ REST (Transferência de Estado Representacional) e RPC (Chamada de Procedimento 
 
 É essencialmente um intermediário entre o cliente e o servidor, gerenciando e otimizando o tráfego da API.
 
+<img width="1600" height="656" alt="unnamed" src="https://github.com/user-attachments/assets/cba9b5a5-76b6-475b-9e9c-3d4bb4f3a28c" />
+
 Funções-chave de um API Gateway:
 
 - Roteamento de Requisições: Direciona as requisições de API recebidas para o serviço backend apropriado.
