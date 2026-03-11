@@ -3314,8 +3314,6 @@ Você já pensou em implementar event sourcing? Pode ser aplicado de forma efica
 
 Reconstruindo o estado anterior com eventos sequenciais e imutáveis: Com esse padrão de arquitetura as mudanças de "ESTADO" de uma aplicação são armazenadas como uma sequência de eventos IMUTÁVEIS.Em vez de armazenar apenas o estado final dos dados, todas as alterações (eventos) que ocorreram para chegar a esse estado são armazenadas. Isso permite que você reconstrua qualquer estado anterior do sistema simplesmente reaplicando a sequência de eventos.
 
-![Screenshot_20240623-205859_Instagram](https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502)
-
 Um exemplo prático: A **Conta Bancária**, como pessoa pragmática, acho mais fácil entender conceitos teóricos usando exemplos do mundo real. Neste artigo, explicarei minha exploração do event sourcing usando um subdomínio de Conta Bancária em uma empresa financeira imaginária, um banco.
 
 Por exemplo, em vez de simplesmente atualizar o saldo de uma conta bancária, o sistema registraria eventos como “depósito de 100”, “saque de 50”, “transferência de 200 recebida”, e assim por diante. O estado atual da conta pode ser reconstruído a qualquer momento aplicando essa sequência de eventos na ordem em que ocorreram.
@@ -3323,6 +3321,8 @@ Por exemplo, em vez de simplesmente atualizar o saldo de uma conta bancária, o 
 Essa abordagem tem diversas vantagens. Ela garante uma trilha auditável de tudo que aconteceu no sistema, o que é extremamente útil para rastreabilidade, debugging e conformidade. Além disso, permite flexibilidade para construir diferentes projeções ou visualizações dos dados, já que os eventos podem ser reprocessados para gerar outras formas de representar o estado. Também facilita integrações com outras partes do sistema que queiram reagir a eventos, alimentando notificações, logs ou sincronizações com outras bases. Em sistemas altamente distribuídos, especialmente quando usados em conjunto com o padrão CQRS (Command Query Responsibility Segregation), o Event Sourcing se encaixa muito bem, pois separa claramente o que muda os dados (comandos e eventos) do que apenas os consulta (queries e projeções).
 
 Por outro lado, Event Sourcing também traz complexidades. Como os eventos são imutáveis, qualquer mudança de lógica de negócio pode demandar a reinterpretação ou migração de eventos antigos, o que exige cuidado com versionamento de eventos. Além disso, reconstruir o estado de entidades pode se tornar custoso com muitos eventos, exigindo uso de snapshots intermediários. Apesar disso, em sistemas onde a rastreabilidade, auditabilidade e reatividade são prioridades, o Event Sourcing oferece um modelo poderoso e alinhado com a natureza temporal dos dados. Ele muda a forma de pensar o estado: não como algo fixo e mutável, mas como uma consequência acumulada de tudo que já aconteceu.
+
+![Screenshot_20240623-205859_Instagram](https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502)
 
 Como incorporamos o Event Sourcing nos sistemas? Event sourcing muda o paradigma de programação de estados persistentes para eventos persistentes. O armazenamento de eventos é a fonte da verdade.
 
