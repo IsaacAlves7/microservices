@@ -3322,9 +3322,9 @@ Essa abordagem tem diversas vantagens. Ela garante uma trilha auditável de tudo
 
 Por outro lado, Event Sourcing também traz complexidades. Como os eventos são imutáveis, qualquer mudança de lógica de negócio pode demandar a reinterpretação ou migração de eventos antigos, o que exige cuidado com versionamento de eventos. Além disso, reconstruir o estado de entidades pode se tornar custoso com muitos eventos, exigindo uso de snapshots intermediários. Apesar disso, em sistemas onde a rastreabilidade, auditabilidade e reatividade são prioridades, o Event Sourcing oferece um modelo poderoso e alinhado com a natureza temporal dos dados. Ele muda a forma de pensar o estado: não como algo fixo e mutável, mas como uma consequência acumulada de tudo que já aconteceu.
 
-![Screenshot_20240623-205859_Instagram](https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502)
-
 Como incorporamos o Event Sourcing nos sistemas? Event sourcing muda o paradigma de programação de estados persistentes para eventos persistentes. O armazenamento de eventos é a fonte da verdade.
+
+![Screenshot_20240623-205859_Instagram](https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502)
 
 O diagrama abaixo mostra uma comparação entre o design de um sistema CRUD tradicional e o design de um sistema de Event Sourcing. Usamos um serviço de pedidos como exemplo: 
 
