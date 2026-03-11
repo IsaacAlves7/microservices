@@ -17,9 +17,29 @@ Com base em nossa discussão anterior sobre arquiteturas de 3 níveis, que podem
 
 Os microsserviços surgiram como uma alternativa mais popular a SOA devido aos seus benefícios. Os microsserviços são mais compostos, permitindo que as equipes reutilizem a funcionalidade oferecida pelos pequenos pontos centrais de serviço. Os microsserviços são mais robustos e permitem um escalonamento vertical e horizontal mais dinâmico. Portanto, eles são um padrão de arquitetura orientado a serviços em que os aplicativos são construídos como uma coleção de várias unidades de serviço independentes menores. 
 
+Arquitetura orientada a serviços (SOA) e estilos de arquitetura de microserviços são marcos importantes na evolução da arquitetura de software. O diagrama abaixo mostra a progressão dos principais estilos arquitetônicos.
+
+A arquitetura orientada a serviços surgiu no final dos anos 1990 para ajudar a gerenciar a crescente complexidade dos sistemas de software corporativos. Nos anos 2000, a SOA ganhou mais atenção e adoção da indústria por empresas. No entanto, a SOA enfrentou desafios de complexidade na implementação.
+
+Então, na década de 2010, surgiu a arquitetura de microserviços em resposta às limitações da SOA. Muitas grandes empresas de internet começaram a adotar microsserviços para dividir seus serviços em componentes menores. Os microserviços ganharam força com a evolução da computação em nuvem, já que contêineres e ferramentas de orquestração facilitaram o desenvolvimento, a implantação e o monitoramento dos microsserviços.
+
+<img width="1404" height="1079" alt="unnamed" src="https://github.com/user-attachments/assets/f4b78e29-2533-4b08-97ea-b0aaa8a77484" />
+
+Vamos comparar as diferenças deles com mais detalhes. O diagrama abaixo lista algumas das diferenças.
+
+O estilo arquitetônico SOA oferece serviços de granulação grosseira, tipicamente uma abordagem centralizada onde os serviços são agrupados por funções de negócio e compartilhados entre múltiplas aplicações. O estilo microsserviço oferece granularidade de serviços detalhada por meio de uma abordagem descentralizada onde pequenos serviços independentes executam funções específicas dentro de um contexto de aplicação.
+
+Os métodos de comunicação também evoluem com o tempo. A SOA enfatiza protocolos de comunicação uniformes e interfaces padronizadas para que os serviços interajam. Microserviços tendem a usar protocolos e interfaces de comunicação diversos, frequentemente baseados em REST ou filas de mensagens.
+
+A computação em nuvem evoluiu de Infraestrutura como Serviço (IaaS) para Plataforma como Serviço (PaaS) e depois PaaS baseada em contêineres. Portanto, aplicações baseadas em microserviços são implantadas em contêineres por padrão.
+
+À medida que a arquitetura técnica muda, a estrutura organizacional a reflete (lei de Conway). Assim, com microserviços, a estrutura de equipes exige equipes de produto multifuncionais. Cada equipe foca em um domínio específico.
+
 É uma abordagem de engenharia de software que se concentra na decomposição de um aplicativo em módulos de função única com interfaces bem definidas. Esses módulos podem ser implantados e operados de forma independente por pequenas equipes que possuem todo o ciclo de vida do serviço. O termo “micro” refere-se ao dimensionamento de um microsserviço que deve ser gerenciado por uma única equipe de desenvolvimento (5 a 10 desenvolvedores). Nesta metodologia, grandes aplicações são divididas nas menores unidades independentes.
 
 > Pensando de forma minimalista e conceitualmente limpa, um microserviço é essencialmente um endpoint (ou um conjunto de endpoints) especializado e desacoplado, responsável por um domínio de dados ou funcionalidade específica, e que pode ser orquestrado dentro de uma arquitetura maior. Estes pequenos independentes se comunicam entre si com as APIs bem definidas. Esta abordagem torna o software escalável, mais rápido de desenvolver e atualizar de forma rápida, eficiente e fácil.
+
+<img width="1178" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/78b96138-738b-4c59-be6b-cbe90d838155" />
 
 A <a href="https://www.instagram.com/valdircezarr/">arquitetura de microsserviços</a> é um padrão evoluído que mudou fundamentalmente a maneira como o código do lado do servidor é desenvolvido e gerenciado. Esse padrão de arquitetura envolve o design e o desenvolvimento do aplicativo como uma coleção de serviços fracamente acoplados que interagem em APIs leves e bem definidas para atender aos requisitos de negócios. O objetivo é ajudar as empresas de desenvolvimento de software a acelerar o processo de desenvolvimento, facilitando a entrega e o desenvolvimento contínuos.
 
