@@ -695,6 +695,8 @@ Grandes sistemas são compostos por sistemas menores e, portanto, dependem das p
 
 Um **API Gateway** é um componente essencial em arquiteturas modernas, especialmente em sistemas baseados em microserviços. Ele atua como um intermediário entre clientes e um conjunto de serviços backend, gerenciando todas as solicitações que entram no sistema. Sua principal função é receber, rotear, transformar e controlar as solicitações de API, além de retornar respostas apropriadas aos clientes.
 
+Em uma arquitetura de microserviços, um gateway de API atua como um único ponto de entrada para as solicitações dos clientes. O gateway API é responsável pelo roteamento de requisições, composição e tradução de protocolos. Também oferece recursos adicionais como autenticação, autorização, cache e limitação de taxa.
+
 Um gateway de API é um servidor que atua como um front-end de API, recebendo requisições de API, aplicando políticas de limitação e segurança, passando requisições para o serviço de back-end e, em seguida, retornando o resultado apropriado ao cliente.
 
 Você está cansado de gerenciar vários pontos de entrada para seus microsserviços? O padrão API Gateway está aqui para salvar o dia! Atuando como um único ponto de entrada para todas as solicitações do cliente, o API Gateway simplifica o acesso aos seus microsserviços, oferecendo comunicação perfeita entre clientes e serviços.
@@ -730,6 +732,7 @@ O diagrama abaixo mostra os detalhes:
 		<td><img src="https://github.com/user-attachments/assets/e37ee7bf-898b-4330-8c19-6e64e2a68278" height="677"></td>
 		<td><img src="https://github.com/user-attachments/assets/87fefd9b-435b-48c8-a89d-eac83e7bd959" height="677"></td>
 		<td><img src="https://github.com/user-attachments/assets/62bebf76-1aca-4dd9-b71a-3e33adaa4e7d" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/6b7eabca-a0b5-4f48-8b77-343f564b3ad8" height="677"></td>
 	</tr>
 </table>
 
@@ -748,6 +751,55 @@ O diagrama abaixo mostra os detalhes:
 - Passo 8 - O gateway da API transforma a solicitação no protocolo apropriado e a envia para microserviços de backend.
 
 - Passos 9-12: O gateway API pode lidar com erros corretamente e lida com falhas se o erro demorar mais para ser recuperado (quebra de circuito). Também pode aproveitar a pilha ELK (Elastic-Logstash-Kibana) para registro e monitoramento. Às vezes armazenamos dados em cache no gateway da API.
+
+Passo 1: O cliente envia uma requisição HTTP para o gateway da API.
+
+Passo 2: O gateway API analisa e valida os atributos na requisição HTTP.
+
+Passo 3: O gateway da API verifica listas de permite/negação.
+
+Passo 4: O gateway API autentica e autoriza por meio de um provedor de identidade.
+
+Passo 5: Regras de limitação de taxa são aplicadas. Solicitações acima do limite são rejeitadas.
+
+Etapas 6 e 7: O gateway da API encaminha a requisição para o serviço backend relevante por meio de correspondência de caminhos.
+
+Passo 8: O gateway da API transforma a solicitação no protocolo apropriado e a encaminha para microserviços de backend.
+
+Passo 9: O gateway API lida com quaisquer erros que possam surgir durante o processamento de requisições para uma degradação gradual do serviço.
+
+Passo 10: O gateway API implementa padrões de resiliência como freios de circuito para detectar falhas e evitar sobrecarga de serviços interconectados, evitando falhas em cascata.
+
+Passo 11: O gateway API utiliza ferramentas de observabilidade como a pilha ELK (Elastic-Logstash-Kibana) para registro, monitoramento, rastreamento e depuração.
+
+Passo 12: O gateway da API pode opcionalmente armazenar em cache respostas a solicitações comuns para melhorar a capacidade de resposta.
+
+Além do roteamento de requisições, o gateway API também pode agregar respostas de microserviços em uma única resposta para o cliente.
+
+O gateway API é diferente de um balanceador de carga. Embora ambos gerenciem tráfego de rede, o gateway API opera na camada de aplicação, principalmente lidando com requisições HTTP; o balanceador de carga opera principalmente na camada de transporte, lidando com protocolos TCP/UDP. O gateway da API oferece mais funções conforme ele vê a carga útil da requisição.
+
+O gateway API difere de um balanceador de carga porque normalmente opera na camada de aplicação para lidar com requisições HTTP e entender cargas úteis de mensagens, enquanto balanceadores de carga tradicionais atuam na camada de transporte para lidar com conexões TCP/UDP sem olhar para os dados da aplicação.
+
+No entanto, as linhas podem se confundir entre esses dois tipos de infraestrutura. Alguns balanceadores de carga avançados estão ganhando visibilidade na camada de aplicação e capacidades de roteamento semelhantes a gateways de API.
+
+Mas, em geral, gateways de API focam em questões de nível de aplicação como segurança, roteamento, composição e resiliência com base na carga útil, enquanto balanceadores de carga tradicionais mapeiam as requisições para servidores backend principalmente com base em metadados em nível de transporte, como IP e números de porta.
+
+Frequentemente temos gateways de API separados, adaptados para diferentes clientes e suas necessidades de experiência do usuário. O diagrama abaixo mostra uma arquitetura típica. Temos diferentes gateways de API para lidar com requisições de dispositivos móveis e aplicações web porque eles têm requisitos únicos para experiências de usuário. Além disso, separamos o WebSocket API Gateway porque ele tem requisitos diferentes de persistência de conexão e limitação de taxa em comparação com gateways HTTP.
+
+<img width="1240" height="911" alt="unnamed" src="https://github.com/user-attachments/assets/8a9d6686-75c4-48a8-8044-86782899211d" />
+
+Algumas tendências recentes de gateways de API:
+
+Suporte a GraphQL. GraphQL é um sistema de tipos e uma linguagem de consulta para APIs. Muitos gateways de API agora oferecem integração com o GraphQL.
+
+Integração com Service Mesh. Malhas de serviço como Istio e Linkerd são usadas para lidar com comunicações entre microsserviços. Gateways de API estão se integrando a eles para aprimorar as capacidades de gerenciamento de tráfego.
+
+Integração com IA. Gateways de API estão se integrando com capacidades de IA para permitir roteamento de requisições mais inteligentes ou detecção de anomalias nos padrões de tráfego.
+
+2. Quais são as diferenças entre REST e RPC?
+REST (Transferência de Estado Representacional) e RPC (Chamada de Procedimento Remoto) são dois padrões arquitetônicos comuns usados para comunicações em sistemas distribuídos. REST é usado para comunicações cliente-servidor, e RPC é usado para comunicações servidor-servidor, como ilustrado no diagrama abaixo.
+
+<img width="506" height="685" alt="unnamed" src="https://github.com/user-attachments/assets/fe97ed06-a61f-4aea-8c86-59150581dc40" />
 
 É essencialmente um intermediário entre o cliente e o servidor, gerenciando e otimizando o tráfego da API.
 
