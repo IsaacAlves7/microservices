@@ -3310,7 +3310,11 @@ https://substack.com/redirect/c3d81adc-a838-47db-ab46-3ccce8bab077?j=eyJ1IjoiMmR
 
 **Event Sourcing** é um padrão de arquitetura em que o estado de uma aplicação não é armazenado diretamente em estruturas de dados tradicionais, como tabelas com os dados finais atualizados, mas sim reconstruído a partir de uma sequência de eventos que descrevem tudo o que aconteceu com aquele dado ao longo do tempo. Em vez de gravar apenas o estado atual de uma entidade, cada mudança de estado é registrada como um evento imutável e persistido de forma sequencial. 
 
-Você já pensou em implementar event sourcing? Pode ser aplicado de forma eficaz em aplicações do mundo real? Como ele se integra com outros padrões e abordagens, como Design Orientado por Domínio (DDD) ou Arquitetura Orientada a Eventos (EDA)? Se você tem curiosidade sobre essas perguntas, continue lendo; Vou compartilhar minhas percepções depois de mergulhar nesse padrão (incluindo código! Meu Deus!).
+Você já pensou em implementar event sourcing? Pode ser aplicado de forma eficaz em aplicações do mundo real? Como ele se integra com outros padrões e abordagens, como Design Orientado por Domínio (DDD) ou Arquitetura Orientada a Eventos (EDA)? Se você tem curiosidade sobre essas perguntas, continue lendo; Vou compartilhar minhas percepções depois de mergulhar nesse padrão (incluindo código! Meu Deus!). 
+
+Reconstruindo o estado anterior com eventos sequenciais e imutáveis: Com esse padrão de arquitetura as mudanças de "ESTADO" de uma aplicação são armazenadas como uma sequência de eventos IMUTÁVEIS.Em vez de armazenar apenas o estado final dos dados, todas as alterações (eventos) que ocorreram para chegar a esse estado são armazenadas. Isso permite que você reconstrua qualquer estado anterior do sistema simplesmente reaplicando a sequência de eventos.
+
+![Screenshot_20240623-205859_Instagram](https://github.com/user-attachments/assets/db4108ef-7917-487f-968e-7921360e5502)
 
 Um exemplo prático: A **Conta Bancária**, como pessoa pragmática, acho mais fácil entender conceitos teóricos usando exemplos do mundo real. Neste artigo, explicarei minha exploração do event sourcing usando um subdomínio de Conta Bancária em uma empresa financeira imaginária, um banco.
 
