@@ -164,7 +164,50 @@ Use as ferramentas e estruturas certas: A essa altura, você provavelmente já p
 
 Usar as ferramentas, estruturas e bibliotecas certas ajudará muito na implementação de uma arquitetura de microsserviços. Se você planeja fazer isso em Java, considere o Spring Boot Project. Escolher as ferramentas e estruturas certas leva muito tempo e esforço, então aqui está uma lista de ferramentas e tecnologias comprovadas para o trabalho:
 
-<img src="https://github.com/user-attachments/assets/2d955a04-5dac-439a-8a8c-592b1ad0e334" align="right" height="677">
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/dca4a3d3-4ecc-412c-8789-d3e8771605d5" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/2d955a04-5dac-439a-8a8c-592b1ad0e334" height="677"></td>
+	</tr>
+</table>
+
+9 melhores práticas que você deve conhecer antes de construir microserviços:
+
+Design para Falha
+Um sistema distribuído com microserviços vai falhar. Você deve projetar o sistema para tolerar falhas em múltiplos níveis, como infraestrutura, banco de dados e serviços individuais. Use disjuntores, anteparas ou métodos de degradação rigorosos para lidar com falhas.
+
+Construa Pequenos Serviços
+Um microserviço não deve fazer várias coisas ao mesmo tempo.
+Um bom microserviço é projetado para fazer uma coisa bem.
+
+Use protocolos leves para comunicação
+A comunicação é o núcleo de um sistema distribuído.
+Microserviços devem se comunicar entre si usando protocolos leves. As opções incluem REST, gRPC ou corretores de mensagens.
+
+Implementar a descoberta
+de serviços Para se comunicar entre si, os microserviços precisam se descobrir pela rede.
+Implemente a descoberta de serviços usando ferramentas como Consul, Eureka ou Kubernetes Services
+
+Propriedade dos
+Dados Em microserviços, os dados devem ser de propriedade e gerenciados pelos serviços individuais.
+O objetivo deve ser reduzir o acoplamento entre os serviços para que possam evoluir de forma independente.
+
+Use padrões
+de resiliência Implemente padrões específicos de resiliência para melhorar a disponibilidade dos serviços.
+Exemplos: políticas de retentativas, cache e limitação de taxa.
+
+Segurança em todos os níveis
+Em um sistema baseado em microserviços, a superfície de ataque é bastante grande. Você deve implementar segurança em todos os níveis do caminho de comunicação do serviço.
+
+Registros
+centralizadossão importantes para identificar problemas em um sistema. Com múltiplos serviços, eles se tornam críticos.
+
+Use técnicas
+de conteinerizaçãoPara implantar microserviços de forma isolada, utilize técnicas de conteinerização.
+
+Ferramentas como Docker e Kubernetes podem ajudar nisso, pois são feitas para simplificar a escalabilidade e a implantação de um microsserviço.
+
+A palavra é sua: que outras melhores práticas recomendaria?
 
 - Jenkins e Bamboo para automação de implantação
 - Docker para conteinerização
