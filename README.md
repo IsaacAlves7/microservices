@@ -179,6 +179,8 @@ Usar as ferramentas, estruturas e bibliotecas certas ajudará muito na implement
 - Jira para rastreamento de problemas e gerenciamento de projetos
 - Manter a comunicação assíncrona entre microsserviços
 
+<img width="1600" height="890" alt="unnamed" src="https://github.com/user-attachments/assets/04576400-80de-4a2e-a0d3-89b77efd1c02" />
+
 **Dois tipos de comunicação ocorrem entre microsserviços: Síncrono e Assíncrono**. Vamos entender isso com um exemplo: Para uma plataforma de comércio eletrônico, a comunicação síncrona significa que o usuário deverá "permanecer na linha" e avançar por uma série de etapas (selecionar itens, adicionar endereço de entrega, detalhes de pagamento, verificação do pedido), resultando na notificação do cliente "Obrigado pelo seu pedido! Estamos entregando na próxima semana".
 
 Existem várias comunicações assíncronas que também ocorrem quando a notificação do cliente é processada e que fazem parte do estágio de "atendimento" do pedido, como: notificação de armazém, atualização de estoque, etc.
