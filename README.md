@@ -209,6 +209,27 @@ DevSecOps consiste em três conceitos: desenvolvimento, segurança e operações
 - Aumento da velocidade das operações
 - Entregar softwares melhores e de maior qualidade mais rapidamente
 
+O diagrama se encaixa principalmente em segurança de APIs, mas também toca diretamente em segurança de arquiteturas de microsserviços. Na prática, ele está exatamente na interseção dessas duas áreas:
+
+<img width="2496" height="1440" alt="unnamed" src="https://github.com/user-attachments/assets/60ece82d-89c6-46f7-b019-e050c83fcfa7" />
+
+Essa imagem representa um modelo de segurança e controle de acesso usando API keys em uma arquitetura de serviços, mostrando principalmente dois conceitos importantes de segurança: **blast radius** e **isolamento de chaves**.
+
+A ideia central do diagrama é demonstrar como o uso de **chaves diferentes para cada serviço** reduz o impacto de uma possível falha de segurança. Em sistemas distribuídos modernos — especialmente arquiteturas de microserviços — aplicações se comunicam com vários serviços internos usando credenciais, como **API keys**, tokens ou certificados. Essas credenciais determinam o que cada serviço pode fazer dentro do sistema.
+
+No lado esquerdo da imagem aparece a **Application**, que é o sistema cliente enviando requisições para diferentes serviços. Cada requisição inclui um **header de autenticação com uma API key**. Essas chaves representam diferentes níveis de privilégio: uma chave somente de leitura (read-only), uma chave de escrita (write key) e uma chave administrativa (admin key). Isso reflete um princípio de segurança chamado **princípio do menor privilégio**, no qual cada componente recebe apenas as permissões estritamente necessárias para executar sua função.
+
+A parte central da imagem mostra três serviços diferentes — Service 1, Service 2 e Service 3 — que recebem requisições da aplicação. Cada serviço utiliza uma chave específica para acessar um **Data Source** (uma base de dados ou sistema de armazenamento). O ponto importante é que cada serviço possui um nível diferente de permissão sobre os dados: um pode apenas ler dados, outro pode modificá-los e outro pode realizar operações administrativas, como deploy ou atualização de estruturas.
+
+A área destacada chamada **Blast Radius** representa o conceito de “raio de impacto” de um incidente de segurança. Em segurança de sistemas, blast radius significa **até onde um comprometimento pode se espalhar dentro da arquitetura**. Se um invasor conseguir roubar ou comprometer uma chave usada por um serviço, o dano causado dependerá das permissões dessa chave. Se o serviço tiver apenas acesso de leitura, o invasor poderá apenas consultar dados. Se tiver acesso de escrita ou administração, o impacto será muito maior.
+
+Na parte direita da imagem aparece um cenário problemático chamado **Same Key**. Nesse caso, vários serviços compartilham a mesma chave de acesso para o banco de dados. Isso cria um risco enorme: se um único serviço for comprometido, o invasor automaticamente ganha acesso completo a todos os recursos protegidos por essa chave. Em outras palavras, o **blast radius aumenta drasticamente**, porque uma única credencial comprometida abre acesso a todo o sistema.
+
+Por isso a imagem ilustra uma boa prática de segurança em arquiteturas modernas: **cada serviço deve ter sua própria credencial com permissões específicas**, em vez de compartilhar uma chave global. Esse modelo reduz o impacto de falhas, limita movimentos laterais dentro da infraestrutura e facilita auditoria e revogação de acesso.
+
+Em resumo, o diagrama explica um conceito fundamental de segurança em sistemas distribuídos: dividir credenciais por serviço e por privilégio reduz o risco de comprometimento generalizado. Caso uma chave seja exposta ou roubada, o dano fica limitado apenas ao serviço específico que utilizava aquela credencial, em vez de afetar toda a plataforma.
+
+
 ![unnamed](https://github.com/user-attachments/assets/b63080fa-2cb5-4184-8a0c-4d14744d6691)
 
 **Use um armazenamento de dados separado para cada microserviço**: Uma prática importante é garantir que haja um banco de dados separado para armazenar dados sempre que possível, em vez de ter o mesmo banco de dados para múltiplos microserviços, como em uma arquitetura monolítica. No entanto, uma análise mais aprofundada pode indicar que um microserviço funciona apenas com um subconjunto de tabelas de banco de dados, enquanto, por outro lado, outro microserviço só funciona com um subconjunto totalmente novo de tabelas. E se ambos os subconjuntos de dados forem ortogonais, isso seria um caso para separar o banco de dados em serviços separados. Portanto, certifique-se de ter um armazenamento de dados separado para seus microserviços, a fim de reduzir a latência e melhorar a segurança. Isso já foi mencionado muitas vezes, mas é importante enfatizar que os microserviços devem depender o mínimo possível uns dos outros.
