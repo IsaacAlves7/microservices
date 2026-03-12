@@ -4775,7 +4775,9 @@ Embora isso defina uma heurística de design de alto nível, a arquitetura de mi
 
 <img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/7c9bb501-d7cd-4b94-88c1-ae67cd8e07f8" align="right" height="77">
 
-A **arquitetura hexagonal** é um design de software, também conhecida como Arquitetura de **Portas e Adaptadores (Ports and Adapters)**, na qual é uma abordagem de design que promove a separação de preocupações e a independência da lógica central da aplicação em relação aos detalhes técnicos e de infraestrutura. A Arquitetura Hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, é uma abordagem de design de sistema destinada a desacoplar a lógica de negócios principal de um software de suas interações externas. 
+A **arquitetura hexagonal** é um design de software, também conhecida como Arquitetura de **Portas e Adaptadores (Ports and Adapters)**, na qual é uma abordagem de design que promove a separação clara de preocupações e a independência da lógica central da aplicação em relação aos detalhes técnicos e de infraestrutura (camada de negócios e a infraestrutura), como banco de dados, facilitando a manutenção e evolução do sistema. É uma abordagem de design de sistema destinada a desacoplar a lógica de negócios principal de um software de suas interações externas. 
+
+A Arquitetura Hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, isola dependências, tornando mais fácil a criação de testes unitários e de integração mais robustos e confiáveis. 
 
 A imagem representa visualmente essa arquitetura, colocando as **entidades principais** (lógica de negócios) no centro do sistema, protegidas de dependências externas, como bancos de dados, APIs e filas de mensagens. O **núcleo** se comunica com o mundo exterior por meio de **portas** (interfaces), que atuam como limites que definem o que o sistema central espera em relação à entrada e saída.
 
