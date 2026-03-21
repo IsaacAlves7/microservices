@@ -1404,6 +1404,30 @@ Veja como funciona:
 
 6. Os resultados são retornados ao cliente sem atingir o modelo de escrita ou o banco de dados de escrita.
 
+Principais Padrões de Consistência Eventual que Você Deve Conhecer
+
+![unnamed](https://github.com/user-attachments/assets/9fa0b1ff-d00a-4b75-928f-81d721a99984)
+
+Consistência eventual é um modelo de consistência de dados que garante que as atualizações de um banco de dados distribuído sejam eventualmente refletidas em todos os nós. Técnicas como replicação assíncrona ajudam a alcançar consistência eventual.
+
+No entanto, a consistência eventual também pode resultar em inconsistência nos dados. Aqui estão 4 padrões que podem ajudar você a projetar aplicações.
+
+Padrão#1 - Serviços de Consistência
+Eventual baseados em eventos emitem eventos e outros serviços escutam esses eventos para atualizar suas instâncias no banco de dados. Isso faz com que os serviços sejam frouxamente acoplados, mas atrasa a consistência dos dados.
+
+Padrão#2 - Sincronização em Segundo Plano Consistência
+Eventual Nesse padrão, um trabalho em segundo plano torna os dados entre bancos de dados consistentes. Isso resulta em uma consistência eventual mais lenta, já que o trabalho em segundo plano roda em um cronograma específico.
+
+Padrão#3 - Saga de Consistência
+Eventual baseada em Saga é uma sequência de transações locais onde cada transação atualiza os dados com um único serviço. Ele é usado para gerenciar transações de longa duração que eventualmente se tornam consistentes.
+
+Padrão#4 - Consistência
+Eventual baseada em CQRS Operações separadas de leitura e escrita em diferentes bancos de dados que eventualmente se tornam consistentes. Modelos de leitura e escrita podem ser otimizados para requisitos específicos.
+
+A conversa é sua: Quais outros padrões de consistência eventual você já viu?
+
+
+
 No contexto de comandos, o foco está em realizar mudanças no estado da aplicação. Essas operações geralmente envolvem regras de negócios que precisam ser validadas antes que os dados sejam modificados. Por outro lado, as consultas têm como objetivo apenas recuperar e exibir dados, sem causar impacto no estado do sistema. Essa separação pode resultar em um design mais simples e eficiente, pois permite que cada lado seja modelado e implementado de acordo com suas necessidades específicas.
 
 O CQRS é um dos padrões importantes ao consultar entre microsserviços. Podemos usar o padrão de design CQRS para evitar consultas complexas para se livrar de junções ineficientes. CQRS significa Segregação de Responsabilidade de Comando e Consulta. Basicamente, esse padrão separa as operações de leitura e atualização de um banco de dados.
