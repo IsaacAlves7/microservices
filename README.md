@@ -164,24 +164,17 @@ Se houver duas versões do aplicativo, ou seja, web e mobile, os desenvolvedores
 
 Escolher o padrão certo de arquitetura de software é essencial para resolver problemas de forma eficiente.
 
-Layered ArchitectureCada camada desempenha um papel distinto e claro dentro do contexto da aplicação.
-Ótimo para aplicações que precisam ser construídas rapidamente. Por outro lado, o código-fonte pode ficar desorganizado se as regras corretas não forem seguidas
+- Layered Architecture: Cada camada desempenha um papel distinto e claro dentro do contexto da aplicação. Ótimo para aplicações que precisam ser construídas rapidamente. Por outro lado, o código-fonte pode ficar desorganizado se as regras corretas não forem seguidas
 
-Microservices Architecture Divide um sistema grande em componentes menores e mais gerenciáveis.
-Sistemas construídos com arquitetura de microserviços são tolerantes a falhas. Além disso, cada componente pode ser escalado individualmente. Por outro lado, isso pode aumentar a complexidade da aplicação.
+- Microservices Architecture: Divide um sistema grande em componentes menores e mais gerenciáveis. Sistemas construídos com arquitetura de microserviços são tolerantes a falhas. Além disso, cada componente pode ser escalado individualmente. Por outro lado, isso pode aumentar a complexidade da aplicação.
 
-Event-Driven Architecture se comunicam emitindo eventos que outros serviços podem ou não consumir.
-Esse estilo promove acoplamento frouxo entre os componentes. No entanto, testar componentes individuais torna-se desafiador
+- Event-Driven Architecture: se comunicam emitindo eventos que outros serviços podem ou não consumir. Esse estilo promove acoplamento frouxo entre os componentes. No entanto, testar componentes individuais torna-se desafiador
 
-Client-Server Architecture
-É composta por dois componentes principais - clientes e servidores se comunicando por meio de uma rede.
-Ótimo para serviços em tempo real. No entanto, servidores podem se tornar um ponto único de falha.
+- Client-Server Architecture: É composta por dois componentes principais - clientes e servidores se comunicando por meio de uma rede. Ótimo para serviços em tempo real. No entanto, servidores podem se tornar um ponto único de falha.
 
-Plugin-based ArchitectureEste padrão consiste em dois tipos de componentes - um sistema central e plugins. Os módulos de plugin são componentes independentes que fornecem uma funcionalidade especializada.
-Ótimo para aplicações que precisam ser expandidas com o tempo, como os IDEs. No entanto, mudar o núcleo é difícil.
+- Plugin-based Architecture: Este padrão consiste em dois tipos de componentes - um sistema central e plugins. Os módulos de plugin são componentes independentes que fornecem uma funcionalidade especializada. Ótimo para aplicações que precisam ser expandidas com o tempo, como os IDEs. No entanto, mudar o núcleo é difícil.
 
-Hexagonal ArchitectureEste padrão cria uma camada de abstração que protege o núcleo de uma aplicação e a isola de integrações externas para melhor modularidade. Também conhecido como arquitetura de portas e adaptadores.
-Por outro lado, esse padrão pode levar a um aumento do tempo de desenvolvimento e da curva de aprendizado.
+- Hexagonal Architecture: Este padrão cria uma camada de abstração que protege o núcleo de uma aplicação e a isola de integrações externas para melhor modularidade. Também conhecido como arquitetura de portas e adaptadores. Por outro lado, esse padrão pode levar a um aumento do tempo de desenvolvimento e da curva de aprendizado.
 
 Use as ferramentas e estruturas certas: A essa altura, você provavelmente já projetou seus microsserviços para implantá-los de forma independente, agora você deve perceber o valor ideal desses microsserviços. E para fazer isso, você precisa automatizar o gerenciamento de compilação e implantação usando um bom conjunto de ferramentas de DevOps.
 
