@@ -178,6 +178,47 @@ Escolher o padrão certo de arquitetura de software é essencial para resolver p
 
 Use as ferramentas e estruturas certas: A essa altura, você provavelmente já projetou seus microsserviços para implantá-los de forma independente, agora você deve perceber o valor ideal desses microsserviços. E para fazer isso, você precisa automatizar o gerenciamento de compilação e implantação usando um bom conjunto de ferramentas de DevOps.
 
+Frontend:
+- Implementar layouts a partir do Figma com alta fidelidade.
+- Garantir responsividade, acessibilidade, e boa performance.
+- Dominar pelo menos um framework moderno (Angular ou React preferencialmente).
+
+Backend:
+- Escrever APIs eficientes, organizadas e seguras.
+- Lidar com validações, erros e edge cases.
+- Pensar em arquitetura de forma escalável e sustentável.
+
+Geral:
+- Escrever código limpo, modular e com boas práticas.
+- Ter raciocínio lógico bem estruturado.
+- Conseguir entender problemas e propor boas soluções.
+
+Tecnologias que mais utilizamos:
+
+Alto uso: JS/TS Stack
+
+- [x] TypeScript, 
+- [x] NodeJS, 
+- [x] Angular, 
+- [x] MongoDB, 
+- [x] SQL, 
+- [x] Github Actions (CI/CD), 
+- [ ] Zod, 
+- [ ] Hono, 
+- [ ] Cloudflare Developer Platform
+
+Médio uso: Microservices + Microfrontends
+
+- [x] React, 
+- [x] Golang, 
+- [x] Docker, 
+- [x] Rust, 
+- [x] Deno, 
+- [x] Tauri, 
+- [x] Biome, 
+- [x] Storybook, 
+- [x] Nx
+
 Usar as ferramentas, estruturas e bibliotecas certas ajudará muito na implementação de uma arquitetura de microsserviços. Se você planeja fazer isso em Java, considere o Spring Boot Project. Escolher as ferramentas e estruturas certas leva muito tempo e esforço, então aqui está uma lista de ferramentas e tecnologias comprovadas para o trabalho:
 
 <table>
