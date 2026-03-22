@@ -85,8 +85,6 @@ Todos sabemos que o design de microsserviços tem um impacto direto na resiliên
 
 Então, discutiremos as práticas recomendadas básicas de microsserviços que você deve considerar se quiser obter um ecossistema de microsserviços eficiente e desprovido de complexidades arquitetônicas extremas. 
 
-![unnamed](https://github.com/user-attachments/assets/6c66a2b4-b795-42af-b15c-9528b3d541e4)
-
 Orientado por Modelo de Domínio
 Ao projetar a estrutura de caminhos de uma API RESTful, podemos nos referir ao modelo de domínio.
 
