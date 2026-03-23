@@ -642,9 +642,12 @@ Em um mundo onde produtos digitais precisam escalar globalmente, responder insta
 
 Sistemas distribuídos modernos exigem padrões de comunicação assíncronos que reduzam a dependência, aumentem a resiliência e permitam que as equipes distribuam recursos de forma independente.
 
-![FB_IMG_1727375403456](https://github.com/user-attachments/assets/4cafc8ec-3a3d-4943-8782-4049347483aa)
-
-![Screenshot_20240628-121847_Instagram](https://github.com/user-attachments/assets/787f30cd-efda-4aa4-87f0-53ec6b32678c)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/4cafc8ec-3a3d-4943-8782-4049347483aa"></td>
+		<td><img src="https://github.com/user-attachments/assets/787f30cd-efda-4aa4-87f0-53ec6b32678c"></td>
+	</tr>
+</table>
 
 Se você está construindo SaaS nativo da nuvem, microserviços de alto desempenho ou automação corporativa — esses três padrões são suas armas essenciais:
 
