@@ -800,6 +800,8 @@ Você precisa aprender onde e quando aplicar o padrão de agregação de gateway
 
 O API Gateway é um servidor que lida com muitas funcionalidades em um único local para os clientes interagirem. Ele também funciona como um proxy reverso entre seus aplicativos cliente e a arquitetura de microsserviços de back-end.
 
+<img width="1600" height="1031" alt="f7bedc0b-1676-4081-9e2b-31441548fd1e_1600x1031" src="https://github.com/user-attachments/assets/2d83a1cc-1ef0-401b-8f83-6c87a2b689e5" />
+
 O padrão de agregação de gateway é semelhante ao roteamento de gateway, mas além disso, oferece agregação de serviços. Basicamente, o padrão de agregação de gateway oferece o uso de um serviço de gateway que fornece para agregar várias solicitações internas a microsserviços internos com a exposição de uma única solicitação ao cliente.
 
 Por que você deve se preocupar com o API Gateway? Primeiro, ajuda a agregar respostas de vários microsserviços, reduzindo o número de viagens de ida e volta entre clientes e serviços. Isso resulta em melhor desempenho e experiência do usuário. Em segundo lugar, ele permite que você implemente preocupações transversais, como autenticação, registro e limitação de taxa em um único local, promovendo consistência e reduzindo a redundância.
