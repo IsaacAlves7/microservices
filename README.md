@@ -160,7 +160,12 @@ Se houver duas versões do aplicativo, ou seja, web e mobile, os desenvolvedores
 
 > Falando a sua palavra: o que mais você adicionaria à sua arquitetura de microserviços de produção?
 
-![unnamed](https://github.com/user-attachments/assets/6a24ca11-f7f0-4fde-a7fa-5915c248a76d)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/6a24ca11-f7f0-4fde-a7fa-5915c248a76d"></td>
+		<td><img src="https://github.com/user-attachments/assets/25d2df32-bfd5-4d77-9f2f-970e835dbbee"></td>
+	</tr>
+</table>
 
 Escolher o padrão certo de arquitetura de software é essencial para resolver problemas de forma eficiente.
 
