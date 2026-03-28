@@ -224,6 +224,8 @@ Médio uso: Microservices + Microfrontends
 - [x] Storybook, 
 - [x] Nx
 
+<img width="2250" height="3004" alt="0285-must-know-system-design-building-blocks" src="https://github.com/user-attachments/assets/24ace1d1-27e1-4b53-84e1-88a7de0962a4" />
+
 Usar as ferramentas, estruturas e bibliotecas certas ajudará muito na implementação de uma arquitetura de microsserviços. Se você planeja fazer isso em Java, considere o Spring Boot Project. Escolher as ferramentas e estruturas certas leva muito tempo e esforço, então aqui está uma lista de ferramentas e tecnologias comprovadas para o trabalho:
 
 <table>
