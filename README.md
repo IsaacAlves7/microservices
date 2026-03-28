@@ -264,6 +264,8 @@ de conteinerizaçãoPara implantar microserviços de forma isolada, utilize téc
 
 Ferramentas como Docker e Kubernetes podem ajudar nisso, pois são feitas para simplificar a escalabilidade e a implantação de um microsserviço.
 
+![67b6a344bcb4581cedd12229](https://github.com/user-attachments/assets/f8394ca7-93d5-48dd-adae-bba8d0d787f6)
+
 A palavra é sua: que outras melhores práticas recomendaria?
 
 - Jenkins e Bamboo para automação de implantação
