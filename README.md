@@ -815,6 +815,38 @@ Neste post, vamos analisar diferentes formas de compartilhar dados entre microse
 
 <img width="1444" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/67fba11e-fb9a-4816-b20f-c4f33a7bb8ee" />
 
+Qual stack tecnológico é comumente usado para microserviços?
+Abaixo você encontrará um diagrama mostrando a pilha tecnológica de microserviços, tanto para a fase de desenvolvimento quanto para produção.
+
+<img width="1646" height="1536" alt="unnamed" src="https://github.com/user-attachments/assets/d664b94c-b0dc-49c8-830c-8cbcad99717d" />
+
+Pré-produção
+
+Defina API - Isso estabelece um contrato entre frontend e backend. Podemos usar Postman ou OpenAPI para isso.
+
+Desenvolvimento - Node.js ou react é popular para desenvolvimento frontend, e java/python/go para desenvolvimento backend. Além disso, precisamos mudar as configurações no gateway da API de acordo com as definições da API.
+
+Integração Contínua - JUnit e Jenkins para testes automatizados. O código é empacotado em uma imagem Docker e implantado como microsserviços.
+
+Produção
+
+NGinx é uma escolha comum para balanceadores de carga. A Cloudflare fornece CDN (Content Delivery Network).
+
+API Gateway - Podemos usar o spring boot para o gateway e usar Eureka/Zookeeper para descoberta de serviços.
+
+Os microserviços são implantados em nuvens. Temos opções entre AWS, Microsoft Azure ou Google GCP.
+
+Cache e Busca em Texto Completo - Redis é uma escolha comum para cache de pares chave-valor. ElasticSearch é usado para busca em texto completo.
+
+Comunicações - Para que os serviços se comuniquem entre si, podemos usar a infraestrutura de mensagens Kafka ou RPC.
+
+Persistência - Podemos usar MySQL ou PostgreSQL para um banco de dados relacional, e Amazon S3 para armazenamento de objetos. Também podemos usar Cassandra para armazenamento de colunas largas, se necessário.
+
+Gestão e Monitoramento - Para gerenciar tantos microserviços, as ferramentas comuns de operações incluem Prometheus, Elastic Stack e Kubernetes.
+
+A palavra é sua: Perdi alguma coisa? Por favor, comente sobre o que você acha necessário para aprender microsserviços.
+
+
 ## [Microservices] AG - API Gateway
 <a href=""><img src="https://img.shields.io/badge/Kong-24.0.1-003459?style=flat&logo=Kong&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Nginx-24.0.1-limegreen?style=flat&logo=Nginx&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Terraform-24.0.1-844FBA?style=flat&logo=Terraform&logoColor=white"></a> <a href="https://ngrok.com/docs/universal-gateway/examples/microservices-gateway?utm_campaign=september_2025_newsletter_content_a&utm_medium=newsletter&_hsenc=p2ANqtz-8WI06tvfCxMZimoOpNdlTDF3plxzsopr8WcnqMdKL16obTxSLnCVtUcT8AtzopCEiAC30cf9XxtiZ3gHj--Hwxhj08TR7_n0COA3XGLtE5Am4BKO0&_hsmi=381970286&utm_content=homepage&utm_source=email
 "><img src="https://img.shields.io/badge/Docker-24.0.1-2496ED?style=flat&logo=Docker&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Istio-24.0.1-2496ED?style=flat&logo=Istio&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Amazon_Web_Services-AGW-FF4F8B?style=flat&logo=amazonapigateway&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/.NET-Ocelot-indigo?style=flat&logo=.NET&logoColor=white"></a>
