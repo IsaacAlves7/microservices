@@ -237,6 +237,26 @@ Materializada Uma Vista Materializada é um objeto de banco de dados que contém
 CQRS
 O CQRS é um padrão arquitetônico que separa os modelos para leitura e gravação de dados. Isso significa que as estruturas de dados usadas para consultar dados (leituras) são separadas das estruturas usadas para atualizar dados (escritas de gravação). Essa separação permite a otimização de cada operação de forma independente, melhorando desempenho, escalabilidade e segurança. O CQRS pode ser particularmente útil em sistemas complexos onde as operações de leitura e escrita têm requisitos muito diferentes.
 
+<img width="550" height="653" alt="unnamed" src="https://github.com/user-attachments/assets/ea080779-c8be-4c57-8c53-cecb94afcc73" />
+
+Consistência eventual é um modelo de consistência de dados que garante que atualizações em um banco de dados distribuído sejam refletidas em todos os nós. Técnicas como replicação assíncrona ajudam a alcançar consistência eventual.
+
+No entanto, consistência eventual também pode resultar em inconsistência de dados. Aqui estão 4 padrões que podem ajudar você a projetar aplicações.
+
+Padrão#1 - Serviços de Consistência
+Eventual baseados em eventos emitem eventos e outros serviços escutam esses eventos para atualizar suas instâncias de banco de dados. Isso torna os serviços fracamente acoplados, mas atrasa a consistência dos dados.
+
+Padrão#2 - Sincronização em Segundo Plano Consistência
+Eventual Nesse padrão, um trabalho em segundo plano torna os dados entre bancos de dados consistentes. Isso resulta em consistência eventual mais lenta, já que o trabalho em segundo plano roda em um cronograma específico.
+
+Padrão#3 - Saga de Consistência
+Eventual baseada em Saga é uma sequência de transações locais onde cada transação atualiza os dados com um único serviço. É usada para gerenciar transações de longa duração que eventualmente se tornam consistentes.
+
+Padrão#4 - Consistência
+Eventual baseada em CQRS Operações separadas de leitura e escrita em diferentes bancos de dados que eventualmente se tornam consistentes. Modelos de leitura e escrita podem ser otimizados para requisitos específicos.
+
+Deixando a palavra: quais outros padrões de consistência eventual você já viu?
+
 Event Sourcing
 Event Sourcing é um padrão em que mudanças no estado da aplicação são armazenadas como uma sequência de eventos. Em vez de armazenar apenas o estado atual dos dados em um domínio, o Event Sourcing armazena um log de todas as mudanças (eventos) que ocorreram ao longo do tempo. Isso permite que a aplicação reconstrua estados passados e fornece um registro de auditoria das mudanças. Event Sourcing é benéfico em cenários que exigem transações empresariais complexas, auditabilidade e a capacidade de reverter ou reproduzir eventos.
 
