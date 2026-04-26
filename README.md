@@ -799,6 +799,22 @@ Compreender esses cenários é fundamental para construir aplicações robustas 
 - https://substack.com/redirect/55568165-cc89-4e78-a706-d535205faa44?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 - https://substack.com/redirect/8ed69761-0f32-4dcf-b7f9-4f4f99574caa?j=eyJ1IjoiMmRpcmZwIn0.DgQpD9vnxeDXnbOGqr5r4QICWGtxf2wFAnKNG8yY6Aw
 
+Compartilhamento de Dados entre Microserviços
+
+A arquitetura de microserviços tornou-se popular para construir sistemas de software complexos e escaláveis.
+
+Esse estilo arquitetônico estrutura uma aplicação como uma coleção de serviços desacoplados e implantáveis de forma independente. Cada microserviço é focado em uma capacidade de negócio específica e pode ser desenvolvido, implantado e escalado de forma independente.
+
+Embora os microserviços ofereçam inúmeros benefícios, como escalabilidade aprimorada, flexibilidade e tempo de lançamento mais rápido no mercado, eles também apresentam desafios significativos em termos de gerenciamento de dados.
+
+Um dos princípios fundamentais da arquitetura dos microserviços é que cada serviço deve possuir e gerenciar seus dados. Esse princípio é frequentemente expresso como "não compartilhe bancos de dados entre serviços" e visa garantir acoplamento frouxo e autonomia entre os serviços, permitindo que eles evoluam de forma independente.
+
+No entanto, é fundamental distinguir entre compartilhar uma fonte de dados e compartilhar dados em si. Embora o compartilhamento de uma fonte de dados (por exemplo, um banco de dados) entre serviços seja desencorajado, compartilhar dados entre serviços muitas vezes é necessário e aceitável.
+
+Neste post, vamos analisar diferentes formas de compartilhar dados entre microserviços e as diversas vantagens e desvantagens de abordagens específicas.
+
+<img width="1444" height="1600" alt="unnamed" src="https://github.com/user-attachments/assets/67fba11e-fb9a-4816-b20f-c4f33a7bb8ee" />
+
 ## [Microservices] AG - API Gateway
 <a href=""><img src="https://img.shields.io/badge/Kong-24.0.1-003459?style=flat&logo=Kong&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Nginx-24.0.1-limegreen?style=flat&logo=Nginx&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Terraform-24.0.1-844FBA?style=flat&logo=Terraform&logoColor=white"></a> <a href="https://ngrok.com/docs/universal-gateway/examples/microservices-gateway?utm_campaign=september_2025_newsletter_content_a&utm_medium=newsletter&_hsenc=p2ANqtz-8WI06tvfCxMZimoOpNdlTDF3plxzsopr8WcnqMdKL16obTxSLnCVtUcT8AtzopCEiAC30cf9XxtiZ3gHj--Hwxhj08TR7_n0COA3XGLtE5Am4BKO0&_hsmi=381970286&utm_content=homepage&utm_source=email
 "><img src="https://img.shields.io/badge/Docker-24.0.1-2496ED?style=flat&logo=Docker&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Istio-24.0.1-2496ED?style=flat&logo=Istio&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Amazon_Web_Services-AGW-FF4F8B?style=flat&logo=amazonapigateway&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/.NET-Ocelot-indigo?style=flat&logo=.NET&logoColor=white"></a>
