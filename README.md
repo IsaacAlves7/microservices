@@ -2502,7 +2502,7 @@ Uma mensagem do Slack passa por cinco servidores importantes:
 
 > Agora é com você: Os servidores de canal podem cair. Como eles usam hashing consistente, como poderiam se recuperar?
 
-## [Microservices] Service Discovery
+## [Microservices] Service Registry e Service Discovery
 Embora a tendência do setor seja dividir seu aplicativo monolítico em microsserviços para segregar dados, código e interface, não é uma tarefa fácil de fazer. Especialmente se você não tiver nenhuma experiência no desenvolvimento de microsserviços e não estiver familiarizado com as práticas recomendadas e os padrões e princípios essenciais de design de microsserviços.
 
 Gostando de Padrões de Design Orientados a Objetos, os Padrões de Microsserviços também são soluções testadas e comprovadas para problemas comuns que as pessoas encontraram ao desenvolver, implantar e dimensionar seus Microsserviços.
@@ -2510,6 +2510,8 @@ Gostando de Padrões de Design Orientados a Objetos, os Padrões de Microsservi�
 Por exemplo, o padrão SAGA resolve o problema de falhas de transação distribuída e o gateway de API facilita o código do lado do cliente e também atua como um controlador frontal e balanceador de carga para muitos de seus microsserviços, tornando-os mais fáceis de manter.
 
 Você está lutando para acompanhar seu número crescente de microsserviços? Não se preocupe mais! O padrão **Service Discovery** (descoberta de serviço) está aqui para ajudá-lo a navegar no mundo complexo dos microsserviços com facilidade. Esse padrão permite que os serviços se encontrem dinamicamente, garantindo uma comunicação suave e reduzindo a necessidade de configuração manual. Padrão de descoberta de serviço: navegando no labirinto de microsserviços com facilidade
+
+<img width="720" height="1114" alt="FB_IMG_1731573927547" src="https://github.com/user-attachments/assets/bbdbcf9b-5a78-448c-a1f3-7ce16d855623" />
 
 Por que o Service Discovery é crucial para sua arquitetura de microsserviços? À medida que seu sistema é dimensionado, o gerenciamento dos locais de serviço em constante mudança torna-se cada vez mais desafiador. Com o Service Discovery, os serviços podem se registrar e descobrir uns aos outros automaticamente, promovendo agilidade e flexibilidade em seu sistema.
 
