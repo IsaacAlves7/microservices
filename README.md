@@ -866,6 +866,7 @@ Gestão e Monitoramento - Para gerenciar tantos microserviços, as ferramentas c
 
 A palavra é sua: Perdi alguma coisa? Por favor, comente sobre o que você acha necessário para aprender microsserviços.
 
+<img width="1700" height="873" alt="example_ms_a_callout max-1700x1700" src="https://github.com/user-attachments/assets/61437383-e1b2-4188-af96-928feeeeb55a" />
 
 ## [Microservices] AG - API Gateway
 <a href=""><img src="https://img.shields.io/badge/Kong-24.0.1-003459?style=flat&logo=Kong&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Nginx-24.0.1-limegreen?style=flat&logo=Nginx&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Terraform-24.0.1-844FBA?style=flat&logo=Terraform&logoColor=white"></a> <a href="https://ngrok.com/docs/universal-gateway/examples/microservices-gateway?utm_campaign=september_2025_newsletter_content_a&utm_medium=newsletter&_hsenc=p2ANqtz-8WI06tvfCxMZimoOpNdlTDF3plxzsopr8WcnqMdKL16obTxSLnCVtUcT8AtzopCEiAC30cf9XxtiZ3gHj--Hwxhj08TR7_n0COA3XGLtE5Am4BKO0&_hsmi=381970286&utm_content=homepage&utm_source=email
