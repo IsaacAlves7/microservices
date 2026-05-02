@@ -224,18 +224,18 @@ Médio uso: Microservices + Microfrontends
 - [x] Storybook, 
 - [x] Nx
 
-<img width="626" height="626" alt="unnamed" src="https://github.com/user-attachments/assets/09e3604a-c0a7-4478-98a9-e7393ef53862" />
+<table>
+	<tr>
+		<td><img width="626" height="626" alt="unnamed" src="https://github.com/user-attachments/assets/09e3604a-c0a7-4478-98a9-e7393ef53862" /></td>
+		<td><img width="2250" height="3004" alt="0285-must-know-system-design-building-blocks" src="https://github.com/user-attachments/assets/24ace1d1-27e1-4b53-84e1-88a7de0962a4" /></td>
+	</tr>
+</table>
 
-<img width="2250" height="3004" alt="0285-must-know-system-design-building-blocks" src="https://github.com/user-attachments/assets/24ace1d1-27e1-4b53-84e1-88a7de0962a4" />
+Cache de lado: Quando um aplicativo precisa acessar dados, ele primeiro verifica o cache. Se os dados não estiverem presentes (um erro de cache), ele os recupera do armazenamento de dados, armazena no cache e então retorna os dados ao usuário. Esse padrão é particularmente útil para cenários onde os dados são lidos com frequência, mas atualizados com menos frequência.
 
-Cache de lado Quando
-um aplicativo precisa acessar dados, ele primeiro verifica o cache. Se os dados não estiverem presentes (um erro de cache), ele os recupera do armazenamento de dados, armazena no cache e então retorna os dados ao usuário. Esse padrão é particularmente útil para cenários onde os dados são lidos com frequência, mas atualizados com menos frequência.
+Visualização Materializada: Uma Vista Materializada é um objeto de banco de dados que contém os resultados de uma consulta. Ela é armazenada fisicamente, ou seja, os dados são realmente computados e armazenados em disco, em vez de serem gerados dinamicamente a cada requisição. Isso pode acelerar significativamente os tempos de consulta para cálculos complexos ou agregações que, de outra forma, precisariam ser calculados em tempo real. Visões materializadas são especialmente benéficas em cenários de armazenamento de dados e inteligência de negócios, onde o desempenho da consulta é crítico.
 
-Visualização
-Materializada Uma Vista Materializada é um objeto de banco de dados que contém os resultados de uma consulta. Ela é armazenada fisicamente, ou seja, os dados são realmente computados e armazenados em disco, em vez de serem gerados dinamicamente a cada requisição. Isso pode acelerar significativamente os tempos de consulta para cálculos complexos ou agregações que, de outra forma, precisariam ser calculados em tempo real. Visões materializadas são especialmente benéficas em cenários de armazenamento de dados e inteligência de negócios, onde o desempenho da consulta é crítico.
-
-CQRS
-O CQRS é um padrão arquitetônico que separa os modelos para leitura e gravação de dados. Isso significa que as estruturas de dados usadas para consultar dados (leituras) são separadas das estruturas usadas para atualizar dados (escritas de gravação). Essa separação permite a otimização de cada operação de forma independente, melhorando desempenho, escalabilidade e segurança. O CQRS pode ser particularmente útil em sistemas complexos onde as operações de leitura e escrita têm requisitos muito diferentes.
+CQRS: O CQRS é um padrão arquitetônico que separa os modelos para leitura e gravação de dados. Isso significa que as estruturas de dados usadas para consultar dados (leituras) são separadas das estruturas usadas para atualizar dados (escritas de gravação). Essa separação permite a otimização de cada operação de forma independente, melhorando desempenho, escalabilidade e segurança. O CQRS pode ser particularmente útil em sistemas complexos onde as operações de leitura e escrita têm requisitos muito diferentes.
 
 <img width="550" height="653" alt="unnamed" src="https://github.com/user-attachments/assets/ea080779-c8be-4c57-8c53-cecb94afcc73" />
 
