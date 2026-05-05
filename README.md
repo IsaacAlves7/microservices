@@ -493,6 +493,8 @@ Agora fica mais fácil monitorar cada serviço específico, atualizá-lo ou esca
 
 > Importante também é que um microsserviço seja acessível remotamente, normalmente usando o protocolo HTTP trocando mensagens JSON ou XML, mas nada impede que outro protocolo seja usado. Um microsserviço pode usar outros serviços para coordenar o trabalho.
 
+<img width="720" height="949" alt="FB_IMG_1733228987280" src="https://github.com/user-attachments/assets/d501b275-11a2-4aa9-b0b1-04489a4a2c79" />
+
 Repare que isso é uma outra abordagem arquitetural bem diferente do monolítico e por isso também é chamado de arquitetura de microsserviços.
 
 Por fim, uma arquitetura de Microserviços tem um grau de complexidade muito alta se comparada com uma arquitetura monolítica. Aliás, há aqueles profissionais que indicam partir para uma arquitetura monolítica primeiro e mudar para uma baseada em microsserviços depois, quando estritamente necessário.
