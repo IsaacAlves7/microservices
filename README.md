@@ -2536,6 +2536,8 @@ O diagrama abaixo é uma arquitetura de microsserviços baseada em **Service Reg
 
 5. **Request Flow**: quando uma requisição chega, ela passa pelo load balancer, que consulta o Service Registry para descobrir quais instâncias estão ativas e encaminha a requisição de forma balanceada.
 
+<img width="686" height="467" alt="FB_IMG_1722461479416" src="https://github.com/user-attachments/assets/1fdd5cad-aa33-40ca-96f0-7371ed3b9163" />
+
 Resumo do tipo de arquitetura: Arquitetura de microsserviços com Service Discovery e Load Balancing
 
 Características principais:
