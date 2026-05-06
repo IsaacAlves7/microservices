@@ -2621,7 +2621,7 @@ A importância da EDA no cenário atual de software não pode ser subestimada. O
 
 Vamos explorar vários padrões usados na arquitetura orientada a eventos. Ao examinar esses padrões, o objetivo é reunir insights sobre como eles podem ser aplicados para construir sistemas robustos, escaláveis e responsivos. Exploramos vários padrões de comunicação para microserviços e discutimos seus pontos fortes, fracos e casos de uso ideais.
 
-<img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/99011c9e-9092-45d4-9487-e3bdb7346352">
+<img width="720" height="423" alt="FB_IMG_1733322278960" src="https://github.com/user-attachments/assets/7e3dd353-319d-489a-9dd8-5455da013801" />
 
 Mas primeiro, vamos analisar os principais desafios associados à comunicação entre microserviços.
 
