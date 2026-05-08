@@ -870,6 +870,28 @@ A palavra é sua: Perdi alguma coisa? Por favor, comente sobre o que você acha 
 
 <img width="1700" height="873" alt="example_ms_a_callout max-1700x1700" src="https://github.com/user-attachments/assets/61437383-e1b2-4188-af96-928feeeeb55a" />
 
+<img width="895" height="593" alt="Captura de tela 2026-03-13 212344" src="https://github.com/user-attachments/assets/cfab4b51-f896-455f-ae23-bfbd79b4d522" />
+
+Na nossa série sobre arquitetura de sistemas de pagamentos instantâneos, chegamos a um ponto crítico: como autenticar e autorizar milhões de requisições de forma segura e escalável.
+
+Antes, cada aplicação cuidava da própria sessão — muitas vezes em arquivos no servidor ou em memória — o que dificultava a escalabilidade e impedia a implementação de um SSO real.
+
+Hoje, evoluímos para modelos baseados em tokens JWT, suportados por protocolos como OAuth 2.0, OIDC e SAML, que permitem autenticação distribuída, escalável e confiável entre microsserviços.
+
+No artigo, eu detalho:
+
+Diferença entre Autenticação e Autorização.
+
+O que é JWT e por que ele revolucionou a escalabilidade.
+
+Como funcionam OAuth 2.0, OIDC e SAML.
+
+Diagramas comparativos: Sessões vs JWT.
+
+Fluxo real de um PIX autenticado por Identity Provider.
+
+[https://www.linkedin.com/newsletters/7369733092934184960/](https://www.linkedin.com/newsletters/7369733092934184960/)
+
 ## [Microservices] AG - API Gateway
 <a href=""><img src="https://img.shields.io/badge/Kong-24.0.1-003459?style=flat&logo=Kong&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Nginx-24.0.1-limegreen?style=flat&logo=Nginx&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Terraform-24.0.1-844FBA?style=flat&logo=Terraform&logoColor=white"></a> <a href="https://ngrok.com/docs/universal-gateway/examples/microservices-gateway?utm_campaign=september_2025_newsletter_content_a&utm_medium=newsletter&_hsenc=p2ANqtz-8WI06tvfCxMZimoOpNdlTDF3plxzsopr8WcnqMdKL16obTxSLnCVtUcT8AtzopCEiAC30cf9XxtiZ3gHj--Hwxhj08TR7_n0COA3XGLtE5Am4BKO0&_hsmi=381970286&utm_content=homepage&utm_source=email
 "><img src="https://img.shields.io/badge/Docker-24.0.1-2496ED?style=flat&logo=Docker&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Istio-24.0.1-2496ED?style=flat&logo=Istio&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/Amazon_Web_Services-AGW-FF4F8B?style=flat&logo=amazonapigateway&logoColor=white"></a> <a href=""><img src="https://img.shields.io/badge/.NET-Ocelot-indigo?style=flat&logo=.NET&logoColor=white"></a>
