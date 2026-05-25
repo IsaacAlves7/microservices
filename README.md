@@ -970,6 +970,14 @@ Passo 12: O gateway da API pode opcionalmente armazenar em cache respostas a sol
 
 Além do roteamento de requisições, o gateway API também pode agregar respostas de microserviços em uma única resposta para o cliente.
 
+<img width="720" height="549" alt="Screenshot_20240830-100117_Instagram" src="https://github.com/user-attachments/assets/05bf6bd3-3eb1-48e7-9f43-6db7d0be5cd3" />
+
+<img width="720" height="570" alt="Screenshot_20240830-100121_Instagram" src="https://github.com/user-attachments/assets/17128d2c-6737-4516-9979-b7ce799675e9" />
+
+<img width="720" height="571" alt="Screenshot_20240830-100129_Instagram" src="https://github.com/user-attachments/assets/85660c4d-21ad-4ba3-b1d5-626456f053f6" />
+
+<img width="720" height="475" alt="Screenshot_20240830-100134_Instagram" src="https://github.com/user-attachments/assets/c11876f7-f7da-46cf-93fa-0f101dd3df70" />
+
 O gateway API é diferente de um balanceador de carga. Embora ambos gerenciem tráfego de rede, o gateway API opera na camada de aplicação, principalmente lidando com requisições HTTP; o balanceador de carga opera principalmente na camada de transporte, lidando com protocolos TCP/UDP. O gateway da API oferece mais funções conforme ele vê a carga útil da requisição.
 
 O gateway API difere de um balanceador de carga porque normalmente opera na camada de aplicação para lidar com requisições HTTP e entender cargas úteis de mensagens, enquanto balanceadores de carga tradicionais atuam na camada de transporte para lidar com conexões TCP/UDP sem olhar para os dados da aplicação.
