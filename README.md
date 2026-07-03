@@ -3809,9 +3809,12 @@ Um serviço de sidecar nem sempre faz parte da aplicação, mas está vinculado 
 
 Eles podem ser executados no mesmo processo que a aplicação se estiverem fortemente integrados, fazendo uso ótimo dos recursos compartilhados. Isso, no entanto, implica que eles não estão devidamente separados, e uma falha em um desses componentes pode afetar outros componentes ou toda a aplicação. Além disso, normalmente devem ser escritos no mesmo idioma do programa principal. Como resultado, o componente e a aplicação dependem muito um do outro.
 
-![FB_IMG_1729173505724](https://github.com/user-attachments/assets/e99a84c7-247d-4559-a6f8-ca605e51db89)
-
-![FB_IMG_1724073369311](https://github.com/user-attachments/assets/9ce31510-ba4c-4427-b597-bd3955719a4a)
+<table>
+	<tr>
+		<td><img src="https://github.com/user-attachments/assets/e99a84c7-247d-4559-a6f8-ca605e51db89"></td>
+		<td><img src="https://github.com/user-attachments/assets/9ce31510-ba4c-4427-b597-bd3955719a4a"></td>
+	</tr>
+</table>
 
 ## [Microservices] Circuit breaker
 <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/Medium-Circuit_Breaker-blue?style=flat&logo=Medium&logoColor=white"> <img src="https://img.shields.io/badge/DEV-Circuit_Breaker-blue?style=flat&logo=dev.to&logoColor=white"> <img src="https://img.shields.io/badge/GitBook-Circuit_Breaker-blue?style=flat&logo=GitBook&logoColor=white">
