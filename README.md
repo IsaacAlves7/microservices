@@ -1651,6 +1651,15 @@ O framework Spring, por exemplo, usa uma anotação especial para organizar que 
 
 No entanto, embora o gerenciamento de transações seja relativamente simples em uma aplicação monolítica que acessa um único banco de dados, ele se torna mais complexo em cenários envolvendo múltiplos bancos de dados e corredores de mensagens.
 
+É um padrão arquitetural para lidar com transações em sistemas distribuídos, coordenando e monitorando essas transações de forma mais eficiente. Ele também inclui um mecanismo de compensação (ações compensatórias) para lidar com falhas de transações e possui duas técnicas de utilização:
+
+* Coreografia
+* Orquestração
+
+**Coreografia**: É uma maneira de coordenar sagas em que os participantes trocam eventos sem um ponto centralizado de controle.
+
+<img width="720" height="552" alt="Screenshot_20230401-140306_Instagram" src="https://github.com/user-attachments/assets/81a6e74b-e19d-4d51-947d-c9be320ed627" />
+
 Por exemplo, em uma arquitetura de microserviços, as transações empresariais abrangem múltiplos serviços, cada um com seu banco de dados. Essa complexidade torna a abordagem tradicional de transação impraticável. Em vez disso, aplicações baseadas em microserviços devem adotar mecanismos alternativos para gerenciar as transações de forma eficaz.
 
 Vamos entender por que aplicações baseadas em microserviços exigem uma abordagem mais sofisticada para a gestão de transações, como o uso do padrão Saga. Também entenderemos as diferentes abordagens para implementar o padrão Saga em uma aplicação.
