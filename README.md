@@ -1170,7 +1170,7 @@ Vamos aprender a projetar a arquitetura de microsserviços usando padrões de de
 
 <table>
 	<tr>
-		<td><img src=""></td>
+		<td><img src="https://github.com/user-attachments/assets/206d1328-2ce2-45ec-aaf3-12f1a6fb30c5"></td>
 		<td><img src="https://github.com/user-attachments/assets/f91b56c5-cc76-41f8-8b36-52907ecaf832"></td>
 	</tr>
 </table>
