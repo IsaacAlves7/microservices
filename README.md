@@ -271,7 +271,7 @@ Usar as ferramentas, estruturas e bibliotecas certas ajudará muito na implement
 <table>
 	<tr>
 		<td><img src="https://github.com/user-attachments/assets/dca4a3d3-4ecc-412c-8789-d3e8771605d5" height="677"></td>
-		<td><img src="https://github.com/user-attachments/assets/2d955a04-5dac-439a-8a8c-592b1ad0e334" height="677"></td>
+		<td><img src="https://github.com/user-attachments/assets/d7be8ef6-ac43-4935-ac86-6f273e006b62" height="677"></td>
 	</tr>
 </table>
 
