@@ -471,9 +471,8 @@ A chave é encontrar um equilíbrio entre a granularidade dos microsserviços e 
 
 <table>
 	<tr>
-		<td><img src="https://github.com/user-attachments/assets/59cecdee-0e6a-4d8c-a115-6dd18d979a8f" height="777"></td>
-		<td><img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/c5d3b0dd-3df3-4eac-878a-a86803221771" height="777"></td>
-		<td><img src="https://github.com/user-attachments/assets/90283b3a-8d82-4e72-8829-81fe65396b0f" height="777"></td>
+		<td><img src="https://github.com/user-attachments/assets/97c876bd-1d7f-4815-8787-d1cc13a8c8ab" height="777"></td>
+		<td><img src="https://github.com/user-attachments/assets/161fee68-8357-40fd-b120-e0ca135294fe" height="777"></td>
 	</tr>
 </table>
 
