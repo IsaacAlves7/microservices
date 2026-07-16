@@ -4287,7 +4287,7 @@ No contexto do DDD, existem design patterns específicos que são frequentemente
 
 Esses padrões, juntamente com outros conceitos e técnicas, podem ser aplicados para construir uma arquitetura que segue os princípios do DDD. O DDD, portanto, não é um design pattern em si, mas uma abordagem que pode ser implementada usando diversos padrões de design específicos.
 
-<a href=""><img src="https://github.com/IsaacAlves7/DevSecOps/assets/61624336/0ade6281-cdca-47d3-8b95-57e81b61d04a" align="right" height="377"></a>
+<img width="567" height="417" alt="layers-microservices" src="https://github.com/user-attachments/assets/47fc550d-209a-40ff-87b0-11443242afa8" />
 
 O coração é sempre o **domínio**: entidades, objetos-valor, agregados, repositórios como contratos e os serviços de domínio quando algo não cabe numa entidade específica. Aqui não existe conhecimento técnico como banco de dados, HTTP, mensageria ou UI. É o código que sobrevive quando se troca tudo ao redor. É onde o vocabulário ubíquo vive, onde o modelo mental da empresa vira código executável. É a camada mais estável e a mais valiosa de todas:
 
