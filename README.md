@@ -661,7 +661,7 @@ Portanto, a arquitetura de microsserviços é projetada para resolver problemas 
 
 👉 Para você: você já se deparou com situações semelhantes no trabalho quando teve que escolher uma arquitetura diferente de microsserviço?
 
-<img width="720" height="378" alt="image" src="https://github.com/user-attachments/assets/4eddd12f-070c-4835-b1c7-5585db5b4932" />
+<img width="491" height="301" alt="838cb416a0511f55db3e2ddb9899fbd6 a932308803a83727735f0ed123c0c708edc14fb0" src="https://github.com/user-attachments/assets/209dbf55-be63-473c-9122-63c1521696b8" />
 
 Quando falamos de aplicações monolíticas, dissemos que a comunicação em aplicações monolíticas é uma comunicação entre processos. Isso significa que ele está trabalhando em um único processo que invoca um para o outro usando chamadas de método. Basta criar uma classe e chamar o método dentro do módulo de destino. Todos executando o mesmo processo.
 
