@@ -2803,7 +2803,12 @@ No caso de bancos de dados compartilhados, por exemplo, alterações feitas por 
 
 Um sistema de mensagens atua como um componente de integração entre vários aplicativos. Um sistema orientado a eventos normalmente consiste em:
 
-<img width="720" height="890" alt="FB_IMG_1732581016119" src="https://github.com/user-attachments/assets/c147a630-9530-4bee-ad47-1f9dcb554606" />
+<table>
+	<tr>
+		<td><img width="720" height="1038" alt="Screenshot_20240824-132654_Instagram" src="https://github.com/user-attachments/assets/764592c0-f7f7-42a8-95f5-f75556f36f9a" /></td>
+		<td><img width="720" height="890" alt="FB_IMG_1732581016119" src="https://github.com/user-attachments/assets/c147a630-9530-4bee-ad47-1f9dcb554606" /></td>
+	</tr>
+</table>
 
 - **Emissores** (ou agentes): Os emissores têm a responsabilidade de detectar, reunir e transferir eventos. Um emissor de evento não conhece os consumidores, nem mesmo sabe se existe ou não um consumidor e, caso exista, não sabe como o evento será utilizado ou processado.
 
