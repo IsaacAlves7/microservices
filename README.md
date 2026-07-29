@@ -41,9 +41,7 @@ O serviço de pedidos publica um evento:
 
 Todos os microsserviços inscritos recebem esse evento e executam suas responsabilidades.
 
-## Entretanto, existe uma diferença importante
-
-O ZeroMQ **não armazena mensagens**.
+Entretanto, existe uma diferença importante, o ZeroMQ **não armazena mensagens**.
 
 Se um consumidor estiver offline quando o evento for publicado:
 
@@ -83,7 +81,7 @@ Para microsserviços corporativos, geralmente o mais comum é:
 * **Kafka** quando o sistema é orientado a eventos com grande volume, retenção de eventos e possibilidade de replay.
 * **ZeroMQ** quando a prioridade é desempenho e simplicidade, e a perda ocasional de mensagens é aceitável ou controlada pela própria aplicação.
 
-### Comparação rápida
+Comparação rápida:
 
 | Recurso           | ZeroMQ | RabbitMQ | Kafka |
 | ----------------- | ------ | -------- | ----- |
